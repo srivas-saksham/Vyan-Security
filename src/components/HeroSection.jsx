@@ -1,7 +1,6 @@
 import React from "react";
 // import shieldImage from "../assets/shield.png";
 import "./HeroSection.css"
-import Navbar from "./Navbar.jsx";
 import shieldImage from "../assets/shield-image.png";
 
 
@@ -13,9 +12,7 @@ import GlareHover from '../ReactBits/GlareHover.jsx'
 
 export default function HeroSection() {
   return (
-  <section className="relative bg-hero-radial text-white overflow-hidden">
-    {/* Transparent Navbar sits on top */}
-    <Navbar />
+  <section className="relative text-white overflow-hidden">
 
     {/* Content Container */}
     <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:px-24">

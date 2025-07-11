@@ -19,7 +19,7 @@ export default function Navbar() {
   }, [activeTab]);
 
   return (
-    <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 bg-[#0A0F24]\70 backdrop-blur-md text-white">
+    <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm text-white">
       {/* Logo */}
       <h1 className="text-xl font-semibold">Vyan Security</h1>
 
