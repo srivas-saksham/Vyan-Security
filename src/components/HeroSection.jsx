@@ -2,12 +2,15 @@ import React from "react";
 // import shieldImage from "../assets/shield.png";
 import "./HeroSection.css"
 import shieldImage from "../assets/shield-image.png";
+import bannerImgA from "../assets/banner-img-1.jpg";
+import bannerImgB from "../assets/banner-img-2.jpg";
+import bannerImgC from "../assets/banner-img-3.jpg";
 
 
 //ReactBits Imports
 import SplitText from "../ReactBits/SplitText.jsx";
 import ShinyText from '../ReactBits/ShinyText.jsx';
-import GlareHover from '../ReactBits/GlareHover.jsx'
+import CardSwap, { Card } from '../ReactBits/CardSwap.jsx'
 
 
 export default function HeroSection() {
@@ -20,7 +23,7 @@ export default function HeroSection() {
         <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
           <SplitText
             text="Protect what"
-            className="font-semibold text-center text-3xl sm:text-5xl lg:text-7xl"
+            className="font-playfair font-semibold text-center text-3xl sm:text-5xl lg:text-7xl"
             delay={50}
             duration={0.6}
             ease="power3.out"
@@ -34,7 +37,7 @@ export default function HeroSection() {
           <br />
           <SplitText
             text="Matters the Most!"
-            className="font-semibold text-center text-2xl sm:text-4xl lg:text-6xl"
+            className="font-playfair font-semibold text-center text-2xl sm:text-4xl lg:text-6xl"
             delay={50}
             duration={0.6}
             ease="power3.out"
@@ -67,11 +70,60 @@ export default function HeroSection() {
           Book a Contract
         </a>
       </div>
-        <img
+        {/* <img
           src={shieldImage}
           alt="Shield"
           className="w-72 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] opacity-90 max-w-full h-auto animate-fadeIn"
-        />
+        /> */}
+
+        <div style={{ height: '600px', position: 'relative', transform: 'translateX(-80px) translateY(-150px)'}}>
+          <CardSwap
+            cardDistance={60}
+            verticalDistance={70}
+            delay={5000}
+            pauseOnHover={false}
+          >
+            <Card>
+              <div className="flex flex-col w-full h-full">
+                <h3 className="text-white text-xl font-semibold text-center">Elite Trained Guards</h3>
+                <div className="flex-1">
+                  <img
+                    src={bannerImgA}
+                    alt="Image A"
+                    className="w-full h-full object-cover rounded-b-xl"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col w-full h-full">
+                <h3 className="text-white text-xl font-semibold text-center">24/7 Protection</h3>
+                <div className="flex-1">
+                  <img
+                    src={bannerImgB}
+                    alt="Image B"
+                    className="w-full h-full object-cover rounded-b-xl"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col w-full h-full">
+                <h3 className="text-white text-xl font-semibold text-center">Corporate & Residential Coverage</h3>
+                <div className="flex-1">
+                  <img
+                    src={bannerImgC}
+                    alt="Image C"
+                    className="w-full h-full object-cover rounded-b-xl"
+                  />
+                </div>
+              </div>
+            </Card>
+            
+          </CardSwap>
+        </div>
 
     </div>
   </section>

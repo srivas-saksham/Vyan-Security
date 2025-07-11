@@ -1,14 +1,16 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-// Components
 import Navbar from "./components/Navbar.jsx";
-import HeroSection from "./components/HeroSection.jsx";
-import ServiceCards from "./components/ServiceCards.jsx";
-import Stats from "./components/Stats.jsx"
-import Clients from "./components/Clients.jsx";
+import Footer from "./components/Footer.jsx";
+import ClickSpark from "./ReactBits/ClickSpark.jsx";
 
-// ReactBits Imports
-import ClickSpark from "./ReactBits/ClickSpark.jsx"
+// Pages
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
+import Gallery from "./pages/Gallery.jsx";
+import FAQs from "./pages/FAQs.jsx";
 
 export default function App() {
   return (
@@ -24,19 +26,16 @@ export default function App() {
         backgroundColor: "#0A0F24",
       }}
     >
-      <ClickSpark
-        sparkColor="#fff"
-        sparkSize={10}
-        sparkRadius={15}
-        sparkCount={8}
-        duration={400}
-      >
+      <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
         <Navbar />
-        <HeroSection />
-        <ServiceCards />
-        <Stats/>
-        <Clients />
-
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/faqs" element={<FAQs />} />
+        </Routes>
+        <Footer />
       </ClickSpark>
     </div>
   );

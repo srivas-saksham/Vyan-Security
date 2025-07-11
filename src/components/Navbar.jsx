@@ -1,11 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/logoonly.png";
 
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState("Home");
   const underlineRef = useRef(null);
   const tabRefs = useRef({});
 
-  const tabs = ["Home", "Services", "Contact", "About Us", "Gallery"];
+  const tabs = [
+  { label: "Home", path: "/" },
+  { label: "Contact", path: "/contact" },
+  { label: "About Us", path: "/about" },
+  { label: "Gallery", path: "/gallery" },
+  { label: "FAQs", path: "/faqs" },
+];
 
   useEffect(() => {
     const activeElement = tabRefs.current[activeTab];
@@ -20,22 +28,31 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm text-white">
-      {/* Logo */}
-      <h1 className="text-xl font-semibold">Vyan Security</h1>
+      {/* Logo and Brand */}
+      {/* Logo + Brand Link */}
+      <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition">
+        <img src={logo} alt="Vyan Security Logo" className="w-8 h-8 object-contain" />
+        <h1 className="text-xl font-semibold">Vyan Security</h1>
+      </Link>
 
       {/* Navigation Links */}
       <div className="relative">
         <ul className="flex space-x-12 text-sm text-gray-300 relative">
-          {tabs.map((tab) => (
+          {tabs.map(({ label, path }) => (
             <li
-              key={tab}
-              ref={(el) => (tabRefs.current[tab] = el)}
-              onClick={() => setActiveTab(tab)}
-              className={`cursor-pointer pb-1 ${
-                activeTab === tab ? "text-white font-medium" : "hover:text-white"
+              key={label}
+              ref={(el) => (tabRefs.current[label] = el)}
+              className={`pb-1 ${
+                activeTab === label ? "text-white font-medium" : "hover:text-white"
               }`}
             >
-              {tab}
+              <Link
+                to={path}
+                onClick={() => setActiveTab(label)}
+                className="cursor-pointer transition"
+              >
+                {label}
+              </Link>
             </li>
           ))}
         </ul>

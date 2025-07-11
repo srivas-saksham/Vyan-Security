@@ -117,7 +117,7 @@ export default function WhyChooseUsStats() {
     <section
       className="w-full px-8 py-20 lg:px-24 text-white relative"
     >
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start justify-between gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left - Why Choose Us */}
         <motion.div
             className="lg:w-1/2 bg-white/5 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/10 relative overflow-hidden"
@@ -126,8 +126,6 @@ export default function WhyChooseUsStats() {
             viewport={{ once: true, amount: 0.5 }}
             variants={fadeInUp}
             >
-            {/* Decorative vertical line */}
-            <div className="absolute top-10 bottom-10 left-6 w-px bg-gradient-to-b from-blue-500/40 via-transparent to-blue-500/40 opacity-20" />
 
             <h2 className="font-playfair text-3xl font-bold mb-8 text-white">Why Choose Vyan Security?</h2>
 
