@@ -32,7 +32,8 @@ export default function Navbar() {
   }, [pathname, activeLabel]);
 
   return (
-    <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm text-white">
+    <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm text-white"
+          style={{userSelect: "none"}}>
       {/* Logo and Brand */}
       <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition">
         <img src={logo} alt="Vyan Security Logo" className="w-8 h-8 object-contain" />

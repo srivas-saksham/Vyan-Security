@@ -35,7 +35,7 @@ export default function BookContractForm() {
       };
 
       // Send to admin
-      emailjs.send("service_x3e64p1", "template_05ja1ug", templateParams, "y-A9giT-xgqX91XUf")
+      emailjs.send("service_dfr2c4y", "template_05ja1ug", templateParams, "y-A9giT-xgqX91XUf")
         .then(() => {
           console.log("✅ Contract booking sent to admin");
         })
@@ -44,7 +44,7 @@ export default function BookContractForm() {
         });
 
       // Send to client
-      emailjs.send("service_x3e64p1", "template_05ja1ug", templateParams, "y-A9giT-xgqX91XUf")
+      emailjs.send("service_dfr2c4y", "template_05ja1ug", templateParams, "y-A9giT-xgqX91XUf")
         .then(() => {
           console.log("✅ Welcome email sent to client");
         })

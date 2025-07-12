@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { PhoneCall, MessageCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -9,6 +10,8 @@ const fadeInUp = {
 };
 
 export default function CallToAction() {
+  const navigate = useNavigate(); // ✅ useNavigate hook initialized here
+
   return (
     <motion.section
       initial="hidden"
@@ -18,8 +21,9 @@ export default function CallToAction() {
       className="relative py-20 px-4 text-white overflow-hidden"
     >
       <div className="absolute top-0 left-1/2 w-[120%] h-full -translate-x-1/2 bg-gradient-radial from-white/5 to-transparent blur-3xl"></div>
+
       <div className="relative max-w-4xl mx-auto text-center z-10">
-        <h2 className="font-playfair text-4xl sm:text-5xl font-bold font-[\'Playfair Display\'] leading-tight">
+        <h2 className="font-playfair text-4xl sm:text-5xl font-bold font-['Playfair Display'] leading-tight">
           Secure Your Premises Today
         </h2>
         <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
@@ -37,9 +41,7 @@ export default function CallToAction() {
             Contact Us Now
           </a>
           <button
-            onClick={() => {
-              document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => navigate('/contact')} // ✅ navigation works now
             className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-transparent border border-white rounded-full shadow-lg transition hover:bg-white hover:text-[#0A0F24] hover:shadow-xl"
           >
             <PhoneCall className="mr-2 w-5 h-5" />

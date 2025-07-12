@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
+import { HelpCircle } from "lucide-react";
 
 export default function QueryForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ export default function QueryForm() {
     phone: "",
     message: ""
   });
+
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +40,6 @@ export default function QueryForm() {
         toast.error("Failed to submit query");
       });
 
-    // Optional: send second email to the client (confirmation)
     emailjs.send("service_x3e64p1", "template_18009xi", templateParams, "y-A9giT-xgqX91XUf")
       .then(() => {
         console.log("Confirmation email sent to client");
@@ -52,9 +54,25 @@ export default function QueryForm() {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="p-6 rounded-xl backdrop-blur bg-white/5 border border-white/10"
     >
-      <h2 className="text-2xl font-semibold mb-4 font-[\'Playfair Display\']">Have a Question?</h2>
+      <div className="flex items-center gap-2 mb-4">
+        <motion.span
+          animate={
+            isHovered
+              ? { rotate: [-10, 10, -10] }
+              : { rotate: 0 }
+          }
+          transition={isHovered ? { duration: 1.5, repeat: Infinity } : {}}
+        >
+          <HelpCircle className="text-green-400 w-6 h-6" />
+        </motion.span>
+        <h2 className="text-2xl font-semibold font-[\'Playfair Display\']">
+          Have a Question?
+        </h2>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
