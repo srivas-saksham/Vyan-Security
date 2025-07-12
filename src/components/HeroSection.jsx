@@ -15,7 +15,8 @@ import CardSwap, { Card } from '../ReactBits/CardSwap.jsx'
 
 export default function HeroSection() {
   return (
-  <section className="relative text-white overflow-hidden">
+  <section className="relative text-white overflow-hidden"
+            style={{userSelect: 'none'}}>
 
     {/* Content Container */}
     <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:px-24">
@@ -58,8 +59,7 @@ export default function HeroSection() {
         />
 
         <p className="text-gray-400 mb-8">
-          Vyan Security provides licensed, trained security guards for corporate offices,
-          events, homes, and VIP protection across India.
+          Vyan Security provides licensed, trained security guards on a contract basis for corporate offices and residential properties across Delhi NCR.
         </p>
         <a
           href="https://wa.me/91XXXXXXXXXX"

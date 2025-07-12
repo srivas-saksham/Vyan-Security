@@ -1,22 +1,27 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+// File: components/Navbar.jsx
+
+import React, { useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logoonly.png";
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState("Home");
   const underlineRef = useRef(null);
   const tabRefs = useRef({});
 
   const tabs = [
-  { label: "Home", path: "/" },
-  { label: "Contact", path: "/contact" },
-  { label: "About Us", path: "/about" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "FAQs", path: "/faqs" },
-];
+    { label: "Home", path: "/" },
+    { label: "Contact", path: "/contact" },
+    { label: "About Us", path: "/about" },
+    { label: "Gallery", path: "/gallery" },
+    { label: "FAQs", path: "/faqs" },
+  ];
+
+  const location = useLocation();
+  const pathname = location.pathname;
+  const activeLabel = tabs.find(tab => tab.path === pathname)?.label || "";
 
   useEffect(() => {
-    const activeElement = tabRefs.current[activeTab];
+    const activeElement = tabRefs.current[activeLabel];
     const underline = underlineRef.current;
 
     if (activeElement && underline) {
@@ -24,12 +29,11 @@ export default function Navbar() {
       underline.style.left = `${offsetLeft}px`;
       underline.style.width = `${offsetWidth}px`;
     }
-  }, [activeTab]);
+  }, [pathname, activeLabel]);
 
   return (
     <nav className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm text-white">
       {/* Logo and Brand */}
-      {/* Logo + Brand Link */}
       <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition">
         <img src={logo} alt="Vyan Security Logo" className="w-8 h-8 object-contain" />
         <h1 className="text-xl font-semibold">Vyan Security</h1>
@@ -43,14 +47,10 @@ export default function Navbar() {
               key={label}
               ref={(el) => (tabRefs.current[label] = el)}
               className={`pb-1 ${
-                activeTab === label ? "text-white font-medium" : "hover:text-white"
+                activeLabel === label ? "text-white font-medium" : "hover:text-white"
               }`}
             >
-              <Link
-                to={path}
-                onClick={() => setActiveTab(label)}
-                className="cursor-pointer transition"
-              >
+              <Link to={path} className="cursor-pointer transition">
                 {label}
               </Link>
             </li>
@@ -69,7 +69,7 @@ export default function Navbar() {
         href="https://wa.me/91XXXXXXXXXX"
         target="_blank"
         rel="noopener noreferrer"
-        className="	bg-[#25D366] text-[#0A0F24] px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200 transition"
+        className="bg-[#25D366] text-[#0A0F24] px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200 transition"
       >
         Chat on WhatsApp
       </a>

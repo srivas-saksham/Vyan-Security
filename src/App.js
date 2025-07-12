@@ -1,9 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ClickSpark from "./ReactBits/ClickSpark.jsx";
+
 
 // Pages
 import Home from "./pages/Home.jsx";
@@ -27,6 +29,17 @@ export default function App() {
       }}
     >
       <ClickSpark sparkColor="#fff" sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
+        <Toaster
+          toastOptions={{
+            duration: 5000,
+            style: {
+              background: "#dde4ffff",
+              color: "#232323ff",
+              fontWeight: "500",
+            },
+            position:"bottom-center"
+          }}
+        />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
