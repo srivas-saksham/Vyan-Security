@@ -16,6 +16,10 @@ export default function Contact() {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
+      document.title = 'Vyan Security - Contact Us';
+    }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setShowTopBtn(window.scrollY > 300);
     };
