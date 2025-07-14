@@ -24,7 +24,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <section className="text-white min-h-screen px-6 py-12">
+    <section className="text-white min-h-screen px-6 py-12 dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -36,7 +36,7 @@ export default function Contact() {
         <h1 className="text-4xl sm:text-5xl font-[\'Playfair Display\'] font-bold leading-tight">
           Let’s Secure What Matters — Get in Touch Today
         </h1>
-        <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto font-[\'Poppins\']">
+        <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto font-[\'Poppins\'] dark:text-[#000a47] transition-colors">
           Reach out to Vyan Security for reliable protection, personalized contracts, or callback assistance.
         </p>
       </motion.div>

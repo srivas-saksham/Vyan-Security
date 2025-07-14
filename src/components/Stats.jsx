@@ -115,19 +115,19 @@ export default function WhyChooseUsStats() {
 
   return (
     <section
-      className="w-full px-8 py-20 lg:px-24 text-white relative"
+      className="w-full px-8 py-20 lg:px-24 text-white relative dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
     >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left - Why Choose Us */}
         <motion.div
-            className="lg:w-1/2 bg-white/5 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/10 relative overflow-hidden"
+            className="lg:w-1/2 bg-white/5 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/10 relative overflow-hidden dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.5 }}
             variants={fadeInUp}
             >
 
-            <h2 className="font-playfair text-3xl font-bold mb-8 text-white">Why Choose Vyan Security?</h2>
+            <h2 className="font-playfair text-3xl font-bold mb-8 text-white dark:text-[#000a47] transition-colors">Why Choose Vyan Security?</h2>
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
                 {checklist.map((item, idx) => (
@@ -141,7 +141,7 @@ export default function WhyChooseUsStats() {
                     </div>
 
                     {/* Text */}
-                    <span className="text-gray-300 text-sm group-hover:text-white transition">
+                    <span className="text-gray-300 text-sm group-hover:text-white transition dark:text-[#000a47] transition-colors">
                         {item.text}
                     </span>
                     </li>
@@ -152,7 +152,7 @@ export default function WhyChooseUsStats() {
 
         {/* Right - Stats */}
         <motion.div
-          className="lg:w-1/2 grid grid-cols-2 gap-6 bg-white/5 rounded-2xl p-8 shadow-lg backdrop-blur-md border border-white/10 "
+          className="lg:w-1/2 grid grid-cols-2 gap-6 bg-white/5 rounded-2xl p-8 shadow-lg backdrop-blur-md border border-white/10 dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
@@ -163,10 +163,10 @@ export default function WhyChooseUsStats() {
               key={index}
               className="flex flex-col items-center justify-center text-center"
             >
-              <div className="text-4xl font-bold text-white mb-1">
+              <div className="text-4xl font-bold text-white mb-1 dark:text-[#000a47] transition-colors">
                 {stat.value}
               </div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
+              <div className="text-gray-400 text-sm dark:text-[#000a47] transition-colors">{stat.label}</div>
             </div>
           ))}
         </motion.div>

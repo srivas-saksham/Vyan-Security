@@ -56,7 +56,7 @@ export default function QueryForm() {
       transition={{ duration: 0.6 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="p-6 rounded-xl backdrop-blur bg-white/5 border border-white/10"
+      className="p-6 rounded-xl backdrop-blur bg-white/5 border border-white/10 dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72] dark:text-[#000a47] transition-colors"
     >
       <div className="flex items-center gap-2 mb-4">
         <motion.span
@@ -82,7 +82,7 @@ export default function QueryForm() {
           onChange={handleChange}
           placeholder="Your Name"
           required
-          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
+          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 dark:border-blue-500 dark:text-[#010b48] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
         />
 
         <input
@@ -92,7 +92,7 @@ export default function QueryForm() {
           onChange={handleChange}
           placeholder="Email Address"
           required
-          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
+          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 dark:border-blue-500 dark:text-[#010b48] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
         />
 
         <input
@@ -102,7 +102,7 @@ export default function QueryForm() {
           onChange={handleChange}
           placeholder="Phone Number"
           required
-          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
+          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 dark:border-blue-500 dark:text-[#010b48] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
         />
 
         <textarea
@@ -112,7 +112,7 @@ export default function QueryForm() {
           placeholder="Your Message / Query"
           required
           rows={4}
-          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
+          className="w-full px-4 py-2 bg-transparent border border-gray-300/30 dark:border-blue-500 dark:text-[#010b48] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-white placeholder-gray-400"
         />
 
         <button

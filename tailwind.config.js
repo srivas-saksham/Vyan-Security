@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // ✅ enables dark/light mode via class toggle
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -12,8 +13,8 @@ module.exports = {
           '100%': { opacity: 1 },
         },
         shine: {
-          '0%': { 'background-position': '100%' },
-          '100%': { 'background-position': '-100%' },
+          '0%': { backgroundPosition: '100%' },
+          '100%': { backgroundPosition: '-100%' },
         },
       },
       animation: {
@@ -23,4 +24,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

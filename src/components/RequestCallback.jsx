@@ -66,7 +66,7 @@ export default function RequestCallback() {
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="p-6 rounded-xl backdrop-blur bg-white/5 border border-white/10"
+      className="p-6 rounded-xl backdrop-blur bg-white/5 border border-white/10 dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72] dark:text-[#000a47] transition-colors"
     >
       <div className="flex items-center gap-2 mb-2">
         <motion.span
@@ -78,9 +78,10 @@ export default function RequestCallback() {
         <h2 className="text-2xl font-semibold font-[\'Playfair Display\']">Request a Callback</h2>
       </div>
 
-      <p className="text-sm text-gray-300 mb-6 font-[\'Poppins\']">
+     <p className="text-sm text-gray-300 mb-6 font-['Poppins'] dark:text-[#000a47] transition-colors">
         You’ll receive a call from our team within 24 hours.
-      </p>
+     </p>
+
 
       <button
         type="button"
