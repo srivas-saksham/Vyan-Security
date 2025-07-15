@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Vyan-Security/static/css/main.5af50c7a.css",
-    "main.js": "/Vyan-Security/static/js/main.f44e592b.js",
+    "main.js": "/Vyan-Security/static/js/main.765915d1.js",
     "static/media/banner-img-1.jpg": "/Vyan-Security/static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/guardDrool.png": "/Vyan-Security/static/media/guardDrool.5c8666c545483a0630aa.png",
     "static/media/banner-img-3.jpg": "/Vyan-Security/static/media/banner-img-3.f07c29122370dc725cae.jpg",
@@ -11,10 +11,10 @@
     "static/media/logoonly-dark.png": "/Vyan-Security/static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "/Vyan-Security/index.html",
     "main.5af50c7a.css.map": "/Vyan-Security/static/css/main.5af50c7a.css.map",
-    "main.f44e592b.js.map": "/Vyan-Security/static/js/main.f44e592b.js.map"
+    "main.765915d1.js.map": "/Vyan-Security/static/js/main.765915d1.js.map"
   },
   "entrypoints": [
     "static/css/main.5af50c7a.css",
-    "static/js/main.f44e592b.js"
+    "static/js/main.765915d1.js"
   ]
 }
