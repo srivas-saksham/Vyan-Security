@@ -13,6 +13,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Gallery from "./pages/Gallery.jsx";
 import FAQs from "./pages/FAQs.jsx";
+import NotFound from "./pages/404.jsx";
 
 export default function App() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </ClickSpark>

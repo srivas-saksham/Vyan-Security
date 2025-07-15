@@ -17,7 +17,7 @@ const CallToActionFooter = () => {
           className="space-y-6"
         >
           <div className="flex items-center gap-4">
-            <ShieldCheck className="w-8 h-8 text-green-400" />
+            <ShieldCheck className="w-9 h-9 text-green-400" />
             <h2 className="text-3xl sm:text-4xl font-playfair font-bold dark:text-[#000a47] transition-colors">
               Ready to Secure What Matters?
             </h2>

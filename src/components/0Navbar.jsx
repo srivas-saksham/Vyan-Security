@@ -22,7 +22,8 @@ export default function Navbar() {
 
   const location = useLocation();
   const pathname = location.pathname;
-  const activeLabel = tabs.find((tab) => tab.path === pathname)?.label || "";
+  const isKnownPath = tabs.some((tab) => tab.path === pathname);
+  const activeLabel = tabs.find((tab) => tab.path === pathname)?.label || (!isKnownPath ? "What is this page?" : "");
 
   useEffect(() => {
     const activeElement = tabRefs.current[activeLabel];
@@ -37,12 +38,16 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm transition-colors text-white dark:bg-[#dce1ff] dark:text-black "
+      className="sticky top-0 z-50 relative flex justify-between items-center px-6 py-4 backdrop-blur-sm transition-colors text-white dark:bg-[#dce1ff] dark:text-black"
       style={{ userSelect: "none" }}
     >
       {/* Logo */}
       <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition">
-        <img src={theme === "light" ? logo : logoDark} alt="Vyan Security Logo" className="w-8 h-8 object-contain" />
+        <img
+          src={theme === "light" ? logo : logoDark}
+          alt="Vyan Security Logo"
+          className="w-8 h-8 object-contain"
+        />
         <h1 className="text-xl font-semibold">Vyan Security</h1>
       </Link>
 
@@ -64,18 +69,29 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+
+          {!isKnownPath && (
+            <li
+              ref={(el) => (tabRefs.current["What is this page?"] = el)}
+              className="pb-1 text-xs sm:text-sm text-white/70 dark:text-black/70 font-medium"
+            >
+              <Link to="/404" className="cursor-default">
+                What is this page?
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Underline */}
         <span
           ref={underlineRef}
-          className="absolute bottom-0 h-[2px] bg-blue-500 rounded-full transition-all duration-300 ease-in-out"
+          className="absolute bottom-[-4px] h-[2px] bg-blue-500 rounded-full transition-all duration-300 ease-in-out"
         ></span>
       </div>
 
       {/* Right Buttons */}
       <div className="flex items-center gap-3">
-        {/* Theme Toggle Icon Button */}
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
           title={`Switch to ${theme === "dark" ? "Dark" : "Light"} Theme`}
@@ -88,7 +104,7 @@ export default function Navbar() {
           )}
         </button>
 
-        {/* WhatsApp Button */}
+        {/* WhatsApp */}
         <a
           href="https://wa.me/91XXXXXXXXXX"
           target="_blank"
