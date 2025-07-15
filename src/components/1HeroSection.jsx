@@ -1,5 +1,5 @@
 import React from "react";
-import "./HeroSection.css";
+import "./1HeroSection.css";
 import bannerImgA from "../assets/banner-img-1.jpg";
 import bannerImgB from "../assets/banner-img-2.jpg";
 import bannerImgC from "../assets/banner-img-3.jpg";

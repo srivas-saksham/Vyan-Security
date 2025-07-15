@@ -93,7 +93,7 @@ export default function Navbar() {
           href="https://wa.me/91XXXXXXXXXX"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-[#25D366] text-[#0A0F24] px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200 transition"
+          className="bg-[#25D366] text-[#0A0F24] px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200 dark:hover:bg-[#66e495] transition"
         >
           Chat on WhatsApp
         </a>

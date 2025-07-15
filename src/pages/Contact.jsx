@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronUp } from "lucide-react";
-import QueryForm from "../components/QueryForm.jsx";
-import RequestCallback from "../components/RequestCallback";
-import BrochureDownload from "../components/BrochureDownload.jsx";
+import QueryForm from "../components/2QueryForm.jsx";
+import RequestCallback from "../components/2RequestCallback.jsx";
+import BrochureDownload from "../components/2BrochureDownload.jsx";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -13,19 +12,11 @@ const fadeInUp = {
 };
 
 export default function Contact() {
-  const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
       document.title = 'Vyan Security - Contact Us';
     }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowTopBtn(window.scrollY > 300);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <section className="text-white min-h-screen px-6 py-12 dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
@@ -74,19 +65,6 @@ export default function Contact() {
           </div>
         </motion.div>
       </div>
-
-      {/* Back to Top Button */}
-      {showTopBtn && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-50 bg-white/10 backdrop-blur text-white p-3 rounded-full hover:bg-white/20 transition"
-        >
-          <ChevronUp className="w-5 h-5" />
-        </motion.button>
-      )}
     </section>
   );
 }

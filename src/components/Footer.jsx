@@ -1,6 +1,7 @@
 // File: components/Footer.jsx
 
 import { Facebook, Instagram, Linkedin, Phone, Mail, ArrowUp } from 'lucide-react';
+import { Link, useLocation } from "react-router-dom";
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,9 +22,11 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-medium text-white mb-3 dark:text-[#000a47] transition-colors">Quick Links</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-white transition">Home</a></li>
-            <li><a href="#" className="hover:text-white transition">About Us</a></li>
-            <li><a href="#" className="hover:text-white transition">Contact</a></li>
+            <li><Link to="/" className="hover:text-white dark:hover:text-[#5f7eff] transition">Home</Link></li>
+            <li><Link to="/contact" className="hover:text-white dark:hover:text-[#5f7eff] transition">Contact</Link></li>
+            <li><Link to="/about" className="hover:text-white dark:hover:text-[#5f7eff] transition">About Us</Link></li>
+            <li><Link to="/gallery" className="hover:text-white dark:hover:text-[#5f7eff] transition">Gallery</Link></li>
+            <li><Link to="/faqs" className="hover:text-white dark:hover:text-[#5f7eff] transition">FAQs</Link></li>
           </ul>
         </div>
 
@@ -54,14 +57,14 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-medium text-white mb-3 dark:text-[#000a47] transition-colors">Follow Us</h4>
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-white"><Linkedin className="w-5 h-5" /></a>
-            <a href="#" className="hover:text-white"><Facebook className="w-5 h-5" /></a>
-            <a href="#" className="hover:text-white"><Instagram className="w-5 h-5" /></a>
+            <a href="#" className="hover:text-white dark:hover:text-[#5f7eff] transition-colors"><Linkedin className="w-5 h-5" /></a>
+            <a href="#" className="hover:text-white dark:hover:text-[#5f7eff] transition-colors"><Facebook className="w-5 h-5" /></a>
+            <a href="#" className="hover:text-white dark:hover:text-[#5f7eff] transition-colors"><Instagram className="w-5 h-5" /></a>
           </div>
           <div className="mt-6 text-xs text-gray-500">
             <p>© {new Date().getFullYear()} Vyan Security. All rights reserved.</p>
             <p className="mt-1">
-              <a href="#" className="hover:text-white">Privacy Policy</a> · <a href="#" className="hover:text-white">Terms</a>
+              <a href="#" className="hover:text-white dark:hover:text-[#5f7eff] transition-colors">Privacy Policy</a> · <a href="#" className="hover:text-white dark:hover:text-[#5f7eff] transition-colors">Terms</a>
             </p>
           </div>
         </div>
@@ -70,7 +73,7 @@ export default function Footer() {
       {/* Back to Top */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 bg-green-600 text-white p-2 rounded-full shadow-lg hover:bg-green-700 transition"
+        className="fixed bottom-6 right-6 z-10 bg-green-600 text-white p-2 rounded-full shadow-lg hover:bg-green-700 transition"
         aria-label="Back to top"
       >
         <ArrowUp className="w-5 h-5" />
