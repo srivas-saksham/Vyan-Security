@@ -16,3 +16,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.scroll-modern {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+/* Firefox shows thumb only on hover */
+.scroll-modern:hover {
+  scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
+}
+
+/* Chrome/Safari */
+.scroll-modern::-webkit-scrollbar {
+  width: 6px;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.scroll-modern:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.scroll-modern::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-modern::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.5);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+

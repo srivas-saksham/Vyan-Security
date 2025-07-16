@@ -6,7 +6,6 @@ import Navbar from "./components/0Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ClickSpark from "./ReactBits/ClickSpark.jsx";
 
-
 // Pages
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
@@ -18,7 +17,7 @@ import NotFound from "./pages/404.jsx";
 export default function App() {
   return (
     <div
-      className="text-white min-h-screen font-sans dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
+      className="text-white min-h-screen font-sans dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors scroll-modern"
       style={{
         backgroundImage: `
           radial-gradient(circle at 20% 10%, rgba(0, 17, 255, 0.15), transparent 40%),

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./1HeroSection.css";
 import bannerImgA from "../assets/banner-img-1.jpg";
 import bannerImgB from "../assets/banner-img-2.jpg";
@@ -59,14 +60,13 @@ export default function HeroSection() {
             Vyan Security provides licensed, trained security guards on a contract basis for corporate offices and residential properties across Delhi NCR.
           </p>
 
-          <a
-            href="https://wa.me/91XXXXXXXXXX"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/contact"
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition dark:bg-blue-500 dark:hover:bg-blue-600"
           >
             Book a Contract
-          </a>
+          </Link>
+
         </div>
 
         {/* CardSwap Section */}

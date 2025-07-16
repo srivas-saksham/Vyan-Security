@@ -108,7 +108,7 @@ export default function RequestCallback() {
               onChange={handleChange}
               placeholder="Your Name"
               required
-              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400"
+              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 dark:border-blue-500 dark:text-[#010b48]"
             />
 
             <input
@@ -120,7 +120,7 @@ export default function RequestCallback() {
               onChange={handleChange}
               placeholder="Mobile Number"
               required
-              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400"
+              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 dark:border-blue-500 dark:text-[#010b48]"
             />
 
             <select
@@ -128,14 +128,14 @@ export default function RequestCallback() {
               value={formData.timeSlot}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 appearance-none"
+              className="w-full px-4 py-2 bg-transparent border border-gray-300/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 appearance-none dark:border-blue-500 dark:text-[#010b48]"
             >
-              <option value="" disabled className="text-gray-400 bg-[#0A0F24]">
+              <option value="" disabled className="text-gray-400 bg-[#0A0F24] dark:bg-[#9ba9ff] dark:text-[#010b48]">
                 Preferred Time Slot
               </option>
-              <option value="Morning" className="text-white bg-[#0A0F24]">Morning</option>
-              <option value="Afternoon" className="text-white bg-[#0A0F24]">Afternoon</option>
-              <option value="Evening" className="text-white bg-[#0A0F24]">Evening</option>
+              <option value="Morning" className="text-white bg-[#0A0F24] dark:bg-[#9ba9ff] dark:text-[#010b48]">Morning</option>
+              <option value="Afternoon" className="text-white bg-[#0A0F24] dark:bg-[#9ba9ff] dark:text-[#010b48]">Afternoon</option>
+              <option value="Evening" className="text-white bg-[#0A0F24] dark:bg-[#9ba9ff] dark:text-[#010b48]">Evening</option>
             </select>
 
             <button
