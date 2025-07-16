@@ -55,7 +55,8 @@ const FAQs = () => {
   };
 
   return (
-    <div className="min-h-screen text-white dark:bg-[#ccd3ff] dark:text-[#000a47] py-16 px-4 font-poppins">
+    <div className="min-h-screen text-white dark:bg-[#ccd3ff] dark:text-[#000a47] py-16 px-4 font-poppins"
+          style={{userSelect: 'none'}}>
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
         {/* Left Section - FAQs */}
         <div className="w-full lg:w-3/5 text-left">

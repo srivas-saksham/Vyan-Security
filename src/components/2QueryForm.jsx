@@ -15,6 +15,7 @@ export default function QueryForm() {
   });
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,6 +23,7 @@ export default function QueryForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSending(true);
 
     const templateParams = {
       name: formData.name,
@@ -34,10 +36,12 @@ export default function QueryForm() {
       .then(() => {
         toast.success("Query submitted successfully! We'll contact you soon.");
         setFormData({ name: "", email: "", phone: "", message: "" });
+        setIsSending(false);
       })
       .catch((error) => {
         console.error("EmailJS error:", error);
         toast.error("Failed to submit query");
+        setIsSending(false);
       });
 
     emailjs.send("service_x3e64p1", "template_18009xi", templateParams, "y-A9giT-xgqX91XUf")
@@ -117,9 +121,33 @@ export default function QueryForm() {
 
         <button
           type="submit"
-          className="w-full py-2 bg-green-500 hover:bg-green-600 text-[#0A0F24] font-semibold rounded-lg shadow-md transition"
+          disabled={isSending}
+          className="w-full py-2 flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-[#0A0F24] font-semibold rounded-lg shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Submit Query
+          {isSending ? (
+            <svg
+              className="animate-spin h-5 w-5 text-[#0A0F24]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+          ) : (
+            "Submit Query"
+          )}
         </button>
       </form>
     </motion.div>

@@ -1,8 +1,7 @@
 // File: components/RequestCallback.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PhoneCall } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -22,6 +21,7 @@ export default function RequestCallback() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const toggleForm = () => setIsOpen(!isOpen);
 
@@ -34,6 +34,8 @@ export default function RequestCallback() {
     const { name, phone, timeSlot } = formData;
 
     if (name && phone && timeSlot) {
+      setIsSending(true);
+
       const templateParams = {
         name,
         phone,
@@ -42,10 +44,10 @@ export default function RequestCallback() {
 
       emailjs
         .send(
-          "service_m7kt3zc", // ✅ replace with your service ID
-          "template_4h8yn3r", // ✅ replace with your callback template ID
+          "service_m7kt3zc",
+          "template_4h8yn3r",
           templateParams,
-          "Hi72EIqa0ftMFDS_e" // ✅ your public key
+          "Hi72EIqa0ftMFDS_e"
         )
         .then(() => {
           setSubmitted(true);
@@ -58,7 +60,8 @@ export default function RequestCallback() {
         .catch((error) => {
           console.error("❌ Failed to send callback request:", error);
           toast.error("❌ Failed to send callback request.");
-        });
+        })
+        .finally(() => setIsSending(false));
     }
   };
 
@@ -78,10 +81,9 @@ export default function RequestCallback() {
         <h2 className="text-2xl font-semibold font-[\'Playfair Display\']">Request a Callback</h2>
       </div>
 
-     <p className="text-sm text-gray-300 mb-6 font-['Poppins'] dark:text-[#000a47] transition-colors">
+      <p className="text-sm text-gray-300 mb-6 font-['Poppins'] dark:text-[#000a47] transition-colors">
         You’ll receive a call from our team within 24 hours.
-     </p>
-
+      </p>
 
       <button
         type="button"
@@ -140,9 +142,33 @@ export default function RequestCallback() {
 
             <button
               type="submit"
-              className="w-full py-2 bg-green-500 hover:bg-green-600 text-[#0A0F24] font-semibold rounded-lg shadow-md transition"
+              disabled={isSending}
+              className="w-full py-2 flex justify-center items-center gap-2 bg-green-500 hover:bg-green-600 text-[#0A0F24] font-semibold rounded-lg shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit Request
+              {isSending ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-[#0A0F24]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+              ) : (
+                "Submit Request"
+              )}
             </button>
           </motion.form>
         )}
