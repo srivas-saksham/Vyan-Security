@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 import Navbar from "./components/0Navbar.jsx";
 import Footer from "./components/Footer.jsx";
+import Chatbot from "./components/0Chatbot.jsx";
 import ClickSpark from "./ReactBits/ClickSpark.jsx";
 
 // Pages
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/faqs" element={<FAQs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Chatbot />
         <Footer />
       </ClickSpark>
     </div>
