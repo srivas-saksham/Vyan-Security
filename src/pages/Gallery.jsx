@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import guardPhotoshoot from "../assets/guard-photoshoot.png";
+import guardPhotoshootDark from "../assets/guard-photoshoot-dark.png";
+import { useTheme } from "../ThemeContext";
 
-/**
- * Gallery Component - Displays a full-screen background image
- * with a typographically styled, top-centered message slightly offset to the left.
- */
 const Gallery = () => {
+  const { theme } = useTheme();
+  const [currentImage, setCurrentImage] = useState(guardPhotoshoot);
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    // Start fade-out
+    setOpacity(0);
+
+    // After fade-out, switch image and fade back in
+    const timeout = setTimeout(() => {
+      setCurrentImage(theme === "light" ? guardPhotoshootDark : guardPhotoshoot);
+      setOpacity(1);
+    }, 300); // Duration of fade-out
+
+    return () => clearTimeout(timeout);
+  }, [theme]);
+
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center relative"
+      className="min-h-screen w-full bg-center bg-cover transition-opacity duration-500 ease-in-out relative"
       style={{
-        backgroundImage: `url(${guardPhotoshoot})`,
-        userSelect: 'none'
+        backgroundImage: `url(${currentImage})`,
+        opacity: opacity,
+        userSelect: "none"
       }}
     >
-      {/* Top-Centered Text Box shifted slightly left */}
+      {/* Text content */}
       <div
         className="
           absolute
@@ -29,7 +45,8 @@ const Gallery = () => {
             text-4xl md:text-6xl
             font-black
             leading-tight
-            text-[#315386]
+            text-[#cbd6d2]
+            dark:text-[#315386]
             drop-shadow-md
             tracking-tight
           "
@@ -42,13 +59,15 @@ const Gallery = () => {
           className="
             mt-6
             text-lg md:text-xl
-            text-[#315386]
+            text-[#cbd6d2]
+            dark:text-[#315386]
             font-medium
             tracking-wide
           "
         >
           Our Guards are Posing for this Gallery.
-          <p>It will be ready soon.</p>
+          <br />
+          It will be ready soon.
         </p>
       </div>
     </div>
