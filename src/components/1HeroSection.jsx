@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./1HeroSection.css";
 import bannerImgA from "../assets/banner-img-1.jpg";
 import bannerImgB from "../assets/banner-img-2.jpg";
@@ -9,6 +9,7 @@ import bannerImgC from "../assets/banner-img-3.jpg";
 import SplitText from "../ReactBits/SplitText.jsx";
 import ShinyText from "../ReactBits/ShinyText.jsx";
 import CardSwap, { Card } from "../ReactBits/CardSwap.jsx";
+import shieldImg from "../assets/shield-image.png";
 
 export default function HeroSection() {
   return (
@@ -16,10 +17,19 @@ export default function HeroSection() {
       className="relative overflow-hidden text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
       style={{ userSelect: "none" }}
     >
+      {/* Shield Background on Small Screens */}
+      <div className="block lg:hidden absolute inset-0 z-0 opacity-90">
+        <img
+          src={shieldImg}
+          alt="Shield"
+          className="w-4/5 max-w-md mx-auto mt-10 opacity-20"
+        />
+      </div>
+
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:px-24">
         {/* Text Content */}
         <div className="max-w-xl">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight relative z-10">
             <SplitText
               text="Protect what"
               className="font-playfair font-semibold text-center text-3xl sm:text-5xl lg:text-7xl"
@@ -66,16 +76,16 @@ export default function HeroSection() {
           >
             Book a Contract
           </Link>
-
         </div>
 
-        {/* CardSwap Section */}
+        {/* CardSwap on large screens */}
         <div
           className="hidden lg:block"
           style={{
             height: "600px",
             position: "relative",
             transform: "translateX(-80px) translateY(-150px)",
+            zIndex: "-1"
           }}
         >
           <CardSwap cardDistance={60} verticalDistance={70} delay={5000} pauseOnHover={false}>

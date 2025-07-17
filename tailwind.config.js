@@ -4,6 +4,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xs500: "500px",
+        xs960: '960px',
+      },
+
       fontFamily: {
         playfair: ['"Playfair Display"', 'serif'],
       },
