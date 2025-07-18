@@ -8,7 +8,7 @@ import CallToActionFooter from "../components/3CTAFooter.jsx";
 import { useEffect } from 'react';
 
 export default function About() {
-    useEffect(() => {
+      useEffect(() => {
         document.title = 'Vyan Security - About Us';
       }, []);
     

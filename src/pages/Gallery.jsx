@@ -21,6 +21,14 @@ const Gallery = () => {
     return () => clearTimeout(timeout);
   }, [theme]);
 
+  useEffect(() => {
+    document.title = 'Vyan Security - Gallery';
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, ['/gallery']);
+
   return (
     <div
       className="min-h-screen w-full bg-center bg-cover transition-opacity duration-500 ease-in-out relative"

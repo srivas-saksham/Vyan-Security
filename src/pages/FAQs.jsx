@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -53,6 +53,14 @@ const FAQs = () => {
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  useEffect(() => {
+    document.title = 'Vyan Security - FAQs';
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, ['/faqs']);
 
   return (
     <div className="min-h-screen text-white dark:bg-[#ccd3ff] dark:text-[#000a47] py-16 px-4 font-poppins"

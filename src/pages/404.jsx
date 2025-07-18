@@ -8,8 +8,11 @@ import { useEffect } from "react";
 
 const NotFound = () => {
     useEffect(() => {
-          document.title = 'Vyan Security - Page Not Found';
-        }, []);
+      document.title = 'Vyan Security - Page Not Found';
+    }, []);
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, ['/*']);
         
   return (
     <div className="relative flex flex-col md:flex-row items-center justify-center min-h-screen px-6 py-12 bg-gradient-to-br from-[#0A0F24] via-[#1A2337] to-[#000510] text-white overflow-hidden dark:bg-gradient-to-br dark:from-[#ccd3ff] dark:via-[#e4e9ff] dark:to-[#ffffff] dark:text-[#000a47] transition-colors">
