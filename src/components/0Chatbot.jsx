@@ -175,7 +175,7 @@ export default function ChatBot() {
     setIsLoading(true);
     
     try {
-      const res = await axios.post("http://localhost:3001/chat", { message: input });
+      const res = await axios.post("https://vyan-security.onrender.com/chat", { message: input });
       setTimeout(() => {
         setMessages(prev => [...prev, { from: "bot", text: res.data.reply }]);
         setIsLoading(false);
