@@ -1,4 +1,5 @@
-// src/components/ChatBot.jsx
+// Fixed ChatBot component - replace your existing one
+
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import axios from "axios";
 import { MessageCircle, Shield } from "lucide-react";
@@ -14,7 +15,8 @@ export default function ChatBot() {
   const [isMobile, setIsMobile] = useState(false);
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const [orientation, setOrientation] = useState('portrait');
-  
+  const [showQuickActions, setShowQuickActions] = useState(true); // Add this state
+  const API_link = "https://vyan-security.onrender.com/chat";
   const containerRef = useRef(null);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
   const messagesEndRef = useRef(null);
@@ -149,12 +151,24 @@ export default function ChatBot() {
       });
     }
   }, [viewport, isOpen, getDynamicSizes]);
+  
+  // Modified: Add welcome message AND show quick actions
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      setMessages([{
+        from: "bot",
+        text: "Hello! I'm your personal assistant. Your instant Query Resolver!"
+      }]);
+      setShowQuickActions(true); // Keep quick actions visible
+    }
+  }, [isOpen]);
 
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
       setIsOpen(false);
       setIsClosing(false);
+      setShowQuickActions(true); // Reset quick actions when closing
     }, 300);
   };
 
@@ -167,15 +181,124 @@ export default function ChatBot() {
     setIsOpen(true);
   };
 
+  // QUICK ACTIONS
+  const QuickActions = ({ onActionClick }) => {
+    // Define your 3 quick actions
+    const actions = [
+      {
+        label: "Services",
+        message: "Tell me about your services",
+        emoji: "🛍️"
+      },
+      {
+        label: "Hours", 
+        message: "What are your business hours?",
+        emoji: "🕐"
+      },
+      {
+        label: "Support",
+        message: "How do I contact customer support?",
+        emoji: "📞"
+      }
+    ];
+
+    return (
+      <div className="mt-6 animate-fade-in">
+        <p className="text-sm mb-3 font-medium text-gray-600 dark:text-gray-500 text-center select-none">
+          Quick Questions:
+        </p>
+        <div className="flex flex-wrap justify-center gap-2 px-2">
+          {actions.map((action, index) => (
+            <button
+              key={index}
+              onClick={() => onActionClick(action.message)}
+              className={`
+                group px-4 py-2 bg-gray-200 dark:bg-white hover:bg-blue-50 dark:hover:bg-blue-100 
+                text-blue-600 dark:text-blue-700 border border-blue-200 dark:border-blue-300 
+                rounded-full font-medium transition-all duration-200 
+                hover:scale-105 active:scale-95 shadow-sm hover:shadow-md
+                transform hover:-translate-y-0.5 select-none touch-manipulation
+                quick-action-button
+                ${isMobile ? 'text-sm px-3 py-2' : 'text-sm'}
+              `}
+              style={{
+                animationDelay: `${index * 150}ms`,
+                animationFillMode: 'both'
+              }}
+            >
+              {/* <span className="mr-1 transition-transform duration-200 group-hover:scale-110">
+                {action.emoji}
+              </span> */}
+              {action.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const handleQuickAction = (message) => {
+    // Hide quick actions when user clicks one
+    setShowQuickActions(false);
+    
+    // Create user message
+    const userMessage = { from: "user", text: message };
+    
+    // Add user message to chat
+    setMessages(prev => [...prev, userMessage]);
+    
+    // Clear input field
+    setInput("");
+    
+    // Set loading state
+    setIsLoading(true);
+    
+    // Send message to API (reuse your existing API call logic)
+    sendMessageToAPI(message);
+  };
+
+  // Helper function to send message to API
+  const sendMessageToAPI = async (messageText) => {
+    try {
+      const res = await axios.post(`${API_link}`, { 
+        message: messageText 
+      });
+      
+      setTimeout(() => {
+        setMessages(prev => [...prev, { from: "bot", text: res.data.reply }]);
+        setIsLoading(false);
+        
+        // Focus on input after bot responds
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
+      }, 800);
+    } catch (error) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { from: "bot", text: "Server error." }]);
+        setIsLoading(false);
+        
+        // Focus on input after error response
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
+      }, 800);
+    }
+  };
+
   const sendMessage = async () => {
     if (!input.trim()) return;
+    
+    // Hide quick actions when user sends a message
+    setShowQuickActions(false);
+    
     const userMessage = { from: "user", text: input };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
     
     try {
-      const res = await axios.post("https://vyan-security.onrender.com/chat", { message: input });
+      const res = await axios.post(`${API_link}`, { message: input });
       setTimeout(() => {
         setMessages(prev => [...prev, { from: "bot", text: res.data.reply }]);
         setIsLoading(false);
@@ -384,92 +507,87 @@ export default function ChatBot() {
 
           {/* Messages */}
           <div className={`flex-1 overflow-y-auto ${isMobile ? 'px-3 py-3' : 'px-4 py-2'} text-black dark:text-[#000a47] min-h-0 space-y-3 overscroll-contain`}>
-            {messages.length === 0 ? (
-              <div className="text-center text-gray-500 dark:text-gray-600 mt-8 animate-fade-in">
-                <div className="mb-2">
-                  <MessageCircle className={`${isMobile ? 'w-10 h-10' : 'w-8 h-8'} mx-auto text-blue-400 mb-2 pointer-events-none`} />
-                </div>
-                <p className={`${isMobile ? 'text-base' : 'text-sm'} select-none`}>Start a conversation!</p>
-                <p className={`${isMobile ? 'text-sm' : 'text-xs'} mt-1 opacity-75 select-none`}>Ask me anything about security</p>
-              </div>
-            ) : (
-              <>
-                {messages.map((msg, i) => (
-                  <div 
-                    key={i} 
-                    className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"} animate-slide-in`}
-                    style={{
-                      animationDelay: `${i * 0.1}s`,
-                      animationFillMode: 'both'
-                    }}
-                  >
-                    {/* AI Guard Avatar - Only for bot messages */}
-                    {msg.from === "bot" && (
-                      <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
-                        <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
-                      </div>
-                    )}
-                    
-                    <div className={`flex flex-col ${msg.from === "user" ? "max-w-[85%]" : isMobile ? "max-w-[calc(85%-3rem)]" : "max-w-[calc(85%-2.5rem)]"}`}>
-                      <div
-                        className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} font-medium ${isMobile ? 'text-base' : 'text-sm'} break-words transition-all duration-300 hover:scale-[1.02] ${
-                          msg.from === "user"
-                            ? "bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white rounded-2xl rounded-br-lg shadow-lg hover:shadow-xl"
-                            : "bg-[#263143] dark:bg-white text-white dark:text-gray-800 rounded-2xl rounded-bl-lg shadow-lg hover:shadow-xl border border-transparent"
-                        }`}
-                      >
-                        {msg.text}
-                        
-                        {/* Message tail */}
-                        <div
-                          className={`absolute ${
-                            msg.from === "user"
-                              ? "bottom-1 -right-2 w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-blue-700 transform rotate-45 z-0"
-                              : "bottom-1 -left-2 w-0 h-0 border-r-[8px] border-r-transparent border-t-[8px] border-t-white transform -rotate-45 z-0"
-                          }`}
-                        />
-                      </div>
-                      
-                      {/* Timestamp */}
-                      <div className={`${isMobile ? 'text-sm' : 'text-xs'} opacity-60 select-none pointer-events-none mt-1 ${
-                        msg.from === "user" ? "text-right text-gray-500" : "text-left text-gray-500"
-                      }`}>
-                        {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Enhanced Typing Indicator */}
-                {isLoading && (
-                  <div className="flex justify-start animate-slide-in">
-                    {/* AI Guard Avatar for typing indicator */}
-                    <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
-                      <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
-                    </div>
-                    
-                    <div className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} rounded-2xl rounded-bl-lg bg-gray-700 dark:bg-white text-white dark:text-gray-800 shadow-lg border border-gray-600 dark:border-gray-200`}>
-                      <div className="flex items-center gap-2">
-                        {/* Typing animation */}
-                        <div className="flex items-center gap-1">
-                          <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '0ms', animationDuration: '1.4s' }} />
-                          <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '200ms', animationDuration: '1.4s' }} />
-                          <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '400ms', animationDuration: '1.4s' }} />
-                        </div>
-
-                        {/* Typing text */}
-                        <span className={`${isMobile ? 'text-sm' : 'text-xs'} text-gray-500 ml-1 select-none`}>Thinking...</span>
-                      </div>
-
-                      {/* Tail */}
-                      <div className="absolute bottom-1 -left-2 w-0 h-0 border-r-[8px] border-r-transparent border-t-[8px] border-t-gray-700 dark:border-t-white transform -rotate-45 z-0" />
-
-                      {/* Pulse border */}
-                      <div className="absolute inset-0 rounded-2xl rounded-bl-lg border-2 border-blue-200 opacity-50 animate-pulse" />
-                    </div>
+            {messages.map((msg, i) => (
+              <div 
+                key={i} 
+                className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"} animate-slide-in`}
+                style={{
+                  animationDelay: `${i * 0.1}s`,
+                  animationFillMode: 'both'
+                }}
+              >
+                {/* AI Guard Avatar - Only for bot messages */}
+                {msg.from === "bot" && (
+                  <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
+                    <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
                   </div>
                 )}
-              </>
+                
+                <div className={`flex flex-col ${msg.from === "user" ? "max-w-[85%]" : isMobile ? "max-w-[calc(85%-3rem)]" : "max-w-[calc(85%-2.5rem)]"}`}>
+                  <div
+                    className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} font-medium ${isMobile ? 'text-base' : 'text-sm'} break-words transition-all duration-300 hover:scale-[1.02] ${
+                      msg.from === "user"
+                        ? "bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white rounded-2xl rounded-br-lg shadow-lg hover:shadow-xl"
+                        : "bg-[#263143] dark:bg-white text-white dark:text-gray-800 rounded-2xl rounded-bl-lg shadow-lg hover:shadow-xl border border-transparent"
+                    }`}
+                  >
+                    {msg.text}
+                    
+                    {/* Message tail */}
+                    <div
+                      className={`absolute ${
+                        msg.from === "user"
+                          ? "bottom-1 -right-2 w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-blue-700 transform rotate-45 z-0"
+                          : "bottom-1 -left-2 w-0 h-0 border-r-[8px] border-r-transparent border-t-[8px] border-t-white transform -rotate-45 z-0"
+                      }`}
+                    />
+                  </div>
+                  
+                  {/* Timestamp */}
+                  <div className={`${isMobile ? 'text-sm' : 'text-xs'} opacity-60 select-none pointer-events-none mt-1 ${
+                    msg.from === "user" ? "text-right text-gray-500" : "text-left text-gray-500"
+                  }`}>
+                    {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Show Quick Actions after welcome message */}
+            {showQuickActions && messages.length === 1 && (
+              <div className="text-center animate-fade-in">
+                <QuickActions onActionClick={handleQuickAction} />
+              </div>
+            )}
+            
+            {/* Enhanced Typing Indicator */}
+            {isLoading && (
+              <div className="flex justify-start animate-slide-in">
+                {/* AI Guard Avatar for typing indicator */}
+                <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
+                  <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
+                </div>
+                
+                <div className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} rounded-2xl rounded-bl-lg bg-gray-700 dark:bg-white text-white dark:text-gray-800 shadow-lg border border-gray-600 dark:border-gray-200`}>
+                  <div className="flex items-center gap-2">
+                    {/* Typing animation */}
+                    <div className="flex items-center gap-1">
+                      <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '0ms', animationDuration: '1.4s' }} />
+                      <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '200ms', animationDuration: '1.4s' }} />
+                      <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gray-300 dark:bg-gray-400 rounded-full animate-bounce`} style={{ animationDelay: '400ms', animationDuration: '1.4s' }} />
+                    </div>
+
+                    {/* Typing text */}
+                    <span className={`${isMobile ? 'text-sm' : 'text-xs'} text-gray-500 ml-1 select-none`}>Thinking...</span>
+                  </div>
+
+                  {/* Tail */}
+                  <div className="absolute bottom-1 -left-2 w-0 h-0 border-r-[8px] border-r-transparent border-t-[8px] border-t-gray-700 dark:border-t-white transform -rotate-45 z-0" />
+
+                  {/* Pulse border */}
+                  <div className="absolute inset-0 rounded-2xl rounded-bl-lg border-2 border-blue-200 opacity-50 animate-pulse" />
+                </div>
+              </div>
             )}
             
             <div ref={messagesEndRef} />
@@ -591,6 +709,26 @@ export default function ChatBot() {
             -ms-user-select: text;
             user-select: text;
           }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Button hover glow effect */
+        .quick-action-button:hover {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
       `}</style>
     </div>
