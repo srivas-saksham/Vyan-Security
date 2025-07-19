@@ -23,8 +23,8 @@ export default function ChatBot() {
   const [isTypingComplete, setIsTypingComplete] = useState(true);
   const [isWelcomeTypingComplete, setIsWelcomeTypingComplete] = useState(false);
 
-  // const API_link = "https://vyan-security.onrender.com/chat";
-  const API_link = "http://localhost:3001/chat";
+  const API_link = "https://vyan-security.onrender.com/chat";
+  // const API_link = "http://localhost:3001/chat";
   
   const containerRef = useRef(null);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
