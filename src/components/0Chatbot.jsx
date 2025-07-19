@@ -18,6 +18,10 @@ export default function ChatBot() {
   const [orientation, setOrientation] = useState('portrait');
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [quickActionsVisible, setQuickActionsVisible] = useState(true);
+  const [typingMessageIndex, setTypingMessageIndex] = useState(null);
+  const [typingText, setTypingText] = useState('');
+  const [isTypingComplete, setIsTypingComplete] = useState(true);
+  const [isWelcomeTypingComplete, setIsWelcomeTypingComplete] = useState(false);
 
   // const API_link = "https://vyan-security.onrender.com/chat";
   const API_link = "http://localhost:3001/chat";
@@ -90,6 +94,36 @@ export default function ChatBot() {
     return { ...sizes, isMobileDevice, isTablet, isDesktop, isPortrait, isLandscape };
   }, [viewport]);
 
+  // Enhanced message formatter
+  const formatBotMessage = (text) => {
+    if (!text) return '';
+    
+    // Convert markdown-style formatting to HTML
+    let formattedText = text
+      // Convert **bold** to <strong>
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      // Convert *italic* to <em>
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      // Convert bullet points (• or - or *) to proper HTML list items
+      .replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>')
+      // Convert numbered lists
+      .replace(/^\d+\.\s+(.+)$/gm, '<li class="numbered">$1</li>')
+      // Convert line breaks
+      .replace(/\n/g, '<br/>');
+
+    // Wrap consecutive <li> items in <ul> tags
+    formattedText = formattedText.replace(/(<li(?:\s+class="numbered")?>[^<]*<\/li>(?:\s*<br\/>)*)+/g, (match) => {
+      const isNumbered = match.includes('class="numbered"');
+      const listItems = match.replace(/<br\/>/g, '').trim();
+      return isNumbered ? `<ol>${listItems}</ol>` : `<ul>${listItems}</ul>`;
+    });
+
+    // Clean up numbered class attributes
+    formattedText = formattedText.replace(/class="numbered"/g, '');
+
+    return formattedText;
+  };
+
   // Viewport size tracking with debounce
   useEffect(() => {
     const updateViewport = () => {
@@ -156,17 +190,6 @@ export default function ChatBot() {
       });
     }
   }, [viewport, isOpen, getDynamicSizes]);
-  
-  // Modified: Add welcome message AND show quick actions
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      setMessages([{
-        from: "bot",
-        text: "Hello! I'm your personal assistant. Your instant Query Resolver!"
-      }]);
-      setShowQuickActions(true); // Keep quick actions visible
-    }
-  }, [isOpen]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -196,8 +219,8 @@ export default function ChatBot() {
         emoji: "🛍️"
       },
       {
-        label: "Hours", 
-        message: "What are your business hours?",
+        label: "Contact", 
+        message: "How do I reach you?",
         emoji: "🕐"
       },
       {
@@ -261,6 +284,71 @@ export default function ChatBot() {
     // Send message to API (reuse your existing API call logic)
     sendMessageToAPI(message);
   };
+  //BOT CHARACTER BY CHARACTER MSG------------------------------------------------------------------------------------------------------
+  const typeMessage = useCallback((messageText, messageIndex, isWelcomeMessage = false) => {
+    if (!messageText) return;
+    
+    setTypingMessageIndex(messageIndex);
+    setIsTypingComplete(false);
+    
+    // Only hide quick actions if they're already visible (not for welcome message)
+    if (quickActionsVisible) {
+      setQuickActionsVisible(false);
+    }
+    
+    let currentIndex = 0;
+    const typingSpeed = 30;
+    
+    const typeInterval = setInterval(() => {
+      currentIndex++;
+      setTypingText(messageText.substring(0, currentIndex));
+      
+      if (currentIndex >= messageText.length) {
+        clearInterval(typeInterval);
+        setIsTypingComplete(true);
+        setTypingMessageIndex(null);
+        
+        if (isWelcomeMessage) {
+          setIsWelcomeTypingComplete(true);
+          // Show quick actions after welcome message typing is complete
+          setTimeout(() => {
+            setQuickActionsVisible(true);
+          }, 300);
+        } else {
+          // Only show quick actions again if input is empty
+          if (input.trim().length === 0) {
+            setQuickActionsVisible(true);
+          }
+        }
+        
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
+      }
+    }, typingSpeed);
+    
+    return typeInterval;
+  }, [input, quickActionsVisible]);
+
+  // Modified: Add welcome message AND show quick actions
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      const welcomeMessage = "Hello! I'm your personal assistant. Your instant Query Resolver!";
+      setMessages([{
+        from: "bot",
+        text: welcomeMessage
+      }]);
+      setShowQuickActions(true);
+      setQuickActionsVisible(false); // Keep hidden until typing is complete
+      setIsWelcomeTypingComplete(false);
+      
+      // Start typing animation for welcome message
+      setTimeout(() => {
+        typeMessage(welcomeMessage, 0, true); // Pass true for isWelcomeMessage
+      }, 300);
+    }
+  }, [isOpen, typeMessage]);
+
 
   // Helper function to send message to API
   const sendMessageToAPI = async (messageText) => {
@@ -270,27 +358,36 @@ export default function ChatBot() {
       });
       
       setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: res.data.reply }]);
         setIsLoading(false);
         
-        // Focus on input after bot responds
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
+        // Add bot message and start typing animation
+        setMessages(prev => {
+          const newMessages = [...prev, { from: "bot", text: res.data.reply }];
+          // Start typing animation for the last message
+          setTimeout(() => {
+            typeMessage(res.data.reply, newMessages.length - 1);
+          }, 100);
+          return newMessages;
+        });
       }, 800);
     } catch (error) {
       setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: "Server error." }]);
         setIsLoading(false);
+        const errorMessage = "Server error.";
         
-        // Focus on input after error response
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
+        setMessages(prev => {
+          const newMessages = [...prev, { from: "bot", text: errorMessage }];
+          // Start typing animation for error message
+          setTimeout(() => {
+            typeMessage(errorMessage, newMessages.length - 1);
+          }, 100);
+          return newMessages;
+        });
       }, 800);
     }
   };
-
+  
+//---------------------------------------------------------------------------------------------------------------------
   const sendMessage = async () => {
     if (!input.trim()) return;
     
@@ -305,21 +402,30 @@ export default function ChatBot() {
     try {
       const res = await axios.post(`${API_link}`, { message: input });
       setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: res.data.reply }]);
         setIsLoading(false);
-        // Focus on input after bot responds
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
+        
+        setMessages(prev => {
+          const newMessages = [...prev, { from: "bot", text: res.data.reply }];
+          // Start typing animation
+          setTimeout(() => {
+            typeMessage(res.data.reply, newMessages.length - 1);
+          }, 100);
+          return newMessages;
+        });
       }, 800);
     } catch (error) {
       setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: "Server error." }]);
         setIsLoading(false);
-        // Focus on input after error response
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
+        const errorMessage = "Server error.";
+        
+        setMessages(prev => {
+          const newMessages = [...prev, { from: "bot", text: errorMessage }];
+          // Start typing animation for error
+          setTimeout(() => {
+            typeMessage(errorMessage, newMessages.length - 1);
+          }, 100);
+          return newMessages;
+        });
       }, 800);
     }
   };
@@ -561,7 +667,16 @@ export default function ChatBot() {
                         : "bg-[#263143] dark:bg-white text-white dark:text-gray-800 rounded-2xl rounded-bl-lg shadow-lg hover:shadow-xl border border-transparent"
                     }`}
                   >
-                    {msg.text}
+                    {msg.from === "bot" && typingMessageIndex === i && !isTypingComplete ? (
+                      <span>
+                        <span dangerouslySetInnerHTML={{ __html: formatBotMessage(typingText) }} />
+                        <span className="animate-pulse ml-1 text-blue-300 dark:text-blue-600">|</span>
+                      </span>
+                    ) : msg.from === "bot" ? (
+                      <div dangerouslySetInnerHTML={{ __html: formatBotMessage(msg.text) }} />
+                    ) : (
+                      msg.text
+                    )}
                     
                     {/* Message tail */}
                     <div
@@ -584,13 +699,21 @@ export default function ChatBot() {
             ))}
             
             {/* Show Quick Actions after welcome message */}
-            {messages.length === 1 && (
-              <div className={`text-center transition-all duration-700 ease-out ${
-                quickActionsVisible 
-                  ? 'opacity-100 translate-y-0 animate-fade-in' 
-                  : 'opacity-0 translate-y-4 pointer-events-none'
-              }`}>
-                <QuickActions onActionClick={handleQuickAction} />
+            {messages.length === 1 && isWelcomeTypingComplete && (
+              <div 
+                className={`text-center transition-all duration-300 ease-out ${
+                  quickActionsVisible 
+                    ? 'opacity-100 scale-100' 
+                    : 'opacity-0 scale-95 pointer-events-none h-0 overflow-hidden'
+                }`}
+                style={{
+                  transitionProperty: 'opacity, transform, height',
+                  transformOrigin: 'center',
+                }}
+              >
+                <div className={quickActionsVisible ? 'animate-fade-in' : ''}>
+                  <QuickActions onActionClick={handleQuickAction} />
+                </div>
               </div>
             )}
             
@@ -639,11 +762,17 @@ export default function ChatBot() {
               placeholder="Ask a security question..."
               value={input}
               onChange={(e) => {
-                setInput(e.target.value);
-                // Smooth fade for quick actions based on input content
-                if (e.target.value.trim().length > 0) {
+                const newValue = e.target.value;
+                const prevValue = input;
+                
+                setInput(newValue);
+                
+                // Only hide quick actions on first character typed (when going from empty to non-empty)
+                if (prevValue.trim().length === 0 && newValue.trim().length === 1) {
                   setQuickActionsVisible(false);
-                } else {
+                }
+                // Only show quick actions when input becomes completely empty (when backspacing from text to empty)
+                else if (prevValue.trim().length > 0 && newValue.trim().length === 0) {
                   setQuickActionsVisible(true);
                 }
               }}
@@ -789,6 +918,88 @@ export default function ChatBot() {
         /* Button hover glow effect */
         .quick-action-button:hover {
           box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Prevent layout shifts during quick actions transitions */
+        .quick-actions-container {
+          transition: all 0.3s ease-out;
+          transform-origin: center;
+        }
+
+        .quick-actions-hidden {
+          height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: hidden;
+        }
+
+        /* Formatted message styles */
+        :global(.formatted-message ul) {
+          margin: 8px 0;
+          padding-left: 20px;
+          list-style: none;
+        }
+
+        :global(.formatted-message ul li) {
+          position: relative;
+          margin: 4px 0;
+          padding-left: 8px;
+        }
+
+        :global(.formatted-message ul li:before) {
+          content: "•";
+          color: #3b82f6;
+          font-weight: bold;
+          position: absolute;
+          left: -12px;
+        }
+
+        :global(.formatted-message ol) {
+          margin: 8px 0;
+          padding-left: 20px;
+          counter-reset: item;
+        }
+
+        :global(.formatted-message ol li) {
+          margin: 4px 0;
+          padding-left: 8px;
+          counter-increment: item;
+        }
+
+        :global(.formatted-message ol li:before) {
+          content: counter(item) ".";
+          color: #3b82f6;
+          font-weight: bold;
+          margin-right: 8px;
+        }
+
+        :global(.formatted-message strong) {
+          font-weight: 700;
+          color: inherit;
+        }
+
+        :global(.formatted-message em) {
+          font-style: italic;
+          color: inherit;
+        }
+
+        /* Dark mode adjustments */
+        :global(.dark .formatted-message ul li:before),
+        :global(.dark .formatted-message ol li:before) {
+          color: #60a5fa;
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+          :global(.formatted-message ul),
+          :global(.formatted-message ol) {
+            padding-left: 16px;
+          }
+          
+          :global(.formatted-message ul li),
+          :global(.formatted-message ol li) {
+            padding-left: 6px;
+          }
         }
       `}</style>
     </div>
