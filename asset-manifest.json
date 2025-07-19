@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/Vyan-Security/static/css/main.e981a1c5.css",
-    "main.js": "/Vyan-Security/static/js/main.75a30c4b.js",
+    "main.css": "/Vyan-Security/static/css/main.8d99e24c.css",
+    "main.js": "/Vyan-Security/static/js/main.7da4a16d.js",
     "static/media/banner-img-1.jpg": "/Vyan-Security/static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/guard-photoshoot-dark.png": "/Vyan-Security/static/media/guard-photoshoot-dark.22371a92d4f84ff43143.png",
     "static/media/guard-photoshoot.png": "/Vyan-Security/static/media/guard-photoshoot.c5bb318758222bd19996.png",
     "static/media/shield-image.png": "/Vyan-Security/static/media/shield-image.d454bc786eb15eadb2fe.png",
     "static/media/guardDrool.png": "/Vyan-Security/static/media/guardDrool.5c8666c545483a0630aa.png",
     "static/media/faqImg.png": "/Vyan-Security/static/media/faqImg.3b69acdc285c8b6a575d.png",
+    "static/media/bot-img.png": "/Vyan-Security/static/media/bot-img.d11eebf4a9bfd8594e28.png",
     "static/media/banner-img-3.jpg": "/Vyan-Security/static/media/banner-img-3.f07c29122370dc725cae.jpg",
     "static/media/banner-img-2.jpg": "/Vyan-Security/static/media/banner-img-2.ee9a3b5ea88154c0d779.jpg",
     "static/media/logo.png": "/Vyan-Security/static/media/logo.e70272a7b2c74433674a.png",
     "static/media/logoonly.png": "/Vyan-Security/static/media/logoonly.c1a0f85d21d7026c0754.png",
     "static/media/logoonly-dark.png": "/Vyan-Security/static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "/Vyan-Security/index.html",
-    "main.e981a1c5.css.map": "/Vyan-Security/static/css/main.e981a1c5.css.map",
-    "main.75a30c4b.js.map": "/Vyan-Security/static/js/main.75a30c4b.js.map"
+    "main.8d99e24c.css.map": "/Vyan-Security/static/css/main.8d99e24c.css.map",
+    "main.7da4a16d.js.map": "/Vyan-Security/static/js/main.7da4a16d.js.map"
   },
   "entrypoints": [
-    "static/css/main.e981a1c5.css",
-    "static/js/main.75a30c4b.js"
+    "static/css/main.8d99e24c.css",
+    "static/js/main.7da4a16d.js"
   ]
 }
