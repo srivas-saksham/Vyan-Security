@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import axios from "axios";
 import { MessageCircle, Shield } from "lucide-react";
+import BotAvatar from "../assets/bot-img.png";
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([]);
@@ -15,8 +16,12 @@ export default function ChatBot() {
   const [isMobile, setIsMobile] = useState(false);
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const [orientation, setOrientation] = useState('portrait');
-  const [showQuickActions, setShowQuickActions] = useState(true); // Add this state
-  const API_link = "https://vyan-security.onrender.com/chat";
+  const [showQuickActions, setShowQuickActions] = useState(true);
+  const [quickActionsVisible, setQuickActionsVisible] = useState(true);
+
+  // const API_link = "https://vyan-security.onrender.com/chat";
+  const API_link = "http://localhost:3001/chat";
+  
   const containerRef = useRef(null);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
   const messagesEndRef = useRef(null);
@@ -203,7 +208,7 @@ export default function ChatBot() {
     ];
 
     return (
-      <div className="mt-6 animate-fade-in">
+      <div className={`mt-6 transition-all duration-700 ease-out ${showQuickActions ? 'animate-fade-in opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
         <p className="text-sm mb-3 font-medium text-gray-600 dark:text-gray-500 text-center select-none">
           Quick Questions:
         </p>
@@ -239,7 +244,7 @@ export default function ChatBot() {
 
   const handleQuickAction = (message) => {
     // Hide quick actions when user clicks one
-    setShowQuickActions(false);
+    setQuickActionsVisible(false);
     
     // Create user message
     const userMessage = { from: "user", text: message };
@@ -290,7 +295,7 @@ export default function ChatBot() {
     if (!input.trim()) return;
     
     // Hide quick actions when user sends a message
-    setShowQuickActions(false);
+    setQuickActionsVisible(false);
     
     const userMessage = { from: "user", text: input };
     setMessages(prev => [...prev, userMessage]);
@@ -494,9 +499,22 @@ export default function ChatBot() {
           {/* Header */}
           <div className={`bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 text-white ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} font-semibold ${isMobile ? 'text-lg' : 'text-lg'} flex justify-between items-center relative z-10 shadow-sm`}>
             <div className="flex items-center gap-2">
-              <span className={isMobile ? 'text-base' : 'text-base'}>💬 Vyan AI Guard</span>
-              <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-green-400 rounded-full animate-pulse`} title="Online" />
+              <div className="flex items-center">
+              <img 
+                src={BotAvatar} 
+                alt="Bot Avatar"
+                className={`${isMobile ? 'h-10' : 'h-12'} w-auto object-cover rounded-l-lg scale-[1.1]`} 
+              />
+
+              <div className="flex flex-col justify-center px-3">
+                <span className={`${isMobile ? 'text-base' : 'text-base'} font-semibold`}>Shieldon - Security Agent</span>
+                <div className="flex items-center gap-1">
+                  <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-green-400 rounded-full animate-pulse`} title="Online" />
+                  <span className="text-xs text-white/80">Online</span>
+                </div>
+              </div>
             </div>
+          </div>
             <button 
               onClick={handleClose}
               className={`text-white hover:text-gray-200 hover:bg-white/20 rounded-full ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} flex items-center justify-center transition-all duration-200 ${isMobile ? 'text-3xl' : 'text-2xl'} leading-none select-none hover:scale-110 active:scale-95 touch-manipulation`}
@@ -518,12 +536,24 @@ export default function ChatBot() {
               >
                 {/* AI Guard Avatar - Only for bot messages */}
                 {msg.from === "bot" && (
-                  <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
-                    <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
+                  <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full overflow-hidden ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
+                    <img
+                      src={BotAvatar}
+                      alt="Bot Avatar"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
+
                 )}
                 
                 <div className={`flex flex-col ${msg.from === "user" ? "max-w-[85%]" : isMobile ? "max-w-[calc(85%-3rem)]" : "max-w-[calc(85%-2.5rem)]"}`}>
+                  <>
+                    {msg.from === "bot" && (
+                      <div className="font-semibold text-xs mb-1 text-gray-300 dark:text-gray-600 select-none">
+                        Shieldon
+                      </div>
+                    )}
+                  </>
                   <div
                     className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} font-medium ${isMobile ? 'text-base' : 'text-sm'} break-words transition-all duration-300 hover:scale-[1.02] ${
                       msg.from === "user"
@@ -554,8 +584,12 @@ export default function ChatBot() {
             ))}
             
             {/* Show Quick Actions after welcome message */}
-            {showQuickActions && messages.length === 1 && (
-              <div className="text-center animate-fade-in">
+            {messages.length === 1 && (
+              <div className={`text-center transition-all duration-700 ease-out ${
+                quickActionsVisible 
+                  ? 'opacity-100 translate-y-0 animate-fade-in' 
+                  : 'opacity-0 translate-y-4 pointer-events-none'
+              }`}>
                 <QuickActions onActionClick={handleQuickAction} />
               </div>
             )}
@@ -564,8 +598,12 @@ export default function ChatBot() {
             {isLoading && (
               <div className="flex justify-start animate-slide-in">
                 {/* AI Guard Avatar for typing indicator */}
-                <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
-                  <Shield className={`${isMobile ? 'w-5 h-5' : 'w-4 h-4'} text-white`} />
+                <div className={`flex-shrink-0 ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} rounded-full overflow-hidden ${isMobile ? 'mr-3' : 'mr-2'} mt-1 shadow-lg border-2 border-white dark:border-gray-200`}>
+                  <img
+                    src={BotAvatar}
+                    alt="Bot Avatar"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 <div className={`relative inline-block ${isMobile ? 'px-4 py-4' : 'px-4 py-3'} rounded-2xl rounded-bl-lg bg-gray-700 dark:bg-white text-white dark:text-gray-800 shadow-lg border border-gray-600 dark:border-gray-200`}>
@@ -600,7 +638,15 @@ export default function ChatBot() {
               className={`flex-1 ${isMobile ? 'px-4 py-4 text-base' : 'px-4 py-3 text-sm'} border-none outline-none bg-transparent text-black dark:text-[#000a47] font-medium placeholder-gray-500 dark:placeholder-gray-600 focus:placeholder-gray-400 transition-all duration-200 touch-manipulation`}
               placeholder="Ask a security question..."
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                setInput(e.target.value);
+                // Smooth fade for quick actions based on input content
+                if (e.target.value.trim().length > 0) {
+                  setQuickActionsVisible(false);
+                } else {
+                  setQuickActionsVisible(true);
+                }
+              }}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               disabled={isLoading}
               autoComplete="off"
@@ -679,6 +725,20 @@ export default function ChatBot() {
           animation: fade-in 0.5s ease-out;
         }
         
+        .animate-fade-out {
+          animation: fade-out 0.7s ease-out forwards;
+        }
+
+        @keyframes fade-out {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+        }
         /* Mobile specific styles */
         @media (max-width: 768px) {
           .overscroll-contain {
