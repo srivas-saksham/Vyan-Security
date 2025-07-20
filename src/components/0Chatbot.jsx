@@ -637,7 +637,7 @@ export default function ChatBot() {
             animation: isClosing ? 'slideOutDown 0.3s ease-out' : 'slideInUp 0.3s ease-out',
             zIndex: isMobile ? 9999 : 'auto',
             ...(isMobile && isKeyboardOpen && keyboardHeight > 0 && {
-              transform: `translateY(-${Math.min(keyboardHeight * 0.4, 120)}px)`,
+              transform: `translateY(-${Math.min(keyboardHeight * 0.6, 160)}px)`,
               transition: 'transform 0.2s ease-out'
             })
           }}
