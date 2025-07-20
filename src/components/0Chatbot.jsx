@@ -22,9 +22,12 @@ export default function ChatBot() {
   const [typingText, setTypingText] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(true);
   const [isWelcomeTypingComplete, setIsWelcomeTypingComplete] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [initialViewportHeight, setInitialViewportHeight] = useState(0);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-  const API_link = "https://vyan-security.onrender.com/chat";
-  // const API_link = "http://localhost:3001/chat";
+  // const API_link = "https://vyan-security.onrender.com/chat";
+  const API_link = "http://localhost:3001/chat";
   
   const containerRef = useRef(null);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
@@ -86,7 +89,7 @@ export default function ChatBot() {
         MAX_WIDTH: Math.min(800, vw * 0.4),
         MIN_HEIGHT: 300,
         MAX_HEIGHT: Math.min(700, vh * 0.8),
-        DEFAULT_WIDTH: 380,
+        DEFAULT_WIDTH: 500,
         DEFAULT_HEIGHT: 500
       };
     }
@@ -129,6 +132,28 @@ export default function ChatBot() {
     const updateViewport = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
+      
+      // Store initial viewport height on first load
+      if (initialViewportHeight === 0) {
+        setInitialViewportHeight(vh);
+      }
+      
+      // Detect keyboard on mobile
+      if (isMobile) {
+        const heightDifference = initialViewportHeight - vh;
+        const keyboardThreshold = 150; // Minimum height change to consider keyboard open
+        
+        if (heightDifference > keyboardThreshold) {
+          // Keyboard is open
+          setIsKeyboardOpen(true);
+          setKeyboardHeight(heightDifference);
+        } else {
+          // Keyboard is closed
+          setIsKeyboardOpen(false);
+          setKeyboardHeight(0);
+        }
+      }
+      
       setViewport({ width: vw, height: vh });
       
       // Update mobile state
@@ -144,7 +169,7 @@ export default function ChatBot() {
     let timeoutId;
     const debouncedResize = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateViewport, 150);
+      timeoutId = setTimeout(updateViewport, 100); // Faster response for keyboard
     };
 
     // Initial setup
@@ -153,15 +178,76 @@ export default function ChatBot() {
     // Event listeners
     window.addEventListener('resize', debouncedResize);
     window.addEventListener('orientationchange', () => {
-      setTimeout(updateViewport, 500); // Delay for orientation change
+      setTimeout(() => {
+        setInitialViewportHeight(0); // Reset on orientation change
+        updateViewport();
+      }, 500);
     });
+    
+    // Visual viewport API for better keyboard detection (if supported)
+    if (window.visualViewport) {
+      const handleVisualViewportChange = () => {
+        const vh = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
+        const heightDiff = windowHeight - vh;
+        
+        if (isMobile && heightDiff > 150) {
+          setIsKeyboardOpen(true);
+          setKeyboardHeight(heightDiff);
+        } else {
+          setIsKeyboardOpen(false);
+          setKeyboardHeight(0);
+        }
+      };
+      
+      window.visualViewport.addEventListener('resize', handleVisualViewportChange);
+      
+      return () => {
+        window.removeEventListener('resize', debouncedResize);
+        window.removeEventListener('orientationchange', updateViewport);
+        window.visualViewport.removeEventListener('resize', handleVisualViewportChange);
+        clearTimeout(timeoutId);
+      };
+    }
     
     return () => {
       window.removeEventListener('resize', debouncedResize);
       window.removeEventListener('orientationchange', updateViewport);
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isMobile, initialViewportHeight]);
+
+  //INPUT FOCUS HANDLER
+  const handleInputFocus = () => {
+    if (isMobile) {
+      // Small delay to allow keyboard to start showing
+      setTimeout(() => {
+        setIsKeyboardOpen(true);
+        
+        // Scroll input into view
+        setTimeout(() => {
+          inputRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }, 300);
+      }, 100);
+    }
+  };
+
+  const handleInputBlur = () => {
+    if (isMobile) {
+      // Delay to prevent flickering when switching between inputs
+      setTimeout(() => {
+        if (document.activeElement !== inputRef.current) {
+          setIsKeyboardOpen(false);
+          setKeyboardHeight(0);
+        }
+      }, 100);
+    }
+  };
+
+
 
   // Update dimensions when viewport changes
   useEffect(() => {
@@ -512,10 +598,20 @@ export default function ChatBot() {
   // Dynamic positioning based on device
   const getPositionClasses = () => {
     if (isMobile) {
-      if (orientation === 'portrait') {
-        return 'fixed bottom-4 left-4 right-4 z-50';
+      if (isKeyboardOpen) {
+        // When keyboard is open, position chat higher
+        if (orientation === 'portrait') {
+          return 'fixed bottom-0 left-4 right-4 z-50 transform transition-transform duration-300 ease-out';
+        } else {
+          return 'fixed bottom-0 left-4 z-50 transform transition-transform duration-300 ease-out';
+        }
       } else {
-        return 'fixed bottom-4 left-4 z-50';
+        // Normal mobile positioning
+        if (orientation === 'portrait') {
+          return 'fixed bottom-4 left-4 right-4 z-50';
+        } else {
+          return 'fixed bottom-4 left-4 z-50';
+        }
       }
     }
     return 'fixed bottom-4 left-4 z-50';
@@ -574,8 +670,12 @@ export default function ChatBot() {
             maxWidth: isMobile && orientation === 'portrait' ? '100%' : 'none',
             transformOrigin: isMobile ? 'center bottom' : 'bottom left',
             animation: isClosing ? 'slideOutDown 0.3s ease-out' : 'slideInUp 0.3s ease-out',
-            // Ensure proper stacking on mobile
-            zIndex: isMobile ? 9999 : 'auto'
+            zIndex: isMobile ? 9999 : 'auto',
+            // ADD THESE KEYBOARD-SPECIFIC STYLES:
+            ...(isMobile && isKeyboardOpen && {
+              transform: `translateY(-${Math.min(keyboardHeight * 0.3, 100)}px)`,
+              transition: 'transform 0.3s ease-out'
+            })
           }}
         >
           {/* Enhanced Resize Handle - Hidden on mobile */}
@@ -636,7 +736,7 @@ export default function ChatBot() {
                 key={i} 
                 className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"} animate-slide-in`}
                 style={{
-                  animationDelay: `${i * 0.1}s`,
+                  animationDelay: `${i * 0.04}s`,
                   animationFillMode: 'both'
                 }}
               >
@@ -777,6 +877,8 @@ export default function ChatBot() {
                 }
               }}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onFocus={handleInputFocus}  // ← ADD THIS
+              onBlur={handleInputBlur}    // ← ADD THIS
               disabled={isLoading}
               autoComplete="off"
               autoCorrect="off"
@@ -1001,6 +1103,32 @@ export default function ChatBot() {
             padding-left: 6px;
           }
         }
+
+        /* Mobile keyboard handling */
+          @media (max-width: 768px) {
+            .keyboard-active {
+              transform: translateY(-50px) !important;
+              transition: transform 0.3s ease-out !important;
+            }
+            
+            /* Prevent viewport jumping */
+            .chat-container {
+              position: fixed !important;
+            }
+            
+            /* Ensure input stays visible */
+            .input-focused {
+              position: relative;
+              z-index: 1000;
+            }
+          }
+
+          /* iOS specific adjustments */
+          @supports (-webkit-touch-callout: none) {
+            .mobile-keyboard-adjust {
+              padding-bottom: env(keyboard-inset-height, 0px);
+            }
+          }
       `}</style>
     </div>
   );
