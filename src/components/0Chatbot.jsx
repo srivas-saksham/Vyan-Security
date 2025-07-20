@@ -637,32 +637,57 @@ export default function ChatBot() {
             animation: isClosing ? 'slideOutDown 0.3s ease-out' : 'slideInUp 0.3s ease-out',
             zIndex: isMobile ? 9999 : 'auto',
             ...(isMobile && isKeyboardOpen && keyboardHeight > 0 && {
-              transform: `translateY(-${Math.min(keyboardHeight * 0.6, 160)}px)`,
+              transform: `translateY(-${Math.min(keyboardHeight * 0.4, 120)}px)`,
               transition: 'transform 0.2s ease-out'
             })
           }}
         >
-          {/* Enhanced Resize Handle - Hidden on mobile */}
+          {/* Enhanced Resize Handle with Red Arrow - Hidden on mobile */}
           {!isMobile && (
             <div
               onMouseDown={handleResizeStart}
-              className="absolute top-0 right-0 w-8 h-8 cursor-nwse-resize z-20 flex items-center justify-center group transition-all duration-200 hover:bg-blue-100 dark:hover:bg-blue-200 rounded-bl-lg select-none"
+              className="absolute top-0 right-0 w-10 h-10 cursor-nwse-resize z-20 flex items-center justify-center group transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-100 rounded-bl-lg select-none"
               style={{ 
-                background: isResizing ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                background: isResizing ? 'rgba(239, 68, 68, 0.15)' : 'rgba(239, 68, 68, 0.05)',
               }}
             >
-              {/* Resize grip lines */}
-              <div className="relative w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                <div className="absolute top-1 right-1 w-2 h-0.5 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
-                <div className="absolute top-2 right-0 w-3 h-0.5 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
-                <div className="absolute top-3 right-1 w-2 h-0.5 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
-                <div className="absolute top-0 right-2 w-0.5 h-2 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
-                <div className="absolute top-1 right-3 w-0.5 h-3 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
-                <div className="absolute top-2 right-2 w-0.5 h-2 bg-blue-600 dark:bg-blue-500 transform rotate-45 origin-center" />
+              {/* Red Arrow Icon - Rotated -90deg */}
+              <div className="relative w-5 h-5 opacity-70 group-hover:opacity-100 transition-all duration-200 pointer-events-none group-hover:scale-110">
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-red-500 group-hover:text-red-600 transition-colors duration-200 transform -rotate-90"
+                >
+                  {/* Diagonal Arrow pointing to bottom-right */}
+                  <path 
+                    d="M7 7L17 17M17 17H10M17 17V10" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                  {/* Double arrow for emphasis */}
+                  <path 
+                    d="M4 4L10 10M10 10H6M10 10V6" 
+                    stroke="currentColor" 
+                    strokeWidth="1.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    opacity="0.6"
+                  />
+                </svg>
               </div>
               
-              {/* Hover effect background */}
-              <div className="absolute inset-0 rounded-bl-lg bg-gradient-to-br from-blue-400/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
+              {/* Pulse effect on hover */}
+              <div className="absolute inset-0 rounded-bl-lg bg-gradient-to-br from-red-400/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none animate-pulse" />
+              
+              {/* Tooltip */}
+              <div className="absolute -top-8 -left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+                Drag to resize
+              </div>
             </div>
           )}
 
@@ -687,7 +712,7 @@ export default function ChatBot() {
           </div>
             <button 
               onClick={handleClose}
-              className={`text-white hover:text-gray-200 hover:bg-white/20 rounded-full ${isMobile ? 'w-10 h-10' : 'w-8 h-8'} flex items-center justify-center transition-all duration-200 ${isMobile ? 'text-3xl' : 'text-2xl'} leading-none select-none hover:scale-110 active:scale-95 touch-manipulation`}
+              className={`text-white hover:text-gray-200 hover:bg-white/20 rounded-full ${isMobile ? 'w-12 h-12 mr-2' : 'w-10 h-10 mr-1'} flex items-center justify-center transition-all duration-200 ${isMobile ? 'text-4xl' : 'text-3xl'} leading-none select-none hover:scale-110 active:scale-95 touch-manipulation`}
             >
               <span className="pointer-events-none">×</span>
             </button>
@@ -1093,6 +1118,7 @@ export default function ChatBot() {
               padding-bottom: env(keyboard-inset-height, 0px);
             }
           }
+            
       `}</style>
     </div>
   );
