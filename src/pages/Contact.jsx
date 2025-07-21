@@ -17,6 +17,10 @@ export default function Contact() {
       document.title = 'Vyan Security - Contact Us';
     }, []);
 
+  useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, ['/contact']);
+
 
   return (
     <section className="text-white min-h-screen px-6 py-12 dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
