@@ -802,6 +802,18 @@ export default function ChatBot() {
               >
                 <div className={quickActionsVisible ? 'animate-fade-in' : ''}>
                   <QuickActions onActionClick={handleQuickAction} />
+                  
+                  {/* Server boot-up notice */}
+                  <div className="mt-4 px-4">
+                    <div className="bg-yellow-50 dark:bg-yellow-100 border border-yellow-200 dark:border-yellow-300 rounded-lg p-3">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
+                        <p className="text-xs text-yellow-700 dark:text-yellow-800 font-medium text-center">
+                          Note: Server may take a minute to boot up on first request.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

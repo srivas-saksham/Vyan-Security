@@ -52,7 +52,7 @@
             </a>
             <button
               onClick={() => navigate('/contact')}
-              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-transparent border border-white rounded-full shadow-lg transition hover:bg-white hover:text-[#0A0F24] hover:shadow-xl dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
+              className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-transparent border border-white rounded-full shadow-lg transition hover:bg-white hover:text-[#0A0F24] hover:shadow-xl dark:bg-[#ccd3ff] dark:text-[#000a47] dark:hover:bg-transparent dark:hover:text-[#000a47] dark:hover:shadow-xl transition-colors transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
             >
               <PhoneCall className="mr-2 w-5 h-5 dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors" />
               Request a Callback
