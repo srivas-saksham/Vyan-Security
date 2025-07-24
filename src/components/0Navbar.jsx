@@ -39,7 +39,8 @@ export default function Navbar() {
   }, [pathname, activeLabel]);
 
   return (
-    <nav className="sticky top-0 z-50 w-full py-4 backdrop-blur-sm shadow-sm dark:bg-[#dce1ff] dark:text-black">
+    <nav className="sticky top-0 z-50 w-full py-4 backdrop-blur-sm shadow-sm dark:bg-[#dce1ff] dark:text-black"
+      style={{userSelect: 'none'}}>
       {/* Top Bar Layout: Logo | Nav Links | Controls */}
       <div className="w-full px-4 sm:px-6 md:px-8 flex items-center">
         {/* Left: Logo */}

@@ -3,7 +3,7 @@ import React from "react";
 import SpotlightCard from "../ReactBits/SpotlightCard.jsx";
 import { motion } from "framer-motion";
 import { useTheme } from "../ThemeContext.jsx";
-import { Building2, Home, Landmark } from "lucide-react";
+import { Building2, BrushCleaning, Landmark } from "lucide-react";
 
 const services = [
   {
@@ -13,10 +13,10 @@ const services = [
     icon: Building2,
   },
   {
-    title: "Residential & Society Security",
-    description:
-      "Round-the-clock guarding, patrolling, visitor screening, emergency response, and access control for apartments, gated communities, and residential societies.",
-    icon: Home,
+    title: "Professional Housekeeping Services",
+    description: 
+      "Male housekeepers for corporates and institutions, professional cleaning and maintenance staff, long-term contract solutions with reliable and trained personnel.",
+    icon: BrushCleaning,
   },
   {
     title: "Institutional Security",
