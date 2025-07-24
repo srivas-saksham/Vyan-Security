@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Vyan-Security/static/css/main.c6e674ef.css",
-    "main.js": "/Vyan-Security/static/js/main.a4b1e6d1.js",
+    "main.js": "/Vyan-Security/static/js/main.dc640a09.js",
     "static/media/brochure.pdf": "/Vyan-Security/static/media/brochure.dc7bd6e562120fbe5737.pdf",
     "static/media/banner-img-1.jpg": "/Vyan-Security/static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/guard-photoshoot-dark.png": "/Vyan-Security/static/media/guard-photoshoot-dark.22371a92d4f84ff43143.png",
@@ -19,10 +19,10 @@
     "static/media/logoonly-dark.png": "/Vyan-Security/static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "/Vyan-Security/index.html",
     "main.c6e674ef.css.map": "/Vyan-Security/static/css/main.c6e674ef.css.map",
-    "main.a4b1e6d1.js.map": "/Vyan-Security/static/js/main.a4b1e6d1.js.map"
+    "main.dc640a09.js.map": "/Vyan-Security/static/js/main.dc640a09.js.map"
   },
   "entrypoints": [
     "static/css/main.c6e674ef.css",
-    "static/js/main.a4b1e6d1.js"
+    "static/js/main.dc640a09.js"
   ]
 }
