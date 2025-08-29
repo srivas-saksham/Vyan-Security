@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Vyan-Security/static/css/main.c6e674ef.css",
-    "main.js": "/Vyan-Security/static/js/main.dc640a09.js",
+    "main.css": "/Vyan-Security/static/css/main.450d460c.css",
+    "main.js": "/Vyan-Security/static/js/main.2888509a.js",
     "static/media/brochure.pdf": "/Vyan-Security/static/media/brochure.dc7bd6e562120fbe5737.pdf",
     "static/media/banner-img-1.jpg": "/Vyan-Security/static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/guard-photoshoot-dark.png": "/Vyan-Security/static/media/guard-photoshoot-dark.22371a92d4f84ff43143.png",
@@ -11,6 +11,7 @@
     "static/media/shield-image.png": "/Vyan-Security/static/media/shield-image.d454bc786eb15eadb2fe.png",
     "static/media/guardDrool.png": "/Vyan-Security/static/media/guardDrool.5c8666c545483a0630aa.png",
     "static/media/faqImg.png": "/Vyan-Security/static/media/faqImg.3b69acdc285c8b6a575d.png",
+    "static/media/world-map-trans.png": "/Vyan-Security/static/media/world-map-trans.51384a652cdf4e7406dc.png",
     "static/media/bot-img.png": "/Vyan-Security/static/media/bot-img.d11eebf4a9bfd8594e28.png",
     "static/media/banner-img-3.jpg": "/Vyan-Security/static/media/banner-img-3.f07c29122370dc725cae.jpg",
     "static/media/banner-img-2.jpg": "/Vyan-Security/static/media/banner-img-2.ee9a3b5ea88154c0d779.jpg",
@@ -18,11 +19,11 @@
     "static/media/logoonly.png": "/Vyan-Security/static/media/logoonly.c1a0f85d21d7026c0754.png",
     "static/media/logoonly-dark.png": "/Vyan-Security/static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "/Vyan-Security/index.html",
-    "main.c6e674ef.css.map": "/Vyan-Security/static/css/main.c6e674ef.css.map",
-    "main.dc640a09.js.map": "/Vyan-Security/static/js/main.dc640a09.js.map"
+    "main.450d460c.css.map": "/Vyan-Security/static/css/main.450d460c.css.map",
+    "main.2888509a.js.map": "/Vyan-Security/static/js/main.2888509a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c6e674ef.css",
-    "static/js/main.dc640a09.js"
+    "static/css/main.450d460c.css",
+    "static/js/main.2888509a.js"
   ]
 }
