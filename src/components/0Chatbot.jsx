@@ -573,12 +573,14 @@ export default function ChatBot() {
     const baseClasses = 'fixed z-50 transition-all duration-300 ease-out';
     
     if (isMobile) {
+      // Position above the dock navbar (add bottom margin for dock)
       if (orientation === 'portrait') {
-        return `${baseClasses} left-4 right-4 ${isKeyboardOpen ? 'bottom-2' : 'bottom-4'}`;
+        return `${baseClasses} left-4 right-4 ${isKeyboardOpen ? 'bottom-24' : 'bottom-28'}`;
       } else {
-        return `${baseClasses} left-4 ${isKeyboardOpen ? 'bottom-2' : 'bottom-4'}`;
+        return `${baseClasses} left-4 ${isKeyboardOpen ? 'bottom-24' : 'bottom-28'}`;
       }
     }
+    // Desktop positioning remains the same
     return `${baseClasses} bottom-4 left-4`;
   };
 

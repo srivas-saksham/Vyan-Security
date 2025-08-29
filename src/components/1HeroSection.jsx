@@ -10,6 +10,7 @@ import SplitText from "../ReactBits/SplitText.jsx";
 import ShinyText from "../ReactBits/ShinyText.jsx";
 import CardSwap, { Card } from "../ReactBits/CardSwap.jsx";
 import shieldImg from "../assets/shield-image.png";
+import worldMapImg from "../assets/world-map-trans.png";
 
 export default function HeroSection() {
   return (
@@ -17,14 +18,27 @@ export default function HeroSection() {
       className="relative overflow-hidden text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
       style={{ userSelect: "none" }}
     >
-      {/* Shield Background on Small Screens */}
-      <div className="block lg:hidden absolute inset-0 z-0 opacity-90">
+      {/* World Map Background */}
+      <div className="absolute inset-0 z-0 opacity-10 dark:opacity-20">
+        <img
+          src={worldMapImg}
+          alt="World Map Background"
+          className="w-full h-full object-cover object-center"
+          style={{ 
+            filter: "invert(1) brightness(0.7) contrast(1.2)",
+            mixBlendMode: "multiply"
+          }}
+        />
+      </div>
+
+      {/* Shield Background on Small Screens
+      <div className="block lg:hidden absolute inset-0 z-5 opacity-90">
         <img
           src={shieldImg}
           alt="Shield"
           className="w-4/5 max-w-md mx-auto mt-10 opacity-20"
         />
-      </div>
+      </div> */}
 
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:px-24">
         {/* Text Content */}
@@ -85,7 +99,7 @@ export default function HeroSection() {
             height: "600px",
             position: "relative",
             transform: "translateX(-80px) translateY(-150px)",
-            zIndex: "-1"
+            zIndex: "15"
           }}
         >
           <CardSwap cardDistance={60} verticalDistance={70} delay={5000} pauseOnHover={false}>
