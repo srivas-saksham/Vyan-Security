@@ -24,7 +24,7 @@ export default function HeroSection() {
           src={worldMapImg}
           alt="World Map Background"
           className="w-full h-full object-cover object-center"
-          style={{ 
+          style={{
             filter: "invert(1) brightness(0.7) contrast(1.2)",
             mixBlendMode: "multiply"
           }}
@@ -42,11 +42,11 @@ export default function HeroSection() {
 
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-8 py-16 lg:px-24">
         {/* Text Content */}
-        <div className="max-w-xl">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight relative z-10">
+        <div className="max-w-xl text-center lg:text-left w-full lg:w-auto">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-5xl font-bold mb-6 lg:mb-4 leading-tight lg:leading-tight relative z-10">
             <SplitText
               text="Protect what"
-              className="font-playfair font-semibold text-center text-3xl sm:text-5xl lg:text-7xl"
+              className="font-playfair font-bold text-5xl sm:text-6xl md:text-7xl lg:text-7xl block"
               delay={50}
               duration={0.6}
               ease="power3.out"
@@ -57,10 +57,9 @@ export default function HeroSection() {
               rootMargin="-100px"
               textAlign="center"
             />
-            <br />
             <SplitText
               text="Matters the Most!"
-              className="font-playfair font-semibold text-center text-2xl sm:text-4xl lg:text-6xl"
+              className="font-playfair font-bold text-4xl sm:text-5xl md:text-6xl lg:text-6xl block mt-2 lg:mt-1"
               delay={50}
               duration={0.6}
               ease="power3.out"
@@ -73,23 +72,27 @@ export default function HeroSection() {
             />
           </h2>
 
-          <ShinyText
-            text="With Trusted Security Personnel"
-            disabled={false}
-            speed={2.1}
-            className="shiny-text text-base sm:text-s md:text-l lg:text-xl xl:text-2xl mb-4 sm:mb-5 md:mb-6 text-gray-300 dark:text-gray-700"
-          />
+          <div className="mb-8 lg:mb-6">
+            <ShinyText
+              text="With Trusted Security Personnel"
+              disabled={false}
+              speed={2.1}
+              className="shiny-text text-xl sm:text-2xl md:text-2xl lg:text-xl xl:text-2xl text-gray-300 dark:text-gray-700"
+            />
+          </div>
 
-          <p className="text-gray-400 dark:text-gray-600 mb-8">
+          <p className="text-lg sm:text-xl md:text-xl lg:text-base text-gray-400 dark:text-gray-600 mb-10 lg:mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
             Vyan Security provides licensed, trained security guards on a contract basis for corporate offices and residential properties across Delhi NCR.
           </p>
 
-          <Link
-            to="/contact"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition dark:bg-blue-500 dark:hover:bg-blue-600"
-          >
-            Book a Contract
-          </Link>
+          <div className="flex justify-center lg:justify-start">
+            <Link
+              to="/contact"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 lg:px-6 lg:py-3 rounded-full font-semibold text-lg lg:text-base transition dark:bg-blue-500 dark:hover:bg-blue-600 shadow-lg transform hover:scale-105"
+            >
+              Book a Contract
+            </Link>
+          </div>
         </div>
 
         {/* CardSwap on large screens */}

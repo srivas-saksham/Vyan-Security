@@ -132,7 +132,7 @@ export default function Navbar() {
       {/* Mobile Bottom Dock Navigation */}
       <div className="xs960:hidden fixed bottom-0 left-0 right-0 z-50 pb-safe">
         <div className="mx-4 mb-4">
-          <div className="bg-white/90 dark:bg-[#dce1ff]/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-300/50">
+          <div className="bg-white/90 dark:bg-[#090909]/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-300/50">
             <div className="px-3 py-3">
               <div className="flex items-center justify-around">
                 {tabs.map(({ label, path, icon: IconComponent }) => {
@@ -141,7 +141,7 @@ export default function Navbar() {
                     <Link
                       key={label}
                       to={path}
-                      className="flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-200 hover:bg-gray-100/50 dark:hover:bg-gray-200/50 min-w-0"
+                      className="flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-200 min-w-0"
                     >
                       <div
                         className={`p-2.5 rounded-lg transition-all duration-200 ${
@@ -162,8 +162,8 @@ export default function Navbar() {
                       <span
                         className={`text-xs font-medium leading-none ${
                           isActive
-                            ? "text-blue-600 dark:text-blue-700"
-                            : "text-gray-500 dark:text-gray-600"
+                            ? "text-blue-600 dark:text-gray-200"
+                            : "text-gray-500 dark:text-gray-500"
                         }`}
                       >
                         {label === "About Us" ? "About" : label}
@@ -178,7 +178,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Bottom Padding to prevent content overlap */}
-      <div className="xs960:hidden h-24" />
+      {/* <div className="xs960:hidden h-24" /> */}
     </>
   );
 }

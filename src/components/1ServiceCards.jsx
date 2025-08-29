@@ -1,9 +1,9 @@
 // File: components/ServicesCard.jsx
-import React from "react";
+import React, { useState } from "react";
 import SpotlightCard from "../ReactBits/SpotlightCard.jsx";
 import { motion } from "framer-motion";
 import { useTheme } from "../ThemeContext.jsx";
-import { Building2, BrushCleaning, Landmark } from "lucide-react";
+import { Building2, BrushCleaning, Landmark, ChevronDown, ChevronUp } from "lucide-react";
 
 const services = [
   {
@@ -28,11 +28,93 @@ const services = [
 
 export default function ServicesCard() {
   const { theme } = useTheme();
+  const [expandedCard, setExpandedCard] = useState(null);
+
+  const toggleCard = (index) => {
+    setExpandedCard(expandedCard === index ? null : index);
+  };
 
   return (
-    <section className="px-8 py-20 lg:px-24 text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors" style={{ userSelect: 'none' }}>
-      <h2 className="font-playfair text-4xl font-bold text-center mb-12 animate-fadeIn">Our Core Services</h2>
-      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="relative px-4 sm:px-6 lg:px-24 py-12 sm:py-16 lg:py-20 text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors overflow-hidden" style={{ userSelect: 'none' }}>
+      {/* Dotted Grid Background */}
+      <div 
+        className="absolute inset-0 opacity-20 dark:opacity-30"
+        style={{
+          backgroundImage: `radial-gradient(circle, ${theme === "light" ? "white" : "#000a47"} 1px, transparent 1px)`,
+          backgroundSize: "30px 30px",
+          backgroundPosition: "0 0"
+        }}
+      ></div>
+      
+      {/* Content with relative positioning */}
+      <div className="relative z-10">
+      <h2 className="font-playfair text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 lg:mb-12 animate-fadeIn">Our Core Services</h2>
+      
+      {/* Mobile View - Compact Cards with Dropdowns */}
+      <div className="block lg:hidden space-y-3">
+        {services.map(({ title, description, icon: Icon }, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true, amount: 0.8 }}
+            className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg border border-gray-800 dark:border-gray-300 overflow-hidden"
+          >
+            {/* Card Header - Always Visible */}
+            <div 
+              className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+              onClick={() => toggleCard(index)}
+            >
+              <div className="flex items-center space-x-3">
+                <Icon className={`${theme === "light" ? "text-white" : "text-[#000a47]"} flex-shrink-0`} size={20} />
+                <h3 className="text-sm font-semibold dark:text-[#000a47] transition-colors leading-tight">{title}</h3>
+              </div>
+              <div className={`${theme === "light" ? "text-white" : "text-[#000a47]"} transition-transform duration-200 ${expandedCard === index ? 'rotate-180' : ''}`}>
+                <ChevronDown size={16} />
+              </div>
+            </div>
+            
+            {/* Card Content - Expandable */}
+            <motion.div
+              initial={false}
+              animate={{
+                height: expandedCard === index ? "auto" : 0,
+                opacity: expandedCard === index ? 1 : 0
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="px-4 pb-4">
+                <div className="pt-2 border-t border-gray-700 dark:border-gray-400">
+                  <p className="text-gray-400 dark:text-[#000a47] text-xs leading-relaxed">{description}</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ))}
+        
+        {/* Mobile Stats/Info Cards */}
+        <div className="grid grid-cols-2 gap-3 mt-6">
+          <div className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
+            <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">24/7</div>
+            <div className="text-xs text-gray-400 dark:text-[#000a47]">Available</div>
+          </div>
+          <div className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
+            <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">100+</div>
+            <div className="text-xs text-gray-400 dark:text-[#000a47]">Clients</div>
+          </div>
+        </div>
+        
+        {/* Mobile Quick Contact */}
+        <div className="mt-4 bg-blue-600 dark:bg-blue-500 rounded-lg p-4 text-center">
+          <div className="text-white text-sm font-semibold mb-1">Need Custom Security?</div>
+          <div className="text-blue-100 text-xs">Get personalized solutions for your needs</div>
+        </div>
+      </div>
+
+      {/* Desktop View - Original SpotlightCards */}
+      <div className="hidden lg:grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {services.map(({ title, description, icon: Icon }, index) => (
           <motion.div
             key={index}
@@ -53,6 +135,7 @@ export default function ServicesCard() {
             </SpotlightCard>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   );

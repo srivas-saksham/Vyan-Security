@@ -9,8 +9,12 @@ import {
   Shield,
   CheckCircle2,
   Star,
-  Building2
+  Building2,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
+
+import { useTheme } from "../ThemeContext.jsx";
 
 // Custom CountUp component
 const CountUp = ({ from, to, duration, onEnd, suffix = "" }) => {
@@ -84,9 +88,43 @@ const ProfessionalCard = ({ children, className = "", delay = 0 }) => {
   );
 };
 
-// Enhanced feature item with professional styling
-const FeatureItem = ({ icon, title, description, index }) => {
+// Enhanced feature item with professional styling and mobile dropdown
+const FeatureItem = ({ icon, title, description, index, isMobile = false }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  if (isMobile) {
+    return (
+      <div className="border border-slate-600 rounded-lg mb-2 overflow-hidden dark:border-slate-300">
+        <button
+          className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-700/30 transition-colors dark:hover:bg-slate-100"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-700 to-slate-600 flex items-center justify-center flex-shrink-0 dark:from-blue-50 dark:to-blue-100">
+              <div className="text-blue-400 dark:text-blue-600 scale-75">
+                {icon}
+              </div>
+            </div>
+            <h4 className="font-medium text-slate-200 text-sm truncate dark:text-slate-800">
+              {title}
+            </h4>
+          </div>
+          <div className="ml-2 text-slate-400 flex-shrink-0 dark:text-slate-600">
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </div>
+        </button>
+        
+        {isExpanded && (
+          <div className="px-3 pb-3 pt-1 bg-slate-700/20 dark:bg-slate-50">
+            <p className="text-xs text-slate-400 leading-relaxed pl-11 dark:text-slate-600">
+              {description}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
   
   return (
     <div 
@@ -218,7 +256,19 @@ const TrustBadge = ({ text, delay = 0 }) => {
 };
 
 export default function VyanSecurityComponent() {
+  const { theme } = useTheme();
   const [activeFeature, setActiveFeature] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const features = [
     {
@@ -285,58 +335,69 @@ export default function VyanSecurityComponent() {
   ];
 
   const trustBadges = [
-  "ISO Certified Guards",
+    "ISO Certified Guards",
     "Licensed & Insured",
     "Background Verified",
     "Professional Training"
   ];
 
   return (
-    <section className="w-full min-h-screen py-20 px-6 lg:px-12 dark:from-slate-50 dark:to-slate-100">
-      
+    <section className="w-full min-h-screen py-12 md:py-20 px-4 md:px-6 lg:px-12 dark:from-slate-50 dark:to-slate-100">
+
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto mb-16 text-center">
-        <div className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-slate-800 rounded-full shadow-lg dark:bg-[#dce1ff]">
-          <Shield className="w-6 h-6 text-blue-400 dark:text-blue-600" />
-          <span className="font-semibold text-slate-200 dark:text-slate-800"
+      <div className="max-w-7xl mx-auto mb-8 md:mb-16 text-center">
+        <div className="inline-flex items-center gap-2 md:gap-3 mb-4 md:mb-6 px-3 md:px-6 py-2 md:py-3 bg-slate-800 rounded-full shadow-lg dark:bg-[#dce1ff]">
+          <Shield className="w-4 md:w-6 h-4 md:h-6 text-blue-400 dark:text-blue-600" />
+          <span className="font-medium md:font-semibold text-xs md:text-base text-slate-200 dark:text-slate-800"
             style={{userSelect: 'none'}}>Professional Security Services</span>
         </div>
         
-        <h1 className="text-4xl lg:text-5xl font-bold text-slate-200 mb-4 dark:text-slate-800"
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-slate-200 mb-3 md:mb-4 dark:text-slate-800"
             style={{userSelect: 'none'}}>
           Why Choose <span className="text-blue-400 dark:text-blue-600">Vyan Security</span>?
         </h1>
         
-        <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed dark:text-slate-600">
+        <p className="text-sm md:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed dark:text-slate-600 px-2 md:px-0">
           Trusted security partner providing professional guard services with a commitment to excellence, 
           reliability, and client satisfaction across India.
         </p>
 
         {/* Trust badges */}
-        <div className="flex flex-wrap justify-center gap-3 mt-8"
+        <div className={`flex flex-wrap justify-center gap-2 md:gap-3 mt-4 md:mt-8 ${isMobile ? 'px-2' : ''}`}
             style={{userSelect: 'none'}}>
           {trustBadges.map((badge, index) => (
-            <TrustBadge key={index} text={badge} delay={index * 100} />
+            isMobile ? (
+              <div 
+                key={index}
+                className="flex items-center gap-1 px-2 py-1 bg-green-900/20 rounded-full text-green-400 font-medium shadow-sm dark:bg-green-50 dark:text-green-700 text-xs"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <Star className="w-3 h-3 fill-current" />
+                {badge}
+              </div>
+            ) : (
+              <TrustBadge key={index} text={badge} delay={index * 100} />
+            )
           ))}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-6 md:gap-12 items-start">
         
         {/* Left - Features */}
         <ProfessionalCard delay={200}>
-          <div className="p-8">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-                <ShieldCheck className="w-6 h-6 text-white" />
+          <div className="p-4 md:p-8">
+            <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-8">
+              <div className="w-8 md:w-12 h-8 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                <ShieldCheck className="w-4 md:w-6 h-4 md:h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-200 dark:text-slate-800">Our Commitment</h2>
-                <p className="text-slate-400 text-sm dark:text-slate-600">Professional security you can trust</p>
+                <h2 className="text-lg md:text-2xl font-bold text-slate-200 dark:text-slate-800">Our Commitment</h2>
+                <p className="text-slate-400 text-xs md:text-sm dark:text-slate-600">Professional security you can trust</p>
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className={`${isMobile ? 'space-y-1' : 'space-y-2'}`}>
               {features.map((feature, index) => (
                 <FeatureItem
                   key={index}
@@ -344,19 +405,20 @@ export default function VyanSecurityComponent() {
                   title={feature.title}
                   description={feature.description}
                   index={index}
+                  isMobile={isMobile}
                 />
               ))}
             </div>
 
             {/* Company credentials */}
-            <div className="mt-8 p-6 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 rounded-xl border border-blue-800/30 dark:from-blue-50 dark:to-indigo-50 dark:border-blue-100">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
-                  <Award className="w-5 h-5 text-white" />
+            <div className="mt-4 md:mt-8 p-3 md:p-6 bg-gradient-to-r from-blue-900/20 to-indigo-900/20 rounded-lg md:rounded-xl border border-blue-800/30 dark:from-blue-50 dark:to-indigo-50 dark:border-blue-100">
+              <div className="flex items-start gap-2 md:gap-4">
+                <div className="w-6 md:w-10 h-6 md:h-10 rounded md:rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+                  <Award className="w-3 md:w-5 h-3 md:h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-200 mb-1 dark:text-slate-800">Professional Credentials</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed dark:text-slate-600">
+                  <h4 className="font-semibold text-slate-200 mb-1 text-sm md:text-base dark:text-slate-800">Professional Credentials</h4>
+                  <p className="text-xs md:text-sm text-slate-400 leading-relaxed dark:text-slate-600">
                     All our security personnel undergo rigorous background verification, professional training, 
                     and regular performance evaluations to ensure the highest standards of service.
                   </p>
@@ -368,40 +430,78 @@ export default function VyanSecurityComponent() {
 
         {/* Right - Stats */}
         <ProfessionalCard delay={400}>
-          <div className="p-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-slate-200 mb-2 dark:text-slate-800">Our Track Record</h2>
-              <p className="text-slate-400 dark:text-slate-600">Numbers that speak for our reliability</p>
-              <div className="w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mx-auto mt-4"></div>
+          <div className="p-4 md:p-8">
+            <div className="text-center mb-4 md:mb-8">
+              <h2 className="text-lg md:text-2xl font-bold text-slate-200 mb-1 md:mb-2 dark:text-slate-800">Our Track Record</h2>
+              <p className="text-xs md:text-base text-slate-400 dark:text-slate-600">Numbers that speak for our reliability</p>
+              <div className="w-16 md:w-24 h-0.5 md:h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mx-auto mt-2 md:mt-4"></div>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-2 gap-3 md:gap-8 mb-4 md:mb-8">
               {stats.map((stat, index) => (
-                <StatCard
-                  key={index}
-                  label={stat.label}
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  icon={stat.icon}
-                  delay={stat.delay}
-                />
+                isMobile ? (
+                  <div 
+                    key={index}
+                    className="text-center group hover:scale-105 transition-transform duration-300"
+                  >
+                    {/* Icon background */}
+                    <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-amber-900/20 to-orange-900/20 flex items-center justify-center group-hover:shadow-lg transition-all duration-300 dark:from-amber-50 dark:to-orange-100">
+                      <div className="text-amber-400 dark:text-amber-600 group-hover:scale-110 transition-transform duration-300 scale-75">
+                        {stat.icon}
+                      </div>
+                    </div>
+                    
+                    {/* Stat value */}
+                    <div className="text-2xl font-bold text-slate-200 mb-1 dark:text-slate-800">
+                      <CountUp 
+                        from={0} 
+                        to={stat.value} 
+                        duration={2} 
+                        suffix={stat.suffix}
+                        onEnd={() => {}}
+                      />
+                    </div>
+                    
+                    {/* Label */}
+                    <div className="text-slate-400 font-medium text-xs dark:text-slate-600">
+                      {stat.label}
+                    </div>
+                    
+                    {/* Subtle progress indicator */}
+                    <div className="mt-1 h-0.5 bg-slate-700 rounded-full overflow-hidden dark:bg-slate-100">
+                      <div 
+                        className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-1000 ease-out w-full"
+                        style={{ transitionDelay: `${stat.delay + 500}ms` }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <StatCard
+                    key={index}
+                    label={stat.label}
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    icon={stat.icon}
+                    delay={stat.delay}
+                  />
+                )
               ))}
             </div>
 
             {/* Client testimonial preview */}
-            <div className="bg-gradient-to-r from-green-900/20 to-emerald-900/20 rounded-xl p-6 border border-green-800/30 dark:from-green-50 dark:to-emerald-50 dark:border-green-100">
-              <div className="flex items-start gap-4">
+            <div className="bg-gradient-to-r from-green-900/20 to-emerald-900/20 rounded-lg md:rounded-xl p-3 md:p-6 border border-green-800/30 dark:from-green-50 dark:to-emerald-50 dark:border-green-100">
+              <div className="flex items-start gap-2 md:gap-4">
                 <div className="flex text-amber-400">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
+                    <Star key={i} className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} fill-current`} />
                   ))}
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-slate-300 italic leading-relaxed dark:text-slate-700">
+                  <p className="text-xs md:text-sm text-slate-300 italic leading-relaxed dark:text-slate-700">
                     "Vyan Security has been our trusted partner for over 3 years. Their professional approach 
                     and reliable service gives us complete peace of mind."
                   </p>
-                  <div className="mt-3 text-xs text-slate-400 font-medium dark:text-slate-600">
+                  <div className="mt-2 md:mt-3 text-xs text-slate-400 font-medium dark:text-slate-600">
                     — Corporate Client, New Delhi
                   </div>
                 </div>
@@ -409,9 +509,9 @@ export default function VyanSecurityComponent() {
             </div>
 
             {/* Contact encouragement */}
-            <div className="mt-6 text-center">
-              <div className="inline-flex items-center gap-2 text-sm text-slate-400 dark:text-slate-600">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <div className="mt-3 md:mt-6 text-center">
+              <div className="inline-flex items-center gap-2 text-xs md:text-sm text-slate-400 dark:text-slate-600">
+                <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-green-500 rounded-full animate-pulse"></div>
                 Ready to secure your premises with professional guards
               </div>
             </div>
@@ -420,31 +520,31 @@ export default function VyanSecurityComponent() {
       </div>
 
       {/* Bottom section with additional credibility */}
-      <div className="max-w-7xl mx-auto mt-16">
-        <div className="bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-700 dark:bg-[#dce1ff] dark:border-slate-200">
-          <div className="grid md:grid-cols-3 gap-8 items-center">
+      <div className="max-w-7xl mx-auto mt-8 md:mt-16">
+        <div className="bg-slate-800 rounded-lg md:rounded-2xl shadow-xl p-4 md:p-8 border border-slate-700 dark:bg-[#dce1ff] dark:border-slate-200">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8 items-center">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-900/30 flex items-center justify-center dark:bg-blue-100">
-                <Shield className="w-8 h-8 text-blue-400 dark:text-blue-600" />
+              <div className="w-10 md:w-16 h-10 md:h-16 mx-auto mb-2 md:mb-4 rounded-full bg-blue-900/30 flex items-center justify-center dark:bg-blue-100">
+                <Shield className="w-5 md:w-8 h-5 md:h-8 text-blue-400 dark:text-blue-600" />
               </div>
-              <h4 className="font-semibold text-slate-200 mb-2 dark:text-slate-800">Licensed & Insured</h4>
-              <p className="text-sm text-slate-400 dark:text-slate-600">Fully compliant with all regulatory requirements</p>
+              <h4 className="font-semibold text-slate-200 mb-1 md:mb-2 text-sm md:text-base dark:text-slate-800">Licensed & Insured</h4>
+              <p className="text-xs md:text-sm text-slate-400 dark:text-slate-600">Fully compliant with all regulatory requirements</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-900/30 flex items-center justify-center dark:bg-green-100">
-                <CheckCircle2 className="w-8 h-8 text-green-400 dark:text-green-600" />
+              <div className="w-10 md:w-16 h-10 md:h-16 mx-auto mb-2 md:mb-4 rounded-full bg-green-900/30 flex items-center justify-center dark:bg-green-100">
+                <CheckCircle2 className="w-5 md:w-8 h-5 md:h-8 text-green-400 dark:text-green-600" />
               </div>
-              <h4 className="font-semibold text-slate-200 mb-2 dark:text-slate-800">Quality Assured</h4>
-              <p className="text-sm text-slate-400 dark:text-slate-600">Regular training and performance monitoring</p>
+              <h4 className="font-semibold text-slate-200 mb-1 md:mb-2 text-sm md:text-base dark:text-slate-800">Quality Assured</h4>
+              <p className="text-xs md:text-sm text-slate-400 dark:text-slate-600">Regular training and performance monitoring</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-900/30 flex items-center justify-center dark:bg-amber-100">
-                <Clock className="w-8 h-8 text-amber-400 dark:text-amber-600" />
+              <div className="w-10 md:w-16 h-10 md:h-16 mx-auto mb-2 md:mb-4 rounded-full bg-amber-900/30 flex items-center justify-center dark:bg-amber-100">
+                <Clock className="w-5 md:w-8 h-5 md:h-8 text-amber-400 dark:text-amber-600" />
               </div>
-              <h4 className="font-semibold text-slate-200 mb-2 dark:text-slate-800">Always Available</h4>
-              <p className="text-sm text-slate-400 dark:text-slate-600">24/7 support and emergency response</p>
+              <h4 className="font-semibold text-slate-200 mb-1 md:mb-2 text-sm md:text-base dark:text-slate-800">Always Available</h4>
+              <p className="text-xs md:text-sm text-slate-400 dark:text-slate-600">24/7 support and emergency response</p>
             </div>
           </div>
         </div>
