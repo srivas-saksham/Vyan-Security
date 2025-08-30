@@ -101,7 +101,7 @@ export default function ServicesCard() {
             <div className="text-xs text-gray-400 dark:text-[#000a47]">Available</div>
           </div>
           <div className="bg-[#0A0F24] dark:bg-[#fafbff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
-            <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">100+</div>
+            <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">50+</div>
             <div className="text-xs text-gray-400 dark:text-[#000a47]">Clients</div>
           </div>
         </div>

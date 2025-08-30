@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import faqImg from '../assets/faqImg.png';
+import { useTheme } from '../ThemeContext.jsx';
 
 const faqs = [
   {
@@ -49,6 +50,7 @@ const faqs = [
 
 const FAQs = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const { theme } = useTheme();
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -63,9 +65,19 @@ const FAQs = () => {
   }, ['/faqs']);
 
   return (
-    <div className="min-h-screen text-white dark:bg-[#f2f4ff] dark:text-[#000a47] py-16 px-4 font-poppins"
+    <div className="relative min-h-screen text-white dark:bg-[#f2f4ff] dark:text-[#000a47] py-16 px-4 font-poppins"
           style={{userSelect: 'none'}}>
-      <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
+      {/* Dotted Grid Background */}
+      <div 
+        className="absolute inset-0 opacity-20 dark:opacity-30"
+        style={{
+          backgroundImage: `radial-gradient(circle, ${theme === "light" ? "white" : "#000a47"} 1px, transparent 1px)`,
+          backgroundSize: "30px 30px",
+          backgroundPosition: "0 0"
+        }}
+      ></div>
+
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
         {/* Left Section - FAQs */}
         <div className="w-full lg:w-3/5 text-left">
           <motion.h1
@@ -77,7 +89,7 @@ const FAQs = () => {
             Frequently Asked Questions
           </motion.h1>
           <p className="text-lg text-gray-400 dark:text-[#000a47] mb-10">
-            Still have doubts? Let’s clear them up.
+            Still have doubts? Let's clear them up.
           </p>
           
           {/*Main FAQs*/}

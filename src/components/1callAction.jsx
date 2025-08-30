@@ -20,7 +20,7 @@ export default function CallToAction() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.5 }}
       variants={fadeInUp}
-      className="relative py-20 sm:py-16 md:py-20 px-4 text-white overflow-hidden dark:bg-[#fafbff] dark:text-[#000a47] transition-colors"
+      className="relative py-20 sm:py-16 md:py-20 px-4 text-white overflow-hidden dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors"
     >
       {/* Dotted Grid Background */}
       <div 
@@ -62,9 +62,9 @@ export default function CallToAction() {
           </a>
           <button
             onClick={() => navigate('/contact')}
-            className="inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-lg font-medium text-white bg-transparent border border-white rounded-full shadow-lg transition hover:bg-white hover:text-[#0A0F24] hover:shadow-xl dark:bg-[#fafbff] dark:text-[#000a47] dark:hover:bg-transparent dark:hover:text-[#000a47] dark:hover:shadow-xl transition-colors transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
+            className="inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-lg font-medium text-white bg-transparent border border-white rounded-full shadow-lg transition hover:bg-white hover:text-[#0A0F24] hover:shadow-xl dark:bg-[#f2f4ff] dark:text-[#000a47] dark:hover:bg-transparent dark:hover:text-[#000a47] dark:hover:shadow-xl transition-colors transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
           >
-            <PhoneCall className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-5 sm:h-5 dark:bg-[#fafbff] dark:text-[#000a47] transition-colors" />
+            <PhoneCall className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-5 sm:h-5 dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors" />
             <span className="text-xs sm:text-lg font-semibold">Request a Callback</span>
           </button>
         </div>

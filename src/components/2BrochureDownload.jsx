@@ -274,7 +274,8 @@ export default function BrochureDownload() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-4 text-center text-xs text-slate-400 dark:text-[#030d48]/50"
           >
-            PDF Format • Approx. 2.5 MB • Last updated: {new Date().toLocaleDateString()}
+            PDF Format • Approx. 2.5 MB • Last updated: 30/8/2025
+            {/* {new Date().toLocaleDateString()} */}
           </motion.div>
         </div>
 

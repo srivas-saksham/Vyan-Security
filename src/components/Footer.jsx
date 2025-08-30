@@ -2,7 +2,12 @@ import { Facebook, Instagram, Linkedin, Phone, Mail, ArrowUp } from 'lucide-reac
 import { Link } from "react-router-dom";
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => {
+    window.scrollTo({ 
+      top: 0, 
+      behavior: 'smooth' 
+    });
+  };
 
   return (
     <footer className="bg-[#0A0F24] text-gray-300 py-12 px-4 dark:bg-[#fafbff] dark:text-[#000a47] transition-colors shadow-[0_-2px_18px_-2px_rgba(0,0,0,0.2)]">
@@ -69,10 +74,20 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Back to Top Button */}
+      {/* Back to Top Button - Fixed for Mobile */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 z-10 bg-green-600 text-white p-2 rounded-full shadow-lg hover:bg-green-700 transition"
+        onTouchStart={(e) => {
+          e.preventDefault();
+          scrollToTop();
+        }}
+        className="fixed bottom-6 right-6 z-50 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 touch-manipulation select-none"
+        style={{
+          WebkitTapHighlightColor: 'transparent',
+          WebkitTouchCallout: 'none',
+          WebkitUserSelect: 'none',
+          userSelect: 'none'
+        }}
         aria-label="Back to top"
       >
         <ArrowUp className="w-5 h-5" />
