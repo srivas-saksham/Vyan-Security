@@ -79,7 +79,7 @@ export default function RequestCallback() {
       <div className="relative group">
         <div className="absolute -inset-1 bg-gradient-to-r from-green-400/30 via-emerald-500/30 to-teal-400/30 rounded-2xl blur opacity-60 animate-pulse"></div>
         
-        <div className="relative p-8 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-emerald-500/10 to-green-400/5 border border-emerald-200/20 shadow-2xl dark:bg-[#dce1ff] dark:shadow-[0_0_20px_#7B7A72] transition-colors duration-500">
+        <div className="relative p-8 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-emerald-500/10 to-green-400/5 border border-emerald-200/20 shadow-2xl dark:bg-[#fafbff] dark:shadow-[0_0_20px_#7B7A72] transition-colors duration-500">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-500/20 rounded-full mb-4 animate-bounce">
               <CheckCircle className="w-10 h-10 text-emerald-400" />
@@ -104,7 +104,7 @@ export default function RequestCallback() {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl hover:shadow-green-500/10 transition-all duration-500 dark:bg-[#dce1ff] dark:shadow-[0_0_20px_#7B7A72] dark:border-[#9fb3ff]/30"
+        className="relative p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl hover:shadow-green-500/10 transition-all duration-500 dark:bg-[#fafbff] dark:shadow-[0_0_20px_#7B7A72] dark:border-[#9fb3ff]/30"
       >
         {/* Header Section */}
         <div className="flex items-center justify-between mb-6">
@@ -174,7 +174,7 @@ export default function RequestCallback() {
             
             {/* Name Field */}
             <div className="relative group/field">
-              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#dce1ff] rounded ${
+              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#fafbff] rounded ${
                 focusedField === 'name' || formData.name.length > 0 ? 'text-green-400 dark:text-[#030b47] scale-100 opacity-100' : 'text-gray-500 dark:text-[#030b47]/60 scale-95 opacity-0'
               }`}>
                 Full Name
@@ -211,7 +211,7 @@ export default function RequestCallback() {
 
             {/* Phone Field */}
             <div className="relative group/field">
-              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#dce1ff] rounded ${
+              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#fafbff] rounded ${
                 focusedField === 'phone' || formData.phone.length > 0 ? 'text-green-400 dark:text-[#030b47] scale-100 opacity-100' : 'text-gray-500 dark:text-[#030b47]/60 scale-95 opacity-0'
               }`}>
                 Phone Number
@@ -250,7 +250,7 @@ export default function RequestCallback() {
 
             {/* Time Slot Field */}
             <div className="relative group/field">
-              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#dce1ff] rounded ${
+              <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#fafbff] rounded ${
                 focusedField === 'timeSlot' || formData.timeSlot.length > 0 ? 'text-green-400 dark:text-[#030b47] scale-100 opacity-100' : 'text-gray-500 dark:text-[#030b47]/60 scale-95 opacity-0'
               }`}>
                 Preferred Time

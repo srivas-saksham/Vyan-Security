@@ -112,7 +112,7 @@ export default function BrochureDownload() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative overflow-hidden p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#dce1ff] border border-slate-700/50 dark:border-slate-300/30 text-white dark:text-[#030d48] shadow-2xl hover:shadow-3xl transition-all duration-700 group"
+        className="relative overflow-hidden p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#fafbff] border border-slate-700/50 dark:border-slate-300/30 text-white dark:text-[#030d48] shadow-2xl hover:shadow-3xl transition-all duration-700 group"
       >
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-20 dark:opacity-10">
@@ -298,7 +298,7 @@ export default function BrochureDownload() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="bg-slate-900 dark:bg-[#dce1ff] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-slate-900 dark:bg-[#fafbff] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}

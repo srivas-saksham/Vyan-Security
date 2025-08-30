@@ -5,7 +5,7 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-[#0A0F24] text-gray-300 py-12 px-4 dark:bg-[#dce1ff] dark:text-[#000a47] transition-colors">
+    <footer className="bg-[#0A0F24] text-gray-300 py-12 px-4 dark:bg-[#fafbff] dark:text-[#000a47] transition-colors shadow-[0_-2px_18px_-2px_rgba(0,0,0,0.2)]">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2 sm:px-4">
         
         {/* Logo & Mission */}

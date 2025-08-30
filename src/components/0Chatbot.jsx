@@ -573,14 +573,12 @@ export default function ChatBot() {
     const baseClasses = 'fixed z-50 transition-all duration-300 ease-out';
     
     if (isMobile) {
-      // Position above the dock navbar (add bottom margin for dock)
       if (orientation === 'portrait') {
-        return `${baseClasses} left-4 right-4 ${isKeyboardOpen ? 'bottom-24' : 'bottom-28'}`;
+        return `${baseClasses} left-4 right-4 ${isKeyboardOpen ? 'bottom-2' : 'bottom-4'}`;
       } else {
-        return `${baseClasses} left-4 ${isKeyboardOpen ? 'bottom-24' : 'bottom-28'}`;
+        return `${baseClasses} left-4 ${isKeyboardOpen ? 'bottom-2' : 'bottom-4'}`;
       }
     }
-    // Desktop positioning remains the same
     return `${baseClasses} bottom-4 left-4`;
   };
 
@@ -628,7 +626,7 @@ export default function ChatBot() {
       ) : (
         <div
           ref={containerRef}
-          className={`relative bg-gray-800 dark:bg-[#dce1ff] border border-gray-200 dark:border-[#000a47] rounded-xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 ease-out ${
+          className={`relative bg-gray-800 dark:bg-[#fafbff] border border-gray-200 dark:border-[#000a47] rounded-xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 ease-out ${
             isMobile && orientation === 'portrait' ? 'mx-auto' : ''
           }`}
           style={{ 
@@ -858,7 +856,7 @@ export default function ChatBot() {
           </div>
 
           {/* Input */}
-          <div className={`flex border-t border-gray-300 dark:border-[#000a47] bg-white/80 dark:bg-[#ccd3ff]/80 backdrop-blur-sm ${isMobile ? 'p-1' : ''}`}>
+          <div className={`flex border-t border-gray-300 dark:border-[#000a47] bg-white/80 dark:bg-[#f2f4ff]/80 backdrop-blur-sm ${isMobile ? 'p-1' : ''}`}>
             <input
               ref={inputRef}
               className={`flex-1 ${isMobile ? 'px-4 py-4 text-base' : 'px-4 py-3 text-sm'} border-none outline-none bg-transparent text-black dark:text-[#000a47] font-medium placeholder-gray-500 dark:placeholder-gray-600 focus:placeholder-gray-400 transition-all duration-200 touch-manipulation`}

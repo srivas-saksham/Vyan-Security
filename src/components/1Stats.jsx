@@ -81,7 +81,7 @@ const ProfessionalCard = ({ children, className = "", delay = 0 }) => {
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       } ${className}`}
     >
-      <div className="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 hover:shadow-2xl transition-all duration-300 group dark:bg-[#dce1ff] dark:border-slate-200">
+      <div className="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 hover:shadow-2xl transition-all duration-300 group dark:bg-[#fafbff] dark:border-slate-200">
         {children}
       </div>
     </div>
@@ -342,11 +342,11 @@ export default function VyanSecurityComponent() {
   ];
 
   return (
-    <section className="w-full min-h-screen py-12 md:py-20 px-4 md:px-6 lg:px-12 dark:from-slate-50 dark:to-slate-100">
+    <section className="w-full min-h-screen py-12 md:py-20 px-4 md:px-6 lg:px-12 dark:bg-[#f2f4ff]">
 
       {/* Header Section */}
       <div className="max-w-7xl mx-auto mb-8 md:mb-16 text-center">
-        <div className="inline-flex items-center gap-2 md:gap-3 mb-4 md:mb-6 px-3 md:px-6 py-2 md:py-3 bg-slate-800 rounded-full shadow-lg dark:bg-[#dce1ff]">
+        <div className="inline-flex items-center gap-2 md:gap-3 mb-4 md:mb-6 px-3 md:px-6 py-2 md:py-3 bg-slate-800 rounded-full shadow-lg dark:bg-[#fafbff]">
           <Shield className="w-4 md:w-6 h-4 md:h-6 text-blue-400 dark:text-blue-600" />
           <span className="font-medium md:font-semibold text-xs md:text-base text-slate-200 dark:text-slate-800"
             style={{userSelect: 'none'}}>Professional Security Services</span>
@@ -521,7 +521,7 @@ export default function VyanSecurityComponent() {
 
       {/* Bottom section with additional credibility */}
       <div className="max-w-7xl mx-auto mt-8 md:mt-16">
-        <div className="bg-slate-800 rounded-lg md:rounded-2xl shadow-xl p-4 md:p-8 border border-slate-700 dark:bg-[#dce1ff] dark:border-slate-200">
+        <div className="bg-slate-800 rounded-lg md:rounded-2xl shadow-xl p-4 md:p-8 border border-slate-700 dark:bg-[#fafbff] dark:border-slate-200">
           <div className="grid md:grid-cols-3 gap-4 md:gap-8 items-center">
             <div className="text-center">
               <div className="w-10 md:w-16 h-10 md:h-16 mx-auto mb-2 md:mb-4 rounded-full bg-blue-900/30 flex items-center justify-center dark:bg-blue-100">

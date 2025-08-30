@@ -46,7 +46,7 @@ const values = [
 
 const OurValuesGrid = () => {
   return (
-    <section className="relative py-24 px-6 md:px-20 text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
+    <section className="relative py-24 px-6 md:px-20 text-white dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ const OurValuesGrid = () => {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               viewport={{ once: true, amount: 0.6 }}
               className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg hover:shadow-green-500/10 transition-all
-              dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
+              dark:bg-[#fafbff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
             >
               <div className="flex items-center gap-4 mb-4">
                 {item.icon}

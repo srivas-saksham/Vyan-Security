@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const CallToActionFooter = () => {
   return (
-    <section className=" py-20 px-6 md:px-20 relative overflow-hidden dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
+    <section className=" py-20 px-6 md:px-20 relative overflow-hidden dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 text-white">
         {/* Left: Message + Icon */}
         <motion.div
@@ -33,7 +33,7 @@ const CallToActionFooter = () => {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-lg shadow-lg shadow-green-400/10 flex flex-col space-y-5 justify-center dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
+          className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-lg shadow-lg shadow-green-400/10 flex flex-col space-y-5 justify-center dark:bg-[#fafbff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
         >
           <div className="flex items-center gap-4">
             <PhoneCall className="w-6 h-6 text-green-400" />

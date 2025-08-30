@@ -63,7 +63,7 @@ const FAQs = () => {
   }, ['/faqs']);
 
   return (
-    <div className="min-h-screen text-white dark:bg-[#ccd3ff] dark:text-[#000a47] py-16 px-4 font-poppins"
+    <div className="min-h-screen text-white dark:bg-[#f2f4ff] dark:text-[#000a47] py-16 px-4 font-poppins"
           style={{userSelect: 'none'}}>
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
         {/* Left Section - FAQs */}
@@ -81,7 +81,7 @@ const FAQs = () => {
           </p>
           
           {/*Main FAQs*/}
-          <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 scroll-modern ">
+          <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 scroll-modern">
                 {faqs.map((faq, index) => {
                     const isOpen = openIndex === index;
                     return (

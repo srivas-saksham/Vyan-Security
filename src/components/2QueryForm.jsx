@@ -68,7 +68,7 @@ export default function QueryForm() {
 
   if (isSubmitted) {
     return (
-      <div className="p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#dce1ff] border border-emerald-200/20 shadow-lg dark:shadow-[0_0_20px_#7B7A72] transition-shadow duration-500 dark:text-[#030b47] transition-colors">
+      <div className="p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#fafbff] border border-emerald-200/20 shadow-lg dark:shadow-[0_0_20px_#7B7A72] transition-shadow duration-500 dark:text-[#030b47] transition-colors">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500/20 rounded-full mb-4">
             <CheckCircle className="w-8 h-8 text-emerald-400 dark:text-emerald-600" />
@@ -88,7 +88,7 @@ export default function QueryForm() {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#dce1ff] border border-slate-700/50 dark:border-slate-400/30 shadow-lg dark:shadow-[0_0_20px_#7B7A72] hover:shadow-green-500/10 transition-all duration-500 dark:text-[#030b47] transition-colors"
+        className="relative p-8 rounded-2xl backdrop-blur-xl bg-slate-900/90 dark:bg-[#fafbff] border border-slate-700/50 dark:border-slate-400/30 shadow-lg dark:shadow-[0_0_20px_#7B7A72] hover:shadow-green-500/10 transition-all duration-500 dark:text-[#030b47] transition-colors"
       >
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">
@@ -123,7 +123,7 @@ export default function QueryForm() {
             
             return (
               <div key={field.name} className="relative group/field">
-                <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#dce1ff] rounded ${
+                <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#fafbff] rounded ${
                   isFocused || hasValue ? 'text-green-400 dark:text-green-600 scale-100 opacity-100' : 'text-gray-500 dark:text-[#030b47]/50 scale-95 opacity-0'
                 }`}>
                   {field.label}
@@ -163,7 +163,7 @@ export default function QueryForm() {
 
           {/* Message Field */}
           <div className="relative group/field">
-            <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#dce1ff] rounded ${
+            <label className={`absolute -top-4 left-3 px-2 text-xs font-medium transition-all duration-200 bg-slate-900/90 dark:bg-[#fafbff] rounded ${
               focusedField === 'message' || formData.message.length > 0 ? 'text-green-400 dark:text-green-600 scale-100 opacity-100' : 'text-gray-500 dark:text-[#030b47]/50 scale-95 opacity-0'
             }`}>
               Message

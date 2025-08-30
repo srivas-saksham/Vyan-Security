@@ -35,7 +35,7 @@ export default function ServicesCard() {
   };
 
   return (
-    <section className="relative px-4 sm:px-6 lg:px-24 py-12 sm:py-16 lg:py-20 text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors overflow-hidden" style={{ userSelect: 'none' }}>
+    <section className="relative px-4 sm:px-6 lg:px-24 py-12 sm:py-16 lg:py-20 text-white dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors overflow-hidden" style={{ userSelect: 'none' }}>
       {/* Dotted Grid Background */}
       <div 
         className="absolute inset-0 opacity-20 dark:opacity-30"
@@ -59,7 +59,7 @@ export default function ServicesCard() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.8 }}
-            className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg border border-gray-800 dark:border-gray-300 overflow-hidden"
+            className="bg-[#0A0F24] dark:bg-[#fafbff] rounded-lg border border-gray-800 dark:border-gray-300 overflow-hidden"
           >
             {/* Card Header - Always Visible */}
             <div 
@@ -96,11 +96,11 @@ export default function ServicesCard() {
         
         {/* Mobile Stats/Info Cards */}
         <div className="grid grid-cols-2 gap-3 mt-6">
-          <div className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
+          <div className="bg-[#0A0F24] dark:bg-[#fafbff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
             <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">24/7</div>
             <div className="text-xs text-gray-400 dark:text-[#000a47]">Available</div>
           </div>
-          <div className="bg-[#0A0F24] dark:bg-[#dce1ff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
+          <div className="bg-[#0A0F24] dark:bg-[#fafbff] rounded-lg p-3 text-center border border-gray-800 dark:border-gray-300">
             <div className="text-blue-400 dark:text-blue-600 text-lg font-bold">100+</div>
             <div className="text-xs text-gray-400 dark:text-[#000a47]">Clients</div>
           </div>
@@ -125,7 +125,7 @@ export default function ServicesCard() {
           >
             <SpotlightCard
               spotlightColor={theme === "light" ? "rgba(198, 223, 255, 0.15)" : "rgba(0, 42, 120, 0.2)"}
-              className="custom-spotlight-card text-white min-h-[250px] bg-[#0A0F24] dark:bg-[#dce1ff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
+              className="custom-spotlight-card text-white min-h-[250px] bg-[#0A0F24] dark:bg-[#fafbff] transition-shadow duration-500 shadow-lg dark:shadow-[0_0_20px_#7B7A72]"
             >
               <div className="text-4xl mb-4 transition-colors">
                 <Icon className={theme === "light" ? "text-white" : "text-[#000a47]"} size={36} />

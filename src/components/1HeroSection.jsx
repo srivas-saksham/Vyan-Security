@@ -15,7 +15,7 @@ import worldMapImg from "../assets/world-map-trans.png";
 export default function HeroSection() {
   return (
     <section
-      className="relative overflow-hidden text-white dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
+      className="relative overflow-hidden text-white dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors"
       style={{ userSelect: "none" }}
     >
       {/* World Map Background */}

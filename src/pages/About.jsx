@@ -17,7 +17,7 @@ export default function About() {
       }, ['/about']);
 
   return (
-    <div className="text-white overflow-x-hidden dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors"
+    <div className="text-white overflow-x-hidden dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors"
           style={{userSelect: 'none'}}>
       <FounderCard />
       <OurValuesGrid />

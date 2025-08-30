@@ -103,7 +103,7 @@ const FounderCard = () => {
           >
             <SpotlightCard
               spotlightColor={theme === "light" ? "rgba(198, 223, 255, 0.25)" : "rgba(0, 42, 120, 0.39)"}
-              className="custom-spotlight-card text-white min-h-[500px] bg-white/10 dark:bg-[#dbe1ff] backdrop-blur-lg transition-all duration-500 shadow-2xl dark:shadow-[0_0_30px_#7B7A72] border border-white/20 dark:border-[#010944]/20 hover:shadow-3xl hover:scale-[1.02] rounded-3xl"
+              className="custom-spotlight-card text-white min-h-[500px] bg-white/10 dark:bg-[#fafbff] backdrop-blur-lg transition-all duration-500 shadow-2xl dark:shadow-[0_0_30px_#7B7A72] border border-white/20 dark:border-[#010944]/20 hover:shadow-3xl hover:scale-[1.02] rounded-3xl"
             >
               <div className="p-10 lg:p-12">
                 {/* Quote Icon */}

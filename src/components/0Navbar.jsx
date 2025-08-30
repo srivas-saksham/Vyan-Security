@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="sticky top-0 z-50 w-full py-4 backdrop-blur-sm shadow-sm dark:bg-[#dce1ff] dark:text-black"
+      <nav className="sticky top-0 z-50 w-full py-4 backdrop-blur-sm shadow-sm dark:bg-[#fafbff] dark:text-black"
         style={{userSelect: 'none'}}>
         {/* Top Bar Layout: Logo | Nav Links | Controls */}
         <div className="w-full px-4 sm:px-6 md:px-8 flex items-center">
@@ -129,56 +129,49 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Bottom Dock Navigation */}
-      <div className="xs960:hidden fixed bottom-0 left-0 right-0 z-50 pb-safe">
-        <div className="mx-4 mb-4">
-          <div className="bg-white/90 dark:bg-[#090909]/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-300/50">
-            <div className="px-3 py-3">
-              <div className="flex items-center justify-around">
-                {tabs.map(({ label, path, icon: IconComponent }) => {
-                  const isActive = activeLabel === label;
-                  return (
-                    <Link
-                      key={label}
-                      to={path}
-                      className="flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-200 min-w-0"
-                    >
-                      <div
-                        className={`p-2.5 rounded-lg transition-all duration-200 ${
-                          isActive
-                            ? "bg-blue-500 shadow-lg shadow-blue-500/30"
-                            : "bg-gray-100 dark:bg-gray-200"
-                        }`}
-                      >
-                        <IconComponent
-                          size={18}
-                          className={`${
-                            isActive 
-                              ? "text-white" 
-                              : "text-gray-600 dark:text-gray-700"
-                          }`}
-                        />
-                      </div>
-                      <span
-                        className={`text-xs font-medium leading-none ${
-                          isActive
-                            ? "text-blue-600 dark:text-gray-200"
-                            : "text-gray-500 dark:text-gray-500"
-                        }`}
-                      >
-                        {label === "About Us" ? "About" : label}
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+      {/* Mobile Dock Navigation - Static below navbar */}
+      <div className="xs960:hidden sticky top-[64px] left-0 right-0 z-40">
+        <div className=" dark:bg-[#fafbff] backdrop-blur-sm shadow-lg pt-3 pb-3">
+          <div className="flex items-end justify-around px-2">
+            {tabs.map(({ label, path, icon: IconComponent }) => {
+              const isActive = activeLabel === label;
+              return (
+                <Link
+                  key={label}
+                  to={path}
+                  className="flex flex-col items-center transition-all duration-200 min-w-0"
+                >
+                  <div
+                    className={`p-3 rounded-xl transition-all duration-200 mb-1 ${
+                      isActive
+                        ? "bg-blue-500 shadow-lg shadow-blue-500/30"
+                        : "bg-gray-200 dark:bg-gray-100 hover:bg-gray-300 dark:hover:bg-gray-200"
+                    }`}
+                  >
+                    <IconComponent
+                      size={20}
+                      className={`${
+                        isActive 
+                          ? "text-white" 
+                          : "text-gray-700 dark:text-gray-600"
+                      }`}
+                    />
+                  </div>
+                  <span
+                    className={`text-xs font-medium leading-none ${
+                      isActive
+                        ? "text-blue-400 dark:text-blue-600"
+                        : "text-gray-200 dark:text-gray-500"
+                    }`}
+                  >
+                    {label === "About Us" ? "About" : label}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
-
-      {/* Mobile Bottom Padding to prevent content overlap */}
-      {/* <div className="xs960:hidden h-24" /> */}
     </>
   );
 }

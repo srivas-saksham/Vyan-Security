@@ -23,7 +23,7 @@ export default function Contact() {
 
 
   return (
-    <section className="text-white min-h-screen px-6 py-12 dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
+    <section className="text-white min-h-screen px-6 py-12 dark:bg-[#f2f4ff] dark:text-[#000a47] transition-colors">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

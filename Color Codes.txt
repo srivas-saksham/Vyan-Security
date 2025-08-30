@@ -1,0 +1,11 @@
+Light Theme Purple Tones:
+    #ccd3ff lav purple
+    #dce1ff bright purple
+
+New Light Theme Tones:
+    #fafbff bright white
+    #f2f4ff lav white
+
+Dark Theme Tones:
+    #0A0F24
+    #000a47
