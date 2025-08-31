@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from './ThemeContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,9 +22,9 @@ setFaviconByTheme();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFaviconByTheme);
 
 root.render(
-  <HashRouter>
+  <BrowserRouter>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </HashRouter>
+  </BrowserRouter>
 );
