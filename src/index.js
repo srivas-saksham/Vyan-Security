@@ -22,7 +22,7 @@ setFaviconByTheme();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFaviconByTheme);
 
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <ThemeProvider>
       <App />
     </ThemeProvider>
