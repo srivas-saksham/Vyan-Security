@@ -7,22 +7,20 @@ import { ThemeProvider } from './ThemeContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// ✅ Detect environment and set correct basename
+// ✅ Detect if running on GitHub Pages
 const isGithub = window.location.hostname.includes("github.io");
-const basename = isGithub ? "/Vyan-Security" : "/";
+const basename = isGithub ? "/Vyan-Security" : "";
 
-// ✅ Set favicon based on theme + PUBLIC_URL for GitHub Pages compatibility
+// ✅ Favicon with PUBLIC_URL (works on both GH Pages & Vercel)
 const setFaviconByTheme = () => {
   const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const publicUrl = process.env.PUBLIC_URL || "";
-  const faviconUrl = isDarkMode 
-    ? `${publicUrl}/logoonly.png` 
+  const faviconUrl = isDarkMode
+    ? `${publicUrl}/logoonly.png`
     : `${publicUrl}/logoonly-dark.png`;
 
-  // Remove old favicons
   document.querySelectorAll("link[rel*='icon']").forEach(el => el.remove());
 
-  // Add new favicon
   const link = document.createElement('link');
   link.rel = 'icon';
   link.href = faviconUrl;
