@@ -122,7 +122,7 @@ export default function Navbar() {
                   <span className="hidden sm:inline">Try out our new Theme</span>
                   <span className="sm:hidden">New Theme</span>
                   {/* Large Arrow pointing right */}
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-t-transparent border-b-transparent border-l-gray-800 dark:border-l-white"></div>
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-t-transparent border-b-transparent border-l-white dark:border-l-gray-800"></div>
                 </div>
               )}
             </div>
