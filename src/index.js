@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // ✅ Detect if running on GitHub Pages
 const isGithub = window.location.hostname.includes("github.io");
-const basename = isGithub ? "/Vyan-Security" : "";
+const basename = isGithub ? "/Vyan-Security" : ".";
 
 // ✅ Favicon with PUBLIC_URL (works on both GH Pages & Vercel)
 const setFaviconByTheme = () => {

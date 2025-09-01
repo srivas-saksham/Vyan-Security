@@ -2,7 +2,7 @@
   "name": "vyan-security-homepage",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://srivas-saksham.github.io/Vyan-Security",
+  "homepage": "https://srivas-saksham.github.io/Vyan-Security/",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^2.2.0",
