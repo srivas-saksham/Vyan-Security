@@ -12,6 +12,14 @@ export default function Navbar() {
   const tabRefs = useRef({});
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showThemeTooltip, setShowThemeTooltip] = useState(false);
+
+  // Check localStorage on component mount
+  useEffect(() => {
+    // Check if user has clicked the theme toggle while tooltip was shown before
+    const hasClickedTooltip = localStorage.getItem('hasClickedThemeTooltip') === 'true';
+    setShowThemeTooltip(!hasClickedTooltip);
+  }, []);
 
   const tabs = [
     { label: "Home", path: "/", icon: Home },
@@ -37,6 +45,15 @@ export default function Navbar() {
       underline.style.width = `${offsetWidth}px`;
     }
   }, [pathname, activeLabel]);
+
+  const handleThemeToggle = () => {
+    // Only store in localStorage if tooltip is currently visible
+    if (showThemeTooltip) {
+      localStorage.setItem('hasClickedThemeTooltip', 'true');
+      setShowThemeTooltip(false);
+    }
+    toggleTheme();
+  };
 
   return (
     <>
@@ -90,27 +107,39 @@ export default function Navbar() {
 
           {/* Right: Theme Toggle & WhatsApp */}
           <div className="flex items-center gap-3 shrink-0 ml-auto">
-            {/* Theme Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-300"
-            >
-              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-            </button>
+            {/* Theme Button with Tooltip */}
+            <div className="relative">
+              <button
+                onClick={handleThemeToggle}
+                className="p-2 rounded-full hover:bg-gray-700 dark:hover:bg-gray-300"
+              >
+                {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+              </button>
+              
+              {/* Theme Tooltip */}
+              {showThemeTooltip && (
+                <div className="absolute right-full top-1/2 -translate-y-1/2 mr-2 px-3 py-2 bg-white dark:bg-gray-800 text-black dark:text-white text-xs sm:text-sm rounded-lg shadow-lg whitespace-nowrap z-10 animate-pulse">
+                  <span className="hidden sm:inline">Try out our new Theme</span>
+                  <span className="sm:hidden">New Theme</span>
+                  {/* Large Arrow pointing right */}
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-t-transparent border-b-transparent border-l-gray-800 dark:border-l-white"></div>
+                </div>
+              )}
+            </div>
 
             {/* WhatsApp Full Button ≥500px */}
             <a
-              href="https://wa.me/91XXXXXXXXXX"
+              href="https://wa.me/919810245920"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden xs500:inline-flex items-center bg-[#25D366] text-[#0A0F24] px-4 py-2 rounded-full text-sm font-medium hover:bg-green-400"
+              className="hidden xs500:inline-flex items-center bg-[#25D366] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-400"
             >
               Chat on WhatsApp
             </a>
 
             {/* WhatsApp Icon <500px */}
             <a
-              href="https://wa.me/91XXXXXXXXXX"
+              href="https://wa.me/919810245920"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex xs500:hidden p-2 rounded-full bg-[#25D366] hover:bg-green-400"

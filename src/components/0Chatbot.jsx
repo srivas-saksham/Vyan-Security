@@ -25,6 +25,9 @@ export default function ChatBot() {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [initialViewportHeight, setInitialViewportHeight] = useState(0);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [hasBeenOpened, setHasBeenOpened] = useState(() => {
+    return sessionStorage.getItem('chatHasBeenOpened') === 'true';
+  });
 
   const API_link = "https://vyan-security.onrender.com/chat";
   // const API_link = "http://localhost:3001/chat";
@@ -266,6 +269,12 @@ export default function ChatBot() {
       height: sizes.DEFAULT_HEIGHT
     });
     setIsOpen(true);
+    
+    // Mark as opened and persist in session
+    if (!hasBeenOpened) {
+      setHasBeenOpened(true);
+      sessionStorage.setItem('chatHasBeenOpened', 'true');
+    }
   };
 
   // QUICK ACTIONS
@@ -605,23 +614,27 @@ export default function ChatBot() {
           onClick={handleOpen}
           className={`group relative ${getButtonSize()} rounded-full bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 dark:from-blue-400 dark:to-blue-600 dark:hover:from-blue-500 dark:hover:to-blue-700 flex items-center justify-center shadow-lg transition-all duration-300 ease-out transform hover:scale-110 active:scale-95 select-none touch-manipulation`}
           style={{
-            animation: 'pulse 2s infinite, bounce 3s infinite'
+            animation: hasBeenOpened ? 'none' : 'pulse 2s infinite, bounce 3s infinite'
           }}
         >
           <MessageCircle className={`text-white ${getIconSize()} transition-transform duration-300 group-hover:scale-110 pointer-events-none`} />
           
-          {/* Floating pulse ring */}
-          <div 
-            className="absolute inset-0 rounded-full border-2 border-blue-400 opacity-30"
-            style={{
-              animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite'
-            }}
-          />
+          {/* Floating pulse ring - only show if not opened before */}
+          {!hasBeenOpened && (
+            <div 
+              className="absolute inset-0 rounded-full border-2 border-blue-400 opacity-30"
+              style={{
+                animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+              }}
+            />
+          )}
           
-          {/* Notification dot */}
-          <div className={`absolute -top-1 -right-1 ${isMobile ? 'w-5 h-5' : 'w-4 h-4'} bg-red-500 rounded-full flex items-center justify-center`}>
-            <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-white rounded-full animate-pulse`} />
-          </div>
+          {/* Notification dot - only show if not opened before */}
+          {!hasBeenOpened && (
+            <div className={`absolute -top-1 -right-1 ${isMobile ? 'w-5 h-5' : 'w-4 h-4'} bg-red-500 rounded-full flex items-center justify-center`}>
+              <div className={`${isMobile ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-white rounded-full animate-pulse`} />
+            </div>
+          )}
         </button>
       ) : (
         <div
