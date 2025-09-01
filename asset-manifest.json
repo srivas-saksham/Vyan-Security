@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.2723f861.css",
-    "main.js": "./static/js/main.7ad929f6.js",
+    "main.css": "./static/css/main.c87675ff.css",
+    "main.js": "./static/js/main.f2c3b70d.js",
     "static/media/brochure.pdf": "./static/media/brochure.dc7bd6e562120fbe5737.pdf",
     "static/media/banner-img-1.jpg": "./static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/guard-photoshoot-dark.png": "./static/media/guard-photoshoot-dark.22371a92d4f84ff43143.png",
@@ -19,11 +19,11 @@
     "static/media/logoonly.png": "./static/media/logoonly.c1a0f85d21d7026c0754.png",
     "static/media/logoonly-dark.png": "./static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "./index.html",
-    "main.2723f861.css.map": "./static/css/main.2723f861.css.map",
-    "main.7ad929f6.js.map": "./static/js/main.7ad929f6.js.map"
+    "main.c87675ff.css.map": "./static/css/main.c87675ff.css.map",
+    "main.f2c3b70d.js.map": "./static/js/main.f2c3b70d.js.map"
   },
   "entrypoints": [
-    "static/css/main.2723f861.css",
-    "static/js/main.7ad929f6.js"
+    "static/css/main.c87675ff.css",
+    "static/js/main.f2c3b70d.js"
   ]
 }
