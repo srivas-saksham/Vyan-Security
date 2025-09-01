@@ -5,18 +5,51 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require('dotenv').config();
 
+// Updated CORS configuration to include Vercel domain
 app.use(cors({
   origin: [
     "http://localhost:3000", 
-    "https://srivas-saksham.github.io"
+    "http://localhost:3001", 
+    "https://srivas-saksham.github.io",
+    "https://vyan-security.vercel.app",  // Added Vercel domain
+    "https://vyan-security-git-main-srivas-saksham.vercel.app", // Vercel preview URLs
+    "https://vyan-security-srivas-saksham.vercel.app" // Alternative Vercel URL format
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  optionsSuccessStatus: 200 // For legacy browser support
 }));
-app.use(express.json());
+
+// Add preflight handling
+app.options('*', cors());
+
+app.use(express.json({ limit: '10mb' }));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+
 app.post("/chat", async (req, res) => {
+  // Add request logging for debugging
+  console.log('Chat request received from:', req.get('origin') || req.get('referer'));
+  console.log('Request body:', req.body);
+
   const { message } = req.body;
+
+  // Validate input
+  if (!message || typeof message !== 'string') {
+    return res.status(400).json({ 
+      error: "Message is required and must be a string" 
+    });
+  }
 
   const forbiddenTopics = [
     "cybersecurity", "it security", "hacking", "malware", "firewall", 
@@ -34,6 +67,16 @@ app.post("/chat", async (req, res) => {
   }
 
   try {
+    // Determine the referer based on the request origin
+    const origin = req.get('origin') || req.get('referer') || 'https://vyan-security.vercel.app';
+    let referer = 'https://vyan-security.vercel.app';
+    
+    if (origin.includes('github.io')) {
+      referer = 'https://srivas-saksham.github.io/Vyan-Security';
+    } else if (origin.includes('vercel.app')) {
+      referer = 'https://vyan-security.vercel.app';
+    }
+
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -179,7 +222,6 @@ Instead of always saying "**Vyan Security Services:**" you could say:
 
 **Keep responses natural, conversational, and well-formatted simultaneously.**
 `.trim(),
-
           },
           {
             role: "user",
@@ -196,20 +238,52 @@ Instead of always saying "**Vyan Security Services:**" you could say:
         headers: {
           "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://srivas-saksham.github.io/Vyan-Security",
+          "HTTP-Referer": referer,
           "X-Title": "VyanSecurityBot",
         },
+        timeout: 15000, // 15 second timeout
       }
     );
 
-    res.json({ reply: response.data.choices[0].message.content });
+    const reply = response.data.choices[0].message.content;
+    console.log('AI response generated successfully');
+    
+    res.json({ reply });
   } catch (error) {
-    console.error("API error:", error.message);
-    res.status(500).json({ error: "AI server temporarily unavailable. Please try again." });
+    console.error("API error:", {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    });
+    
+    if (error.code === 'ECONNABORTED') {
+      res.status(408).json({ error: "Request timeout. Please try again." });
+    } else if (error.response?.status === 429) {
+      res.status(429).json({ error: "Too many requests. Please wait a moment." });
+    } else if (error.response?.status >= 500) {
+      res.status(502).json({ error: "AI service temporarily unavailable." });
+    } else {
+      res.status(500).json({ error: "AI server temporarily unavailable. Please try again." });
+    }
   }
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Endpoint not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`🛡️  Vyan Security API running at http://localhost:${PORT}`);
+  console.log(`🌐 CORS enabled for:`, [
+    "http://localhost:3000", 
+    "https://srivas-saksham.github.io",
+    "https://vyan-security.vercel.app"
+  ]);
 });
