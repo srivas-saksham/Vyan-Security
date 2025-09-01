@@ -9,7 +9,7 @@ app.use(cors({
   origin: [
     "http://localhost:3000", 
     "https://srivas-saksham.github.io",
-    "https://vyan-security.vercel.app/"
+    "https://vyan-security.vercel.app"
   ],
   credentials: true
 }));
