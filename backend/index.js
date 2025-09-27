@@ -217,5 +217,5 @@ Instead of always saying "**Vyan Security Services:**" you could say:
 });
 
 app.listen(PORT, () => {
-  console.log(`🛡️  Vyan Security API running at http://localhost:${PORT}`);
+  console.log(`🛡️  Vyan Security API running.`);
 });
