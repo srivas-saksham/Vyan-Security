@@ -3,6 +3,7 @@ import React from "react";
 // Components
 import Navbar from "../components/0Navbar.jsx";
 import HeroSection from "../components/1HeroSection.jsx";
+import InstantQuote from "../components/1InstantQuote.jsx";
 import ServiceCards from "../components/1ServiceCards.jsx";
 import Stats from "../components/1Stats.jsx"
 import CallToAction from "../components/1callAction.jsx";
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <div className="dark:bg-[#ccd3ff] dark:text-[#000a47] transition-colors">
       <HeroSection />
+      <InstantQuote/>
       <ServiceCards />
       <Stats />
       <CallToAction />
