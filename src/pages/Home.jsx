@@ -5,6 +5,7 @@ import Navbar from "../components/0Navbar.jsx";
 import HeroSection from "../components/1HeroSection.jsx";
 import InstantQuote from "../components/1InstantQuote.jsx";
 import ServiceCards from "../components/1ServiceCards.jsx";
+import PhotoSection from "../components/1PhotoSection.jsx"
 import Stats from "../components/1Stats.jsx"
 import CallToAction from "../components/1callAction.jsx";
 
@@ -25,6 +26,7 @@ export default function Home() {
       <HeroSection />
       <InstantQuote/>
       <ServiceCards />
+      <PhotoSection />
       <Stats />
       <CallToAction />
     </div>
