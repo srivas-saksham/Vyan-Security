@@ -43,6 +43,9 @@ export default function Footer() {
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="break-words">+91 9810245920 | 9311806920</span>
               </li>
+              <li className="items-center gap-2 hidden md:flex">
+                <Mail className="w-4 h-4" /> vyan.secure1432@gmail.com
+              </li>
               <li>
                 <a
                   href="https://wa.me/919810245920"
@@ -75,7 +78,7 @@ export default function Footer() {
         </div>
 
         {/* Email - Full Width Row Below */}
-        <div className="border-b border-gray-700 dark:border-gray-300 pb-4">
+        <div className="border-b border-gray-700 dark:border-gray-300 pb-4 md:hidden">
           <div className="flex items-center justify-center gap-2 text-sm">
             <Mail className="w-4 h-4 flex-shrink-0" />
             <span className="">vyan.secure1432@gmail.com</span>
