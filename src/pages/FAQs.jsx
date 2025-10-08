@@ -65,6 +65,7 @@ const FAQs = () => {
   }, ['/faqs']);
 
   return (
+    <>
     <div className="relative min-h-screen text-white dark:bg-[#f2f4ff] dark:text-[#000a47] py-16 px-4 font-poppins"
           style={{userSelect: 'none'}}>
       {/* Dotted Grid Background */}
@@ -93,7 +94,7 @@ const FAQs = () => {
           </p>
           
           {/*Main FAQs*/}
-          <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 scroll-modern">
+          <div className="mobile-scroll space-y-6 max-h-[400px] overflow-y-scroll md:overflow-y-auto pr-2">
                 {faqs.map((faq, index) => {
                     const isOpen = openIndex === index;
                     return (
@@ -102,9 +103,9 @@ const FAQs = () => {
                         className="bg-white/5 dark:bg-white/10 backdrop-blur-lg border border-white/10 rounded-xl transition-all duration-300 hover:shadow-lg shadow-md overflow-hidden"
                         onClick={() => toggleFAQ(index)}
                     >
-                        <div className="flex items-center justify-between px-6 py-4 cursor-pointer">
-                            <h2 className="text-lg sm:text-xl font-semibold text-left flex items-center gap-3">
-                                <span className="w-6 h-6 rounded-full bg-green-400 dark:bg-blue-600 text-black dark:text-white text-sm flex items-center justify-center font-bold shrink-0">
+                        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 cursor-pointer">
+                            <h2 className="text-sm sm:text-lg md:text-xl font-semibold text-left flex items-center gap-2 sm:gap-3">
+                                <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-green-400 dark:bg-blue-600 text-black dark:text-white text-xs sm:text-sm flex items-center justify-center font-bold shrink-0">
                                     {index + 1}
                                 </span>
                                 {faq.question}
@@ -113,7 +114,7 @@ const FAQs = () => {
                                 animate={{ rotate: isOpen ? 180 : 0 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <ChevronDown className="w-6 h-6 text-green-400 dark:text-blue-600 transition-colors" />
+                                <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 dark:text-blue-600 transition-colors" />
                             </motion.div>
                         </div>
                         <AnimatePresence initial={false}>
@@ -125,7 +126,7 @@ const FAQs = () => {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.4 }}
                             >
-                            <div className="px-6 pb-6 pt-0 text-base text-left text-gray-300 dark:text-[#000a47]">
+                            <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 text-sm sm:text-base text-left text-gray-300 dark:text-[#000a47]">
                                 {faq.answer}
                             </div>
                             </motion.div>
@@ -158,6 +159,7 @@ const FAQs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

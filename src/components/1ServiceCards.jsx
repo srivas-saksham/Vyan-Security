@@ -1,5 +1,6 @@
 // File: components/ServicesCard.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SpotlightCard from "../ReactBits/SpotlightCard.jsx";
 import { motion } from "framer-motion";
 import { useTheme } from "../ThemeContext.jsx";
@@ -109,7 +110,11 @@ export default function ServicesCard() {
         {/* Mobile Quick Contact */}
         <div className="mt-4 bg-blue-600 dark:bg-blue-500 rounded-lg p-4 text-center">
           <div className="text-white text-sm font-semibold mb-1">Need Custom Security?</div>
-          <div className="text-blue-100 text-xs">Get personalized solutions for your needs</div>
+          <span className="text-blue-100 text-xs">Get personalized solutions for your needs
+            <Link to="/contact">
+              <span className="underline font-semibold hover:text-blue-300 dark:hover:text-blue-200 transition ml-1">now</span>
+            </Link>
+          </span>
         </div>
       </div>
 
