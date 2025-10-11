@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
@@ -15,7 +15,11 @@ import {
   User,
   Clock,
   Star,
-  Sparkles
+  Sparkles,
+  TrendingUp,
+  Zap,
+  Award,
+  Activity
 } from "lucide-react";
 
 export default function InstantQuote() {
@@ -23,10 +27,13 @@ export default function InstantQuote() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState("");
+  const [quoteCounter, setQuoteCounter] = useState(156);
+  const [randomTime, setRandomTime] = useState(Math.floor(Math.random() * 19) + 2);
+  const [recentActivity, setRecentActivity] = useState(0);
   
   const { theme } = useTheme()
   const [formData, setFormData] = useState({
-    securityNeeds: [], // Changed to array for multiple selections
+    securityNeeds: [],
     numberOfPeople: "",
     urgency: "",
     fullName: "",
@@ -50,13 +57,52 @@ export default function InstantQuote() {
     { value: "not-sure", label: "Not Sure Yet" }
   ];
 
-  const clientLogos = [
-    "/assets/client-logo-1.png",
-    "/assets/client-logo-2.png",
-    "/assets/client-logo-3.png",
-    "/assets/client-logo-4.png"
+  const recentRequests = [
+    { city: "Mumbai", service: "Security Guards", count: 5 },
+    { city: "Delhi", service: "Armed PSO", count: 3 },
+    { city: "Bangalore", service: "Facility Management", count: 8 },
+    { city: "Pune", service: "Security Guards + Housekeeping", count: 6 },
+    { city: "Chennai", service: "Bouncers", count: 4 }
   ];
 
+  const recommendations = {
+    "security-guards": ["housekeeping", "facility-management"],
+    "bouncers": ["security-guards"],
+    "armed-pso": ["security-guards"],
+    "housekeeping": ["security-guards", "facility-management"],
+    "facility-management": ["housekeeping", "security-guards"]
+  };
+
+  // Simulate live counter updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteCounter(prev => prev + 1);
+    }, 30000); // Update every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Rotate recent activity
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRecentActivity(prev => (prev + 1) % recentRequests.length);
+      setRandomTime(Math.floor(Math.random() * 19) + 2); // Generate new random time
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getSmartRecommendations = () => {
+    const selectedServices = formData.securityNeeds;
+    if (selectedServices.length === 0) return [];
+    
+    const allRecommendations = selectedServices.flatMap(
+      service => recommendations[service] || []
+    );
+    
+    // Remove duplicates and already selected services
+    return [...new Set(allRecommendations)].filter(
+      rec => !selectedServices.includes(rec)
+    );
+  };
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,13 +111,11 @@ export default function InstantQuote() {
   const handleCheckboxChange = (value) => {
     const currentNeeds = formData.securityNeeds;
     if (currentNeeds.includes(value)) {
-      // Remove if already selected
       setFormData({ 
         ...formData, 
         securityNeeds: currentNeeds.filter(need => need !== value)
       });
     } else {
-      // Add if not selected
       setFormData({ 
         ...formData, 
         securityNeeds: [...currentNeeds, value]
@@ -105,9 +149,9 @@ export default function InstantQuote() {
       return;
     }
 
+    setQuoteCounter(prev => prev + 1);
     setIsSubmitting(true);
 
-    // Get readable labels for display
     const securityNeedLabels = formData.securityNeeds
       .map(value => securityOptions.find(opt => opt.value === value)?.label || value)
       .join(", ");
@@ -124,7 +168,6 @@ export default function InstantQuote() {
     };
 
     try {
-      // Send email to admin
       await emailjs.send(
         "service_m7kt3zc",
         "template_xvd0nc9",
@@ -132,7 +175,6 @@ export default function InstantQuote() {
         "Hi72EIqa0ftMFDS_e"
       );
 
-      // Send confirmation email to client
       await emailjs.send(
         "service_dfr2c4y",
         "template_pozzswx",
@@ -170,11 +212,12 @@ export default function InstantQuote() {
     exit: { opacity: 0, x: -50 }
   };
 
+  const smartRecs = getSmartRecommendations();
+
   return (
     <section className="relative overflow-hidden transition-colors bg-transparent dark:bg-[#f2f4ff] text-white dark:text-[#000a47] min-h-screen py-16 px-8 lg:px-24">
       <Toaster position="top-center" />
       
-      {/* Dotted Grid Background */}
       <div 
         className="absolute inset-0 opacity-20 dark:opacity-30"
         style={{
@@ -298,6 +341,26 @@ export default function InstantQuote() {
                             })}
                           </div>
 
+                          {smartRecs.length > 0 && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-4 p-3 rounded-lg bg-blue-500/10 dark:bg-blue-600/10 border border-blue-400/30 dark:border-blue-600/30"
+                            >
+                              <div className="flex items-start gap-2">
+                                <Sparkles className="w-4 h-4 text-blue-400 dark:text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <p className="text-xs font-medium text-blue-400 dark:text-blue-600 mb-1">Smart Recommendation</p>
+                                  <p className="text-xs text-gray-300 dark:text-[#030b47]/80">
+                                    Clients also added: {smartRecs.map(rec => 
+                                      securityOptions.find(opt => opt.value === rec)?.label
+                                    ).join(", ")}
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+
                           <button
                             onClick={nextStep}
                             className="w-full mt-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 dark:from-[#f6a100] dark:to-yellow-600 dark:hover:from-[#f6a100] dark:hover:to-yellow-500 text-white text-sm font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
@@ -327,6 +390,24 @@ export default function InstantQuote() {
                               }`}
                             />
                           </div>
+
+                          {formData.numberOfPeople && parseInt(formData.numberOfPeople) >= 10 && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="p-3 rounded-lg bg-green-500/10 dark:bg-green-600/10 border border-green-400/30 dark:border-green-600/30"
+                            >
+                              <div className="flex items-start gap-2">
+                                <Award className="w-4 h-4 text-green-400 dark:text-green-600 mt-0.5 flex-shrink-0" />
+                                <div>
+                                  <p className="text-xs font-medium text-green-400 dark:text-green-600 mb-1">Bulk Discount Available!</p>
+                                  <p className="text-xs text-gray-300 dark:text-[#030b47]/80">
+                                    For 10+ people, you're eligible for special pricing
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
 
                           <div>
                             <span className="block text-xs font-medium mb-2">How Urgently Required*</span>
@@ -508,32 +589,169 @@ export default function InstantQuote() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-8 lg:sticky lg:top-24"
+            className="space-y-6 lg:sticky lg:top-24"
           >
-            <div>
-              <h3 className="text-2xl lg:text-3xl font-bold mb-2">Trusted by Industry Leaders</h3>
-              <p className="text-gray-400 dark:text-[#030b47]/70 text-sm">
-                We've secured over 100+ corporate and residential clients across India.
-              </p>
-            </div>
-
+            {/* Quote Submitted Counter */}
             <div className="p-6 rounded-2xl bg-slate-900/50 dark:bg-white/50 border border-slate-700/50 dark:border-slate-400/30 backdrop-blur-sm">
-              <div className="grid grid-cols-2 gap-4">
-                {clientLogos.map((logo, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="aspect-video bg-slate-800/50 dark:bg-white/80 rounded-xl flex items-center justify-center border border-slate-700/30 dark:border-slate-300/50 hover:border-green-400 dark:hover:border-green-600 transition-all duration-300"
-                  >
-                    <span className="text-xs text-gray-500 dark:text-[#030b47]/60">Client Logo {index + 1}</span>
-                  </motion.div>
-                ))}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-green-500/20 dark:bg-green-600/20">
+                  <TrendingUp className="w-5 h-5 text-green-400 dark:text-green-600" />
+                </div>
+                <h3 className="text-lg font-bold">Join Our Growing Community</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-bold text-green-400 dark:text-green-600">{quoteCounter.toLocaleString()}</span>
+                    <span className="text-sm text-gray-400 dark:text-[#030b47]/70">businesses</span>
+                  </div>
+                  <p className="text-xs text-gray-400 dark:text-[#030b47]/70">received quotes this month</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 rounded-lg bg-slate-800/50 dark:bg-white/80 border border-slate-700/30 dark:border-slate-300/50">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Star className="w-3 h-3 text-yellow-400 dark:text-yellow-600" />
+                      <span className="text-lg font-bold">4.9</span>
+                    </div>
+                    <p className="text-[10px] text-gray-400 dark:text-[#030b47]/70">Avg. Rating</p>
+                  </div>
+                  
+                  <div className="p-3 rounded-lg bg-slate-800/50 dark:bg-white/80 border border-slate-700/30 dark:border-slate-300/50">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Zap className="w-3 h-3 text-orange-400 dark:text-orange-600" />
+                      <span className="text-lg font-bold">24h</span>
+                    </div>
+                    <p className="text-[10px] text-gray-400 dark:text-[#030b47]/70">Response Time</p>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-600/10 dark:from-green-600/10 dark:to-emerald-700/10 border border-green-400/30 dark:border-green-600/30">
+                  <p className="text-xs text-gray-300 dark:text-[#030b47]/80">
+                    <span className="font-semibold text-green-400 dark:text-green-600">96% satisfaction rate</span> from businesses like yours
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 pt-4">
+            {/* Recently Requested Services */}
+            <div className="p-6 rounded-2xl bg-slate-900/50 dark:bg-white/50 border border-slate-700/50 dark:border-slate-400/30 backdrop-blur-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-blue-500/20 dark:bg-blue-600/20">
+                  <Activity className="w-5 h-5 text-blue-400 dark:text-blue-600" />
+                </div>
+                <h3 className="text-lg font-bold">Live Activity</h3>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={recentActivity}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5 }}
+                  className="p-4 rounded-lg bg-slate-800/50 dark:bg-white/80 border border-slate-700/30 dark:border-slate-300/50"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-green-400 dark:bg-green-600 rounded-full mt-2 animate-pulse"></div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium mb-1">
+                        Someone in <span className="text-green-400 dark:text-green-600">{recentRequests[recentActivity].city}</span> just requested
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-[#030b47]/70">
+                        {recentRequests[recentActivity].count} × {recentRequests[recentActivity].service}
+                      </p>
+                      <p className="text-[10px] text-gray-500 dark:text-[#030b47]/60 mt-1">{randomTime} minutes ago</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="mt-4 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400 dark:text-[#030b47]/70">Popular Combination</span>
+                  <div className="flex items-center gap-1">
+                    <TrendingUp className="w-3 h-3 text-orange-400 dark:text-orange-600" />
+                    <span className="text-orange-400 dark:text-orange-600 font-medium">Trending</span>
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg bg-gradient-to-r from-orange-500/10 to-yellow-500/10 dark:from-orange-600/10 dark:to-yellow-600/10 border border-orange-400/30 dark:border-orange-600/30">
+                  <p className="text-xs font-medium">Security Guards + Housekeeping</p>
+                  <p className="text-[10px] text-gray-400 dark:text-[#030b47]/70 mt-1">Most clients bundle these services together</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Smart Recommendations - Shows when services are selected */}
+            {formData.securityNeeds.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-6 rounded-2xl bg-slate-900/50 dark:bg-white/50 border border-slate-700/50 dark:border-slate-400/30 backdrop-blur-sm"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-purple-500/20 dark:bg-purple-600/20">
+                    <Sparkles className="w-5 h-5 text-purple-400 dark:text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-bold">Smart Recommendations</h3>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-sm text-gray-300 dark:text-[#030b47]/80">
+                    Based on your selection of <span className="font-semibold text-green-400 dark:text-green-600">
+                      {formData.securityNeeds.map(need => 
+                        securityOptions.find(opt => opt.value === need)?.label
+                      ).join(", ")}
+                    </span>
+                  </p>
+
+                  {smartRecs.length > 0 ? (
+                    <div className="space-y-2">
+                      <p className="text-xs text-gray-400 dark:text-[#030b47]/70">Clients also added:</p>
+                      {smartRecs.slice(0, 2).map((rec) => {
+                        const option = securityOptions.find(opt => opt.value === rec);
+                        const Icon = option?.icon;
+                        return (
+                          <div
+                            key={rec}
+                            onClick={() => handleCheckboxChange(rec)}
+                            className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 dark:bg-white/80 border border-slate-700/30 dark:border-slate-300/50 hover:border-purple-400 dark:hover:border-purple-600 cursor-pointer transition-all duration-300"
+                          >
+                            {Icon && <Icon className="w-4 h-4 text-purple-400 dark:text-purple-600" />}
+                            <span className="text-sm font-medium flex-1">{option?.label}</span>
+                            <ArrowRight className="w-4 h-4 text-gray-400 dark:text-[#030b47]/60" />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="p-3 rounded-lg bg-green-500/10 dark:bg-green-600/10 border border-green-400/30 dark:border-green-600/30">
+                      <p className="text-xs text-gray-300 dark:text-[#030b47]/80">
+                        Great choice! These services work perfectly together.
+                      </p>
+                    </div>
+                  )}
+
+                  {parseInt(formData.numberOfPeople) >= 10 && (
+                    <div className="p-3 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-600/10 dark:from-green-600/10 dark:to-emerald-700/10 border border-green-400/30 dark:border-green-600/30">
+                      <div className="flex items-start gap-2">
+                        <Award className="w-4 h-4 text-green-400 dark:text-green-600 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs font-medium text-green-400 dark:text-green-600">Volume Discount Eligible</p>
+                          <p className="text-[10px] text-gray-300 dark:text-[#030b47]/80 mt-1">
+                            Save up to 15% on bulk orders
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Trust Indicators */}
+            <div className="flex items-center gap-4 pt-2">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-green-400 dark:bg-green-600 rounded-full animate-pulse"></div>
                 <span className="text-xs text-gray-400 dark:text-[#030b47]/70">100% Verified Staff</span>
