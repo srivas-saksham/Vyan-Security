@@ -61,7 +61,7 @@ const FounderCard = () => {
                 <div className="space-y-1 text-xs">
                   <div className="flex items-center justify-center gap-1 text-gray-300 dark:text-[#010944]">
                     <ShieldCheck className="w-3 h-3 text-green-400" />
-                    <span className="text-[10px] sm:text-xs">Security Officer</span>
+                    <span className="text-[10px] sm:text-xs">Chief Executive Officer</span>
                   </div>
                   <div className="flex items-center justify-center gap-1 text-gray-400 dark:text-[#010944]">
                     <div className="w-1 h-1 bg-green-400 rounded-full"></div>
@@ -95,7 +95,7 @@ const FounderCard = () => {
 
               <div className="mb-3">
                 <h3 className="text-lg sm:text-xl font-bold font-poppins text-white dark:text-[#010944] mb-1">
-                  Dalip Ram
+                  Capt. Dalip Ram
                 </h3>
                 <p className="text-[10px] sm:text-xs text-green-400 font-medium mb-1">Ex Army Chief</p>
                 
@@ -215,7 +215,7 @@ const FounderCard = () => {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-3xl font-bold font-poppins text-white dark:text-[#010944]">
-                    Dalip Ram
+                    Capt. Dalip Ram
                   </h3>
                   <p className="text-base text-green-400 font-medium mt-1">Ex Army Chief</p>
                 </div>
