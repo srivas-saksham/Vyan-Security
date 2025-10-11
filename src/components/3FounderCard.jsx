@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Quote, ShieldCheck, MapPin, Award } from "lucide-react";
-import founderImg1 from "../assets/founder1.png";
+import founderImg1 from "../assets/founder1_edit.png";
 import founderImg2 from "../assets/founder2.png";
 import SpotlightCard from "../ReactBits/SpotlightCard.jsx";
 import { useTheme } from "../ThemeContext.jsx";
