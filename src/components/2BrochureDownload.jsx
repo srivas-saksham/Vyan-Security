@@ -303,148 +303,139 @@ export default function BrochureDownload() {
       </motion.div>
 
       {/* Preview Modal */}
-      <AnimatePresence>
-        {showPreview && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowPreview(false)}
+      {showPreview && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 pt-24 pb-24"
+          onClick={() => setShowPreview(false)}
+        >
+          <div
+            className="bg-slate-900 dark:bg-[#fafbff] rounded-2xl p-6 max-w-3xl w-full max-h-[70vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-slate-900 dark:bg-[#fafbff] rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-white dark:text-[#030d48] mb-1">
-                    Brochure Preview
-                  </h3>
-                  <p className="text-slate-400 dark:text-[#030d48]/70">
-                    Page {currentPage + 1} of {brochurePages.length}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowPreview(false)}
-                  className="p-2 rounded-full bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-white dark:text-[#030d48] mb-1">
+                  Brochure Preview
+                </h3>
+                <p className="text-slate-400 dark:text-[#030d48]/70">
+                  Page {currentPage + 1} of {brochurePages.length}
+                </p>
               </div>
+              <button
+                onClick={() => setShowPreview(false)}
+                className="p-2 rounded-full bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              {/* Page Content */}
-              <div className="flex items-center justify-center mb-6 bg-slate-800/50 dark:bg-slate-200/50 rounded-xl p-8 relative overflow-hidden">
-                <motion.img
-                  key={currentPage}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  src={brochurePages[currentPage].thumbnail}
-                  alt={brochurePages[currentPage].title}
-                  className="max-w-full max-h-96 object-contain rounded-lg shadow-2xl cursor-zoom-in hover:scale-105 transition-transform duration-300"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const img = e.target;
-                    const rect = img.getBoundingClientRect();
-                    const overlay = document.createElement('div');
-                    overlay.className = 'fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4 cursor-zoom-out';
-                    
-                    const magnifiedImg = document.createElement('img');
-                    magnifiedImg.src = img.src;
-                    magnifiedImg.alt = img.alt;
-                    magnifiedImg.className = 'max-w-[95vw] max-h-[95vh] object-contain rounded-lg shadow-2xl';
+            {/* Page Content */}
+            <div className="flex items-center justify-center mb-6 bg-slate-800/50 dark:bg-slate-200/50 rounded-xl p-6 relative overflow-hidden">
+              <img
+                src={brochurePages[currentPage].thumbnail}
+                alt={brochurePages[currentPage].title}
+                className="max-w-full max-h-64 object-contain rounded-lg shadow-2xl cursor-zoom-in hover:scale-105 transition-transform duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const img = e.target;
+                  const overlay = document.createElement('div');
+                  overlay.className = 'fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4 cursor-zoom-out';
+                  
+                  const magnifiedImg = document.createElement('img');
+                  magnifiedImg.src = img.src;
+                  magnifiedImg.alt = img.alt;
+                  magnifiedImg.className = 'max-w-[95vw] max-h-[95vh] object-contain rounded-lg shadow-2xl';
+                  magnifiedImg.style.transform = 'scale(0.8)';
+                  magnifiedImg.style.transition = 'transform 0.3s ease-out';
+                  
+                  overlay.appendChild(magnifiedImg);
+                  document.body.appendChild(overlay);
+                  
+                  // Animate in
+                  setTimeout(() => {
+                    magnifiedImg.style.transform = 'scale(1)';
+                  }, 10);
+                  
+                  // Close on click
+                  overlay.onclick = () => {
                     magnifiedImg.style.transform = 'scale(0.8)';
-                    magnifiedImg.style.transition = 'transform 0.3s ease-out';
-                    
-                    overlay.appendChild(magnifiedImg);
-                    document.body.appendChild(overlay);
-                    
-                    // Animate in
                     setTimeout(() => {
-                      magnifiedImg.style.transform = 'scale(1)';
-                    }, 10);
-                    
-                    // Close on click
-                    overlay.onclick = () => {
-                      magnifiedImg.style.transform = 'scale(0.8)';
-                      setTimeout(() => {
-                        document.body.removeChild(overlay);
-                      }, 300);
-                    };
-                    
-                    // Close on escape key
-                    const handleKeyDown = (e) => {
-                      if (e.key === 'Escape') {
-                        overlay.click();
-                        document.removeEventListener('keydown', handleKeyDown);
-                      }
-                    };
-                    document.addEventListener('keydown', handleKeyDown);
-                  }}
-                />
+                      document.body.removeChild(overlay);
+                    }, 300);
+                  };
+                  
+                  // Close on escape key
+                  const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                      overlay.click();
+                      document.removeEventListener('keydown', handleKeyDown);
+                    }
+                  };
+                  document.addEventListener('keydown', handleKeyDown);
+                }}
+              />
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between">
+              <button
+                onClick={prevPage}
+                disabled={brochurePages.length <= 1}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Previous
+              </button>
+
+              {/* Page Indicators */}
+              <div className="flex gap-2">
+                {brochurePages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentPage
+                        ? 'bg-blue-500 dark:bg-blue-600 scale-125'
+                        : 'bg-slate-600 dark:bg-slate-400 hover:bg-slate-500 dark:hover:bg-slate-300'
+                    }`}
+                  />
+                ))}
               </div>
 
-              {/* Navigation */}
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={prevPage}
-                  disabled={brochurePages.length <= 1}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  Previous
-                </button>
+              <button
+                onClick={nextPage}
+                disabled={brochurePages.length <= 1}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
 
-                {/* Page Indicators */}
-                <div className="flex gap-2">
-                  {brochurePages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentPage(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentPage
-                          ? 'bg-blue-500 dark:bg-blue-600 scale-125'
-                          : 'bg-slate-600 dark:bg-slate-400 hover:bg-slate-500 dark:hover:bg-slate-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={nextPage}
-                  disabled={brochurePages.length <= 1}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Quick Download from Modal */}
-              <div className="mt-6 pt-4 border-t border-slate-700 dark:border-slate-300">
-                <motion.button
-                  onClick={() => {
-                    setShowPreview(false);
-                    handleDownload();
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-green-600 dark:from-blue-500 dark:to-green-500 hover:from-blue-500 hover:to-green-500 dark:hover:from-blue-400 dark:hover:to-green-400 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  <Download className="w-5 h-5" />
-                  Download Full Brochure
-                </motion.button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {/* Quick Download and Close Buttons */}
+            <div className="mt-6 pt-4 border-t border-slate-700 dark:border-slate-300 flex gap-3">
+              <button
+                onClick={() => setShowPreview(false)}
+                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 dark:bg-slate-200 text-white dark:text-[#030d48] hover:bg-slate-700 dark:hover:bg-slate-300 font-semibold transition-colors"
+              >
+                <X className="w-5 h-5" />
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setShowPreview(false);
+                  handleDownload();
+                }}
+                className="flex-1 flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-green-600 dark:from-blue-500 dark:to-green-500 hover:from-blue-500 hover:to-green-500 dark:hover:from-blue-400 dark:hover:to-green-400 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <Download className="w-5 h-5" />
+                Download Full Brochure
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
