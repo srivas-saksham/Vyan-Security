@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.e7a5aea8.css",
-    "main.js": "./static/js/main.cc1bc9a1.js",
+    "main.css": "./static/css/main.9734fa3c.css",
+    "main.js": "./static/js/main.ed6c2756.js",
     "static/media/brochure.pdf": "./static/media/brochure.dc7bd6e562120fbe5737.pdf",
     "static/media/banner-img-1.jpg": "./static/media/banner-img-1.c0f0e43c8d3198ab9a94.jpg",
     "static/media/photo3.png": "./static/media/photo3.9abd4ecda59236e1de27.png",
@@ -13,6 +13,8 @@
     "static/media/brochure-1.png": "./static/media/brochure-1.693468e2a09e6d4780e7.png",
     "static/media/brochure-2.png": "./static/media/brochure-2.41e336de6a841fde177c.png",
     "static/media/guard-photoshoot.png": "./static/media/guard-photoshoot.c5bb318758222bd19996.png",
+    "static/media/founder2.png": "./static/media/founder2.cdc13f20650dfd9aceae.png",
+    "static/media/founder1.png": "./static/media/founder1.144759c6498cae13b500.png",
     "static/media/shield-image.png": "./static/media/shield-image.d454bc786eb15eadb2fe.png",
     "static/media/guardDrool.png": "./static/media/guardDrool.5c8666c545483a0630aa.png",
     "static/media/faqImg.png": "./static/media/faqImg.3b69acdc285c8b6a575d.png",
@@ -21,15 +23,14 @@
     "static/media/banner-img-3.jpg": "./static/media/banner-img-3.f07c29122370dc725cae.jpg",
     "static/media/banner-img-2.jpg": "./static/media/banner-img-2.ee9a3b5ea88154c0d779.jpg",
     "static/media/photo1.jpeg": "./static/media/photo1.2fa3447c3b2fd39df0bc.jpeg",
-    "static/media/logo.png": "./static/media/logo.e70272a7b2c74433674a.png",
     "static/media/logoonly.png": "./static/media/logoonly.c1a0f85d21d7026c0754.png",
     "static/media/logoonly-dark.png": "./static/media/logoonly-dark.aa76b302c3e969664b16.png",
     "index.html": "./index.html",
-    "main.e7a5aea8.css.map": "./static/css/main.e7a5aea8.css.map",
-    "main.cc1bc9a1.js.map": "./static/js/main.cc1bc9a1.js.map"
+    "main.9734fa3c.css.map": "./static/css/main.9734fa3c.css.map",
+    "main.ed6c2756.js.map": "./static/js/main.ed6c2756.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7a5aea8.css",
-    "static/js/main.cc1bc9a1.js"
+    "static/css/main.9734fa3c.css",
+    "static/js/main.ed6c2756.js"
   ]
 }
