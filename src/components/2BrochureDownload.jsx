@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Download, CheckCircle, AlertCircle, Eye, X, ChevronLeft, ChevronRight, TrendingUp, Users } from "lucide-react";
 import pdfFile from '../assets/brochure.pdf';
-import Bpage1 from "../assets/brochure-img/brochure-1.png";
-import Bpage2 from "../assets/brochure-img/brochure-2.png";
+import Bpage1 from "../assets/brochure-img/brochure-1.jpg";
+import Bpage2 from "../assets/brochure-img/brochure-2.jpg";
+import Bpage3 from "../assets/brochure-img/brochure-3.jpg";
+import Bpage4 from "../assets/brochure-img/brochure-4.jpg";
+import Bpage5 from "../assets/brochure-img/brochure-5.jpg";
 
 
 export default function BrochureDownload() {
@@ -20,13 +23,28 @@ export default function BrochureDownload() {
   const brochurePages = [
     {
       id: 1,
-      title: "Security Services Overview",
+      title: "Title Page",
       thumbnail: Bpage1
     },
     {
       id: 2,
-      title: "Personnel Standards & Training",
+      title: "Security Services Overview",
       thumbnail: Bpage2
+    },
+    {
+      id: 3,
+      title: "Personnel Standards & Training",
+      thumbnail: Bpage3
+    },
+    {
+      id: 4,
+      title: "Personnel Standards & Training",
+      thumbnail: Bpage4
+    },
+    {
+      id: 5,
+      title: "Vyan Map",
+      thumbnail: Bpage5
     }
   ];
 
@@ -189,7 +207,7 @@ export default function BrochureDownload() {
                 />
                 <div className="flex-1">
                   <h3 className="font-semibold text-slate-200 dark:text-[#030d48] mb-1">
-                    3-Page Professional Brochure
+                    Vyan Security Brochure
                   </h3>
                   <p className="text-sm text-slate-400 dark:text-[#030d48]/70 mb-2">
                     Click to preview all pages before downloading
