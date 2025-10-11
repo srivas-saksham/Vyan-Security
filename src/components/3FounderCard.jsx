@@ -3,7 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Quote, ShieldCheck, MapPin, Award } from "lucide-react";
-import founderImg from "../assets/logo.png";
+import founderImg1 from "../assets/founder1.png";
+import founderImg2 from "../assets/founder2.png";
 import SpotlightCard from "../ReactBits/SpotlightCard.jsx";
 import { useTheme } from "../ThemeContext.jsx";
 
@@ -39,16 +40,16 @@ const FounderCard = () => {
               className="text-center"
             >
               <div className="relative mb-3 inline-block">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-green-400/30 shadow-lg">
+                <div className="w-28 h-28 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-green-400/30 shadow-lg">
                   <img
-                    src={founderImg}
+                    src={founderImg1}
                     alt="Amardeep Founder"
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
                 
                 <div className="absolute -bottom-1 -right-1 bg-green-400 text-black px-2 py-0.5 rounded-full text-[10px] font-semibold">
-                  CEO
+                  Founder & CEO
                 </div>
               </div>
 
@@ -79,9 +80,9 @@ const FounderCard = () => {
               className="text-center"
             >
               <div className="relative mb-3 inline-block">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-blue-400/30 shadow-lg">
+                <div className="w-28 h-28 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-blue-400/30 shadow-lg">
                   <img
-                    src={founderImg}
+                    src={founderImg2}
                     alt="Co-Founder"
                     className="w-full h-full object-cover object-top"
                   />
@@ -94,7 +95,7 @@ const FounderCard = () => {
 
               <div className="mb-3">
                 <h3 className="text-lg sm:text-xl font-bold font-poppins text-white dark:text-[#010944] mb-1">
-                  Name Here
+                  Dalip Ram
                 </h3>
                 <p className="text-[10px] sm:text-xs text-green-400 font-medium mb-1">Ex Army Chief</p>
                 
@@ -160,14 +161,14 @@ const FounderCard = () => {
               <div className="relative mb-6">
                 <div className="w-48 lg:w-56 h-48 lg:h-56 rounded-full overflow-hidden border-3 border-green-400/20 shadow-xl">
                   <img
-                    src={founderImg}
+                    src={founderImg1}
                     alt="Amardeep Founder"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 
                 <div className="absolute -bottom-3 -right-3 bg-green-400 text-black px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  CEO
+                  Founder & CEO
                 </div>
               </div>
 
@@ -179,7 +180,7 @@ const FounderCard = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-center gap-3 text-base text-gray-300 dark:text-[#010944]">
                     <ShieldCheck className="w-5 h-5 text-green-400" />
-                    <span>Chief Security Officer</span>
+                    <span>Chief Executive Officer</span>
                   </div>
                   <div className="flex items-center justify-center gap-3 text-sm text-gray-400 dark:text-[#010944]">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -200,7 +201,7 @@ const FounderCard = () => {
               <div className="relative mb-6">
                 <div className="w-48 lg:w-56 h-48 lg:h-56 rounded-full overflow-hidden border-3 border-blue-400/20 shadow-xl">
                   <img
-                    src={founderImg}
+                    src={founderImg2}
                     alt="Co-Founder"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                   />
@@ -214,7 +215,7 @@ const FounderCard = () => {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-3xl font-bold font-poppins text-white dark:text-[#010944]">
-                    Name Here
+                    Dalip Ram
                   </h3>
                   <p className="text-base text-green-400 font-medium mt-1">Ex Army Chief</p>
                 </div>
@@ -259,7 +260,7 @@ const FounderCard = () => {
                 <div className="text-center mt-6">
                   <div className="w-20 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-4"></div>
                   <div className="text-white dark:text-[#010944] font-bold text-xl font-poppins">
-                    — Leadership Team
+                    — Amardeep
                   </div>
                   <div className="text-gray-400 dark:text-[#010944] text-base mt-2">
                     Vyan Security

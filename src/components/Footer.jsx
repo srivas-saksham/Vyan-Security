@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex items-center justify-center gap-2 mt-2 text-[10px] text-gray-500">
-          <span className="">v1.8.3</span>
+          <span className="">v1.8.4</span>
         </div>
       </div>
 
