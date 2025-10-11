@@ -212,6 +212,12 @@ Instead of always saying "**Vyan Security Services:**" you could say:
     res.json({ reply: response.data.choices[0].message.content });
   } catch (error) {
     console.error("API error:", error.message);
+    if (error.response) {
+      console.error("Status:", error.response.status);
+      console.error("Data:", error.response.data);
+    } else {
+      console.error("No response received:", error.request);
+    }
     res.status(500).json({ error: "AI server temporarily unavailable. Please try again." });
   }
 });
