@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
 
 import Navbar from "./components/0Navbar.jsx";
 import Footer from "./components/Footer.jsx";
@@ -52,6 +53,8 @@ export default function App() {
         </Routes>
         <Chatbot />
         <Footer />
+
+        <Analytics />
       </ClickSpark>
     </div>
   );
