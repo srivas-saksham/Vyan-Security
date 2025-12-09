@@ -44,7 +44,7 @@ export default function Footer() {
                 <span className="break-words">+91 9810245920 | 9311806920</span>
               </li>
               <li className="items-center gap-2 hidden md:flex">
-                <Mail className="w-4 h-4" /> vyan.secure1432@gmail.com
+                <Mail className="w-4 h-4" /> vyandelhi@gmail.com
               </li>
               <li>
                 <a
@@ -81,7 +81,7 @@ export default function Footer() {
         <div className="border-b border-gray-700 dark:border-gray-300 pb-4 md:hidden">
           <div className="flex items-center justify-center gap-2 text-sm">
             <Mail className="w-4 h-4 flex-shrink-0" />
-            <span className="">vyan.secure1432@gmail.com</span>
+            <span className="">vyandelhi@gmail.com</span>
           </div>
         </div>
         <div className="flex items-center justify-center gap-2 mt-2 text-[10px] text-gray-500">
