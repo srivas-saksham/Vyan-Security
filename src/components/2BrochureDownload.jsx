@@ -125,7 +125,7 @@ export default function BrochureDownload() {
                 Service Brochure
               </h2>
               <p className="text-sm text-slate-400 dark:text-[#030d48]/70 font-medium">
-                Vyan Security
+                Vyaan Security
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function BrochureDownload() {
               </div>
               <div className="flex-1 text-left">
                 <h3 className="font-semibold text-slate-200 dark:text-[#030d48] mb-1">
-                  Vyan Security Brochure
+                  Vyaan Security Brochure
                 </h3>
                 <p className="text-sm text-slate-400 dark:text-[#030d48]/70 mb-2">
                   Click to open PDF viewer in a new window

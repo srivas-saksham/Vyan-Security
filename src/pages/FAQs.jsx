@@ -7,7 +7,7 @@ import { useTheme } from '../ThemeContext.jsx';
 
 const faqs = [
   {
-    question: "What makes Vyan Security different?",
+    question: "What makes Vyaan Security different?",
     answer:
       "Our guards are trained in real-world threat scenarios and customer handling etiquette.",
   },
@@ -22,7 +22,7 @@ const faqs = [
       "All our guards are background-verified and PSARA-licensed professionals.",
   },
   {
-    question: "Where is Vyan Security available?",
+    question: "Where is Vyaan Security available?",
     answer:
       "Currently available in 10+ Indian cities and expanding fast!",
   },
@@ -57,7 +57,7 @@ const FAQs = () => {
   };
 
   useEffect(() => {
-    document.title = 'Vyan Security - FAQs';
+    document.title = 'Vyaan Security - FAQs';
   }, []);
 
   useEffect(() => {

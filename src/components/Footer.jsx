@@ -17,7 +17,7 @@ export default function Footer() {
           
           {/* Logo & Mission */}
           <div>
-            <h3 className="text-2xl font-semibold text-white dark:text-[#000a47]">Vyan Security</h3>
+            <h3 className="text-2xl font-semibold text-white dark:text-[#000a47]">Vyaan Security</h3>
             <p className="mt-2 text-sm text-gray-400 dark:text-[#000a47]">
               Your trusted security partner. We deliver verified protection and rapid response.
             </p>
@@ -68,7 +68,7 @@ export default function Footer() {
               <a href="#" className="hover:text-white dark:hover:text-[#5f7eff]"><Instagram className="w-5 h-5" /></a>
             </div>
             <div className="text-xs text-gray-500 space-y-1">
-              <p>© {new Date().getFullYear()} Vyan Security. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} Vyaan Security. All rights reserved.</p>
               <p>
                 <a href="#" className="hover:text-white dark:hover:text-[#5f7eff]">Privacy Policy</a> ·
                 <a href="#" className="ml-2 hover:text-white dark:hover:text-[#5f7eff]">Terms</a>

@@ -47,7 +47,7 @@ export default function CallToAction() {
           Secure Your Premises Today
         </h2>
         <p className="mt-3 sm:mt-4 text-gray-300 text-sm sm:text-lg max-w-2xl mx-auto dark:text-[#000a47] transition-colors leading-relaxed">
-          Get in touch with <b>Vyan Security</b> for trained guards, rapid response, and verified protection.
+          Get in touch with <b>Vyaan Security</b> for trained guards, rapid response, and verified protection.
         </p>
 
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">

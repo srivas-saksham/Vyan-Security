@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const NotFound = () => {
     useEffect(() => {
-      document.title = 'Vyan Security - Page Not Found';
+      document.title = 'Vyaan Security - Page Not Found';
     }, []);
     useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });

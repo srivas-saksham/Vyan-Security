@@ -82,7 +82,7 @@ export default function HeroSection() {
           </div>
 
           <p className="text-lg sm:text-xl md:text-xl lg:text-base text-gray-400 dark:text-gray-600 mb-10 lg:mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
-            Vyan Security provides licensed, trained security guards on a contract basis for corporate offices and residential properties across Delhi NCR.
+            Vyaan Security provides licensed, trained security guards on a contract basis for corporate offices and residential properties across Delhi NCR.
           </p>
 
           <div className="flex justify-center lg:justify-start">

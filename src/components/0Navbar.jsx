@@ -67,10 +67,10 @@ export default function Navbar() {
             <Link to="/" className="flex items-center gap-2">
               <img
                 src={theme === "light" ? logo : logoDark}
-                alt="Vyan Security Logo"
+                alt="Vyaan Security Logo"
                 className="w-8 h-8 object-contain"
               />
-              <h1 className="text-lg sm:text-xl font-semibold">Vyan Security</h1>
+              <h1 className="text-lg sm:text-xl font-semibold">Vyaan Security</h1>
             </Link>
           </div>
 

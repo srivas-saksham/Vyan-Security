@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'Vyan Security - Home';
+    document.title = 'Vyaan Security - Home';
   }, []);
 
   useEffect(() => {

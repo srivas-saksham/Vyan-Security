@@ -132,13 +132,13 @@ const FounderCard = () => {
                 </div>
 
                 <blockquote className="text-gray-100 dark:text-[#010944] text-sm leading-relaxed font-poppins text-center">
-                  "Trust, vigilance, and unwavering protection — that's our promise to every client at Vyan Security."
+                  "Trust, vigilance, and unwavering protection — that's our promise to every client at Vyaan Security."
                 </blockquote>
 
                 <div className="text-center mt-4">
                   <div className="w-12 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-3"></div>
                   <div className="text-white dark:text-[#010944] font-semibold text-sm font-poppins">
-                    Vyan Security
+                    Vyaan Security
                   </div>
                 </div>
               </div>
@@ -254,7 +254,7 @@ const FounderCard = () => {
                 </div>
 
                 <blockquote className="text-gray-100 dark:text-[#010944] text-xl lg:text-2xl leading-relaxed font-poppins text-center">
-                  "Trust, vigilance, and unwavering protection — that's our promise to every client at Vyan Security."
+                  "Trust, vigilance, and unwavering protection — that's our promise to every client at Vyaan Security."
                 </blockquote>
 
                 <div className="text-center mt-6">
@@ -263,7 +263,7 @@ const FounderCard = () => {
                     — Amardeep
                   </div>
                   <div className="text-gray-400 dark:text-[#010944] text-base mt-2">
-                    Vyan Security
+                    Vyaan Security
                   </div>
                 </div>
               </div>

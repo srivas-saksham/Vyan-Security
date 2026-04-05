@@ -354,7 +354,7 @@ export default function VyanSecurityComponent() {
         
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-slate-200 mb-3 md:mb-4 dark:text-slate-800"
             style={{userSelect: 'none'}}>
-          Why Choose <span className="text-blue-400 dark:text-blue-600">Vyan Security</span>?
+          Why Choose <span className="text-blue-400 dark:text-blue-600">Vyaan Security</span>?
         </h1>
         
         <p className="text-sm md:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed dark:text-slate-600 px-2 md:px-0">
@@ -498,7 +498,7 @@ export default function VyanSecurityComponent() {
                 </div>
                 <div className="flex-1">
                   <p className="text-xs md:text-sm text-slate-300 italic leading-relaxed dark:text-slate-700">
-                    "Vyan Security has been our trusted partner for over 3 years. Their professional approach 
+                    "Vyaan Security has been our trusted partner for over 3 years. Their professional approach 
                     and reliable service gives us complete peace of mind."
                   </p>
                   <div className="mt-2 md:mt-3 text-xs text-slate-400 font-medium dark:text-slate-600">

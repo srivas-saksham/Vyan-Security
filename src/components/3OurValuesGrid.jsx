@@ -101,7 +101,7 @@ const OurValuesGrid = () => {
               className="space-y-8 md:space-y-10"
             >
               <p className="text-xl md:text-2xl lg:text-3xl leading-relaxed md:leading-relaxed font-light text-gray-100 dark:text-[#0a0a0a] transition-colors text-center max-w-4xl mx-auto">
-                At <span className="font-semibold text-white dark:text-[#000a47]">Vyan Security</span>, our mission is to provide <span className="italic text-green-300 dark:text-green-700">unparalleled protection</span> through a steadfast commitment to vigilance, professionalism, and integrity.
+                At <span className="font-semibold text-white dark:text-[#000a47]">Vyaan Security</span>, our mission is to provide <span className="italic text-green-300 dark:text-green-700">unparalleled protection</span> through a steadfast commitment to vigilance, professionalism, and integrity.
               </p>
 
               <div className="grid md:grid-cols-2 gap-8 md:gap-12 mt-12">

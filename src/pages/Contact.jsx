@@ -16,7 +16,7 @@ export default function Contact() {
   const { theme } = useTheme();
 
   useEffect(() => {
-      document.title = 'Vyan Security - Contact Us';
+      document.title = 'Vyaan Security - Contact Us';
     }, []);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Contact() {
             Let's Secure What Matters — Get in Touch Today
           </h1>
           <p className="mt-4 text-gray-300 text-lg max-w-2xl mx-auto font-[\'Poppins\'] dark:text-[#000a47] transition-colors">
-            Reach out to <b>Vyan Security</b> for reliable protection, personalized contracts, or callback assistance.
+            Reach out to <b>Vyaan Security</b> for reliable protection, personalized contracts, or callback assistance.
           </p>
         </motion.div>
 

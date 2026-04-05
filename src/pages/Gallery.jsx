@@ -23,7 +23,7 @@ const Gallery = () => {
   }, [theme]);
 
   useEffect(() => {
-    document.title = 'Vyan Security - Gallery';
+    document.title = 'Vyaan Security - Gallery';
   }, []);
 
   useEffect(() => {
